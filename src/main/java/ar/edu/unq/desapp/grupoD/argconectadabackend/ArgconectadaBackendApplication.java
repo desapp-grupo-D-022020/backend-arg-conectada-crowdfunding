@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoD.argconectadabackend;
+package ar.edu.unq.desapp.grupod.argconectadabackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
