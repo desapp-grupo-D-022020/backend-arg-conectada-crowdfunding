@@ -68,6 +68,7 @@ out/
 /.nb-gradle/
 
 ### VisualStudioCode ###
+.vscode/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
