@@ -9,6 +9,7 @@ public class HomeController {
 
     @GetMapping(path = "/")
     public @ResponseBody String welcome(){
+        //this is a change to trigger a codacy scan
         return "Hello, World!";
     }
 }
