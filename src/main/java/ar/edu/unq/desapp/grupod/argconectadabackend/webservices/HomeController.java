@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
 
-    @GetMapping(path = "/")
+	@GetMapping(path = "/")
     public @ResponseBody String welcome(){
-        //this is a change to trigger a codacy scan
         return "Hello, World!";
     }
 }
