@@ -2,11 +2,10 @@
 [![codecov](https://codecov.io/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding/branch/master/graph/badge.svg)](https://codecov.io/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ebb14ac9e374dc8b4f99ec6b0caa686)](https://www.codacy.com/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding)
 
-# desapp-grupo-D-022020-backend
-Repositorio para el backend del proyecto integrador de la materia Desarrollo de Aplicaciones - Universidad Nacional de Quilmes
+# Backend Argentina Conectada Crowdfunding
+Repositorio para el backend del proyecto integrador de la materia Desarrollo de Aplicaciones - Universidad Nacional de Quilmes.
 
-
-## Integrantes:
+## Integrantes
 
 |               |               |
 | ------------- |:-------------:|
