@@ -1,25 +1,16 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+
 public class LocationTest {
 	
-	@BeforeEach
-	public static void setup() {
-		
-	}
-	
 	@Test
-	void test() {
-		
+	void testEjemplo() {
+		assertTrue(true);
 	}
 	
-	@AfterEach
-	public static void tearDown() {
-	  
-	}
 }
