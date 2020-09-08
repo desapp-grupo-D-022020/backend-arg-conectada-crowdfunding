@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupod.argconectadabackend;
+package ar.edu.unq.desapp.grupod.argconectadabackend.webservices;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

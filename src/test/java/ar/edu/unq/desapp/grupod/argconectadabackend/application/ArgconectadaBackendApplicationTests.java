@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupod.argconectadabackend;
+package ar.edu.unq.desapp.grupod.argconectadabackend.application;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
