@@ -15,3 +15,5 @@ script:
 after_success:
   - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r target/jacoco/jacoco.xml
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
+
+  - bash <(curl -s https://codecov.io/bash)
