@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Donor extends User {
 	
@@ -8,15 +9,13 @@ public class Donor extends User {
 	
 	private RewardProgram rewardProgram;
 	
-	private List<Donation> donations;
+	private Map<String, Integer> pointsRegistry = new HashMap<String, Integer>();
 	
 	private String nickName;
 
-	public Donor(String name, String password, String email, int points, 
-			List<Donation> donations, String nickName, RewardProgram rewardProgram) {
+	public Donor(String name, String password, String email, String nickName, RewardProgram rewardProgram) {
 		super(name, password, email);
-		this.points = points;
-		this.donations = donations;
+		this.points = 0;
 		this.nickName = nickName;
 	}
 
@@ -26,14 +25,6 @@ public class Donor extends User {
 
 	public void setPoints(int points) {
 		this.points = points;
-	}
-
-	public List<Donation> getDonations() {
-		return donations;
-	}
-
-	public void setDonations(List<Donation> donations) {
-		this.donations = donations;
 	}
 
 	public String getNickName() {
@@ -46,6 +37,10 @@ public class Donor extends User {
 	
 	public void addPoints(int points) {
 		this.points += points;
+	}
+	
+	public void addPointsToRegister(String nameOfProject, int points) {
+		this.pointsRegistry.put(nameOfProject, points);
 	}
 
 	public RewardProgram getRewardProgram() {

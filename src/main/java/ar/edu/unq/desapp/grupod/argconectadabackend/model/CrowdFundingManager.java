@@ -46,10 +46,14 @@ public class CrowdFundingManager {
 		this.users = users;
 	}
 	
-	public double getCost(Place place) {
-		return this.projects.stream().filter(project -> project.getPlace().equals(place)).collect(Collectors.toList()).get(0).getCost();
-	}
-	
+//	public List<Project> getOpenProjects() {
+//		return this.projects.stream().filter(project -> project);
+//	}
+//	
+//	public List<Project> getNearlyCloseProjects() {
+//		return this.projects.stream().filter(project -> project);
+//	}
+//	
 	private void assignPointsToUser(Donor user, Project project, double amount) {
 		this.pointManager.assigPoints(user, project, amount);
 	}
@@ -57,5 +61,13 @@ public class CrowdFundingManager {
 	public void donate(Donor user, double amount, String commentary, LocalDate date, Project project) {
 		project.receiveDonation(user.getNickName() , amount, date, commentary);
 		this.assignPointsToUser(user, project, amount);
+	}
+	
+	public Project getProject(Place place) {
+		return this.projects.stream().filter(project -> project.getPlace().equals(place)).collect(Collectors.toList()).get(0); 
+	}
+	
+	public double getCost(Place place) {
+		return this.getProject(place).getCost();
 	}
 }
