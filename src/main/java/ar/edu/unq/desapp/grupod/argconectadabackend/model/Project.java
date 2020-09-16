@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +92,11 @@ public class Project {
 		return this.place.getPopulation();
 	}
 
-	public void receiveDonation(String nickName, double amount, LocalDate date, String commentary) {
+	public void receiveDonation(String nickName, double amount, LocalDateTime date, String commentary) {
 		this.donations.add(new Donation(nickName, amount, date, commentary));
+	}
+	
+	public Donation getLastDonation() {
+		return donations.get(donations.size()-1);
 	}
 }

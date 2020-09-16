@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,10 +55,10 @@ public class CrowdFundingManager {
 //	}
 //	
 	private void assignPointsToUser(Donor user, Project project, double amount) {
-		this.pointManager.assigPoints(user, project, amount);
+		this.pointManager.assignPoints(user, project, amount);
 	}
 	
-	public void donate(Donor user, double amount, String commentary, LocalDate date, Project project) {
+	public void donate(Donor user, double amount, String commentary, LocalDateTime date, Project project) {
 		project.receiveDonation(user.getNickName() , amount, date, commentary);
 		this.assignPointsToUser(user, project, amount);
 	}
