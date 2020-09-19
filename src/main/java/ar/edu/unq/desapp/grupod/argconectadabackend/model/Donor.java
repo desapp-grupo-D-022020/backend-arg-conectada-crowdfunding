@@ -20,6 +20,13 @@ public class Donor extends User {
 		this.nickName = nickName;
 	}
 
+	public Donor(String name, String password, String email, String nickName) {
+		super(name, password, email);
+		this.points = 0;
+		this.nickName = nickName;
+		this.rewardProgram = new RewardProgram();
+	}
+
 	public int getPoints() {
 		return points;
 	}
