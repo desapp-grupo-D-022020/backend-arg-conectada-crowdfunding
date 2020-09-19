@@ -7,11 +7,9 @@ public class Administrator extends User {
 	public Administrator(String name, String password, String email) {
 		super(name, password, email);
 	}
-	
-	
-	/*Planificar y terminar*/
-	public void closeProject() {
-		
+
+	public void closeProject(Project project) {
+		project.closeProject();
 	}
 	
 	public void createProject(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {

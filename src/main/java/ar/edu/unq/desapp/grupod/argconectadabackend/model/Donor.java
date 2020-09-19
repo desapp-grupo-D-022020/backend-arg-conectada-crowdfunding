@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,5 +50,9 @@ public class Donor extends User {
 
 	public void setRewardProgram(RewardProgram rewardProgram) {
 		this.rewardProgram = rewardProgram;
+	}
+	
+	public void donate(double amount, String commentary, Project project) {
+		project.receiveDonation(this , amount, LocalDateTime.now(), commentary);
 	}
 }

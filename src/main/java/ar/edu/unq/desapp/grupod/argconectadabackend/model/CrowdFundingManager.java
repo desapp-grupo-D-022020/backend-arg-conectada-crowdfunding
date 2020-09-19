@@ -12,8 +12,6 @@ public class CrowdFundingManager {
 	
 	private List<Donor> users;
 	
-	private PointManager pointManager;
-	
 	public CrowdFundingManager() { }
 
 	public CrowdFundingManager(List<Place> places, List<Project> projects, List<Donor> users) {
@@ -46,21 +44,14 @@ public class CrowdFundingManager {
 		this.users = users;
 	}
 	
-//	public List<Project> getOpenProjects() {
-//		return this.projects.stream().filter(project -> project);
-//	}
-//	
-//	public List<Project> getNearlyCloseProjects() {
-//		return this.projects.stream().filter(project -> project);
-//	}
-//	
-	private void assignPointsToUser(Donor user, Project project, double amount) {
-		this.pointManager.assignPoints(user, project, amount);
+	public List<Project> getOpenProjects() {
+		int currentMonth = LocalDateTime.now().getMonthValue();
+		return this.projects.stream().filter(project -> project.getEndDate().getMonthValue() > currentMonth).collect(Collectors.toList());
 	}
 	
-	public void donate(Donor user, double amount, String commentary, LocalDateTime date, Project project) {
-		project.receiveDonation(user.getNickName() , amount, date, commentary);
-		this.assignPointsToUser(user, project, amount);
+	public List<Project> getNearlyCloseProjects() {
+		int currentMonth = LocalDateTime.now().getMonthValue();
+		return this.projects.stream().filter(project -> project.getEndDate().getMonthValue() == currentMonth).collect(Collectors.toList());
 	}
 	
 	public Project getProject(Place place) {
