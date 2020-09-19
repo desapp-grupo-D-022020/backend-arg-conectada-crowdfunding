@@ -5,7 +5,7 @@ import java.time.temporal.TemporalAdjusters;
 
 public class Donation {
 
-	private String nickNameUser;
+	private Donor donor;
 	
 	private double amount;
 	
@@ -13,19 +13,19 @@ public class Donation {
 	
 	private String commentary;
 	
-	public Donation(String nickNameUser, double amount, LocalDateTime date, String commentary) {
-		this.nickNameUser = nickNameUser;
+	public Donation(Donor donor, double amount, LocalDateTime date, String commentary) {
+		this.donor = donor;
 		this.amount = amount;
 		this.date = date;
 		this.commentary = commentary;
 	}
 
 	public String getNickNameUser() {
-		return nickNameUser;
+		return donor.getNickName();
 	}
-
-	public void setNickNameUser(String nickNameUser) {
-		this.nickNameUser = nickNameUser;
+	
+	public Donor getDonor() {
+		return this.donor;
 	}
 
 	public double getAmount() {

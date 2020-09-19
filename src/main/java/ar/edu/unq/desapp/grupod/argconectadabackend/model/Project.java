@@ -102,7 +102,7 @@ public class Project {
 	}
 	
 	public void receiveDonation(Donor user, double amount, LocalDateTime date, String commentary) {
-		this.donations.add(new Donation(user.getNickName(), amount, date, commentary));
+		this.donations.add(new Donation(user, amount, date, commentary));
 		this.assignPointsToUser(user, this, amount);
 	}
 	
