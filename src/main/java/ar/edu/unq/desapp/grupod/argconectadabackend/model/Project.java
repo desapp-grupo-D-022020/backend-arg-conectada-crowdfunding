@@ -19,6 +19,10 @@ public class Project {
 	private LocalDateTime endDate;
 	
 	private List<Donation> donations = new ArrayList<Donation>();
+	
+	private PointsManager pointManager;
+	
+	private Boolean isOpen;
 
 	public Project(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {
 		this.factor = 1000;
@@ -26,6 +30,7 @@ public class Project {
 		this.name = nameOfProject;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.isOpen = true;
 	}
 
 	public String getName() {
@@ -92,11 +97,24 @@ public class Project {
 		return this.place.getPopulation();
 	}
 
-	public void receiveDonation(String nickName, double amount, LocalDateTime date, String commentary) {
-		this.donations.add(new Donation(nickName, amount, date, commentary));
+	private void assignPointsToUser(Donor user, Project project, double amount) {
+		this.pointManager.assignPoints(user, project, amount);
+	}
+	
+	public void receiveDonation(Donor user, double amount, LocalDateTime date, String commentary) {
+		this.donations.add(new Donation(user, amount, date, commentary));
+		this.assignPointsToUser(user, this, amount);
 	}
 	
 	public Donation getLastDonation() {
 		return donations.get(donations.size()-1);
+	}
+	
+	public boolean isOpen() {
+		return this.isOpen;
+	}
+	
+	public void closeProject() {
+		this.isOpen = false;
 	}
 }

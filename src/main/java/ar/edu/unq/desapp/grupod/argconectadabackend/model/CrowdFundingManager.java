@@ -1,24 +1,19 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CrowdFundingManager {
 	
 	private List<Place> places;
 	
-	private List<Project> projects;
+	private ProjectManager projectManager;
 	
 	private List<Donor> users;
 	
-	private PointsManager pointManager;
-	
 	public CrowdFundingManager() { }
 
-	public CrowdFundingManager(List<Place> places, List<Project> projects, List<Donor> users) {
+	public CrowdFundingManager(List<Place> places, List<Donor> users) {
 		this.places = places;
-		this.projects = projects;
 		this.users = users;
 	}
 
@@ -30,12 +25,12 @@ public class CrowdFundingManager {
 		this.places = places;
 	}
 
-	public List<Project> getProjects() {
-		return projects;
+	public ProjectManager getProjectManager() {
+		return this.projectManager;
 	}
 
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
+	public void setProjectManager(ProjectManager projectManager) {
+		this.projectManager = projectManager;
 	}
 
 	public List<Donor> getUsers() {
@@ -46,28 +41,19 @@ public class CrowdFundingManager {
 		this.users = users;
 	}
 	
-//	public List<Project> getOpenProjects() {
-//		return this.projects.stream().filter(project -> project);
-//	}
-//	
-//	public List<Project> getNearlyCloseProjects() {
-//		return this.projects.stream().filter(project -> project);
-//	}
-//	
-	private void assignPointsToUser(Donor user, Project project, double amount) {
-		this.pointManager.assignPoints(user, project, amount);
+	public List<Project> getOpenProjects() {
+		return this.projectManager.getOpenProjects();
 	}
 	
-	public void donate(Donor user, double amount, String commentary, LocalDateTime date, Project project) {
-		project.receiveDonation(user.getNickName() , amount, date, commentary);
-		this.assignPointsToUser(user, project, amount);
+	public List<Project> getNearlyCloseProjects() {
+		return this.projectManager.getNearlyCloseProjects();
 	}
 	
 	public Project getProject(Place place) {
-		return this.projects.stream().filter(project -> project.getPlace().equals(place)).collect(Collectors.toList()).get(0); 
+		return this.projectManager.getProject(place); 
 	}
 	
 	public double getCost(Place place) {
-		return this.getProject(place).getCost();
+		return this.projectManager.getCost(place);
 	}
 }
