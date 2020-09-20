@@ -10,8 +10,8 @@ public class DonorTest {
 	@Test
     void addPointsToZeroAddsCorrectlyTheAmount() {
 		Donor donorZeroPoints = DonorFactory.donorZeroPoints();
-		donorZeroPoints.addPoints(500);
-		int actualPoints = donorZeroPoints.getPoints();
+		donorZeroPoints.addPoints(500.0);
+		double actualPoints = donorZeroPoints.getPoints();
     	assertEquals(500, actualPoints);
     }
 	
@@ -19,9 +19,9 @@ public class DonorTest {
 	@Test
     void addPointsAddsCorrectlyTheAmount() {
 		Donor anyDonor = DonorFactory.anyDonor();
-		int points = anyDonor.getPoints();
-    	anyDonor.addPoints(500);
-    	assertEquals(points + 500, anyDonor.getPoints());
+		double points = anyDonor.getPoints();
+    	anyDonor.addPoints(500.0);
+    	assertEquals(points + 500.0, anyDonor.getPoints());
     }
 	
 	

@@ -4,7 +4,7 @@ public class DonorFactory {
 
 	public static Donor anyDonor() {
 		Donor anyDonor = new Donor("aName","anEmail","aPassword","aNickname");
-		anyDonor.setPoints(500);
+		anyDonor.setPoints(500.0);
 		return anyDonor;
 	}
 

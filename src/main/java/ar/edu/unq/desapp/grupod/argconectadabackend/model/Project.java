@@ -22,7 +22,7 @@ public class Project implements ObservableSubject{
 	
 	private List<Observer> observers;
 	
-	private PointManager pointManager;
+	private PointsManager pointManager;
 	
 	private Boolean isOpen;
 

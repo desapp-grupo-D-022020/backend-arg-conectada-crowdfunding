@@ -13,32 +13,32 @@ public class Donor extends User implements Observer {
 	@Autowired
 	private EmailSender emailSender;
 	
-	private int points;
+	private Double points;
 	
 	private RewardProgram rewardProgram;
 	
-	private Map<String, Integer> pointsRegistry = new HashMap<String, Integer>();
+	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
 	
 	private String nickName;
 
 	public Donor(String name, String password, String email, String nickName, RewardProgram rewardProgram) {
 		super(name, password, email);
-		this.points = 0;
+		this.points = 0.0;
 		this.nickName = nickName;
 	}
 
 	public Donor(String name, String password, String email, String nickName) {
 		super(name, password, email);
-		this.points = 0;
+		this.points = 0.0;
 		this.nickName = nickName;
 		this.rewardProgram = new RewardProgram();
 	}
 
-	public int getPoints() {
+	public Double getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(Double points) {
 		this.points = points;
 	}
 
@@ -50,11 +50,11 @@ public class Donor extends User implements Observer {
 		this.nickName = nickName;
 	}
 	
-	public void addPoints(int points) {
+	public void addPoints(double points) {
 		this.points += points;
 	}
 	
-	public void addPointsToRegister(String nameOfProject, int points) {
+	public void addPointsToRegister(String nameOfProject, Double points) {
 		this.pointsRegistry.put(nameOfProject, points);
 	}
 
