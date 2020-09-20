@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project {
+public class Project implements ObservableSubject{
 
 	private String name;
 	
@@ -18,7 +18,9 @@ public class Project {
 
 	private LocalDateTime endDate;
 	
-	private List<Donation> donations = new ArrayList<Donation>();
+	private List<Donation> donations;
+	
+	private List<Observer> observers;
 	
 	private PointManager pointManager;
 	
@@ -31,6 +33,8 @@ public class Project {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.isOpen = true;
+		this.donations = new ArrayList<Donation>();
+		this.observers = new ArrayList<Observer>();
 	}
 
 	public String getName() {
@@ -89,6 +93,10 @@ public class Project {
 		this.donations = donations;
 	}
 	
+	public void addObserver(Observer oberver) {
+		this.observers.add(oberver);
+	}
+	
 	public double getCost() {
 		return place.getPopulation() * this.factor;
 	}
@@ -102,7 +110,8 @@ public class Project {
 	}
 	
 	public void receiveDonation(Donor user, double amount, LocalDateTime date, String commentary) {
-		this.donations.add(new Donation(user, amount, date, commentary));
+		this.donations.add(new Donation(user.getNickName(), amount, date, commentary));
+		this.addObserver(user);
 		this.assignPointsToUser(user, this, amount);
 	}
 	
@@ -116,5 +125,13 @@ public class Project {
 	
 	public void closeProject() {
 		this.isOpen = false;
+		this.notification();
+	}
+
+	@Override
+	public void notification() {
+		for(Observer o : observers) {
+			o.update();
+		}
 	}
 }

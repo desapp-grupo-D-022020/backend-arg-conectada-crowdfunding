@@ -4,7 +4,14 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Donor extends User {
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ar.edu.unq.desapp.grupod.argconectadabackend.service.EmailSender;
+
+public class Donor extends User implements Observer {
+	
+	@Autowired
+	private EmailSender emailSender;
 	
 	private int points;
 	
@@ -61,5 +68,10 @@ public class Donor extends User {
 	
 	public void donate(double amount, String commentary, Project project) {
 		project.receiveDonation(this , amount, LocalDateTime.now(), commentary);
+	}
+
+	@Override
+	public void update() {
+		this.emailSender.closeProyectEmail(this.getEmail(), this.getNickName());
 	}
 }

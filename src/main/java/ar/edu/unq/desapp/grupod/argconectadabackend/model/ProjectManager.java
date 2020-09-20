@@ -4,14 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ar.edu.unq.desapp.grupod.argconectadabackend.service.EmailSender;
-
 public class ProjectManager {
-
-	@Autowired
-	private EmailSender emailSender;
 	
 	private List<Project> projects;
 	
@@ -51,6 +44,5 @@ public class ProjectManager {
 
 	public void closeProject(Project project) {
 		 project.closeProject();
-		 project.getDonations().forEach(donation -> this.emailSender.closeProyectEmail(donation.getDonor().getEmail(), donation.getDonor().getNickName()));
 	}
 }
