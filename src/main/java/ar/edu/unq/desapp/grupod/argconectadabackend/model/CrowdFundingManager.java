@@ -12,7 +12,7 @@ public class CrowdFundingManager {
 	
 	private List<Donor> users;
 	
-	private PointManager pointManager;
+	private PointsManager pointManager;
 	
 	public CrowdFundingManager() { }
 
