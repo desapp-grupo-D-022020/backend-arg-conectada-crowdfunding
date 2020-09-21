@@ -14,7 +14,7 @@ public class DonationTest {
 	void recentDonationIsWithinCalendarMonth() {
 		LocalDateTime dateTime = LocalDateTime.now();
 		Donor anyDonor = DonorFactory.anyDonor();
-		Donation donation = new Donation(anyDonor, 1000, dateTime,"aCommentary");
+		Donation donation = new Donation(anyDonor.getNickName(), 1000, dateTime,"aCommentary");
 		assertTrue(donation.isWithinCalendarMonth());
 	}
 	
@@ -22,7 +22,7 @@ public class DonationTest {
 	void firstDayOfMonthDonationIsWithinCalendarMonth() {
 		LocalDateTime dateTime = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth());
 		Donor anyDonor = DonorFactory.anyDonor();
-		Donation donation = new Donation(anyDonor, 1000, dateTime,"aCommentary");
+		Donation donation = new Donation(anyDonor.getNickName(), 1000, dateTime,"aCommentary");
 		assertTrue(donation.isWithinCalendarMonth());
 	}
 	
@@ -30,7 +30,7 @@ public class DonationTest {
 	void lastDayOfMonthDonationIsWithinCalendarMonth() {
 		LocalDateTime dateTime = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth());
 		Donor anyDonor = DonorFactory.anyDonor();
-		Donation donation = new Donation(anyDonor, 1000, dateTime,"aCommentary");
+		Donation donation = new Donation(anyDonor.getNickName(), 1000, dateTime,"aCommentary");
 		assertTrue(donation.isWithinCalendarMonth());
 	}
 	
@@ -38,7 +38,7 @@ public class DonationTest {
 	void donationIsBeforeCalendarMonth() {
 		LocalDateTime dateTime = LocalDateTime.now().with(TemporalAdjusters.firstDayOfMonth()).minusDays(1);
 		Donor anyDonor = DonorFactory.anyDonor();
-		Donation donation = new Donation(anyDonor, 1000, dateTime,"aCommentary");
+		Donation donation = new Donation(anyDonor.getNickName(), 1000, dateTime,"aCommentary");
 		assertFalse(donation.isWithinCalendarMonth());
 	}
 	
@@ -46,7 +46,7 @@ public class DonationTest {
 	void donationIsAfterCalendarMonth() {
 		LocalDateTime dateTime = LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth()).plusDays(1);
 		Donor anyDonor = DonorFactory.anyDonor();
-		Donation donation = new Donation(anyDonor, 1000, dateTime,"aCommentary");
+		Donation donation = new Donation(anyDonor.getNickName(), 1000, dateTime,"aCommentary");
 		assertFalse(donation.isWithinCalendarMonth());
 	}
 	
