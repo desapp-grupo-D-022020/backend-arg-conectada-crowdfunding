@@ -113,7 +113,8 @@ public class Project {
 		this.pointManager.assignPoints(user, project, amount);
 	}
 	
-	public void receiveDonation(Donor user, double amount, LocalDateTime date, String commentary) {
+	public void receiveDonation(Donor user, double amount, String commentary) {
+		LocalDateTime date = LocalDateTime.now();
 		this.donations.add(new Donation(user.getNickName(), amount, date, commentary));
 		this.addDonor(user);
 		this.assignPointsToUser(user, this, amount);

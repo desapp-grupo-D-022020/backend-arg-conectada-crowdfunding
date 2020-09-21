@@ -3,7 +3,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 	id "jacoco"
-	id 'war'
 }
 
 group = 'ar.edu.unq.desapp.grupoD'
@@ -23,11 +22,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.mockito:mockito-core:2.7.22'
+
 }
 
 test {
