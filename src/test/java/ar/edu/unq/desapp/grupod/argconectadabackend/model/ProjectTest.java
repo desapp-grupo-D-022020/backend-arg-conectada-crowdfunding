@@ -19,6 +19,7 @@ class ProjectTest {
 	private Place place;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	
 	@BeforeEach
 	void setUp() {
@@ -26,7 +27,6 @@ class ProjectTest {
 		donor = mock(Donor.class);
 		place = mock(Place.class);
 		startDate = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
 		project = new Project(place, projectName, startDate, endDate);
 	}
@@ -62,48 +62,65 @@ class ProjectTest {
 	}
 */
 	@Test
-	void testGetFactor() {
-		fail("Not yet implemented");
+	void testGetDefaultFactor() {
+		assertEquals(1_000, project.getFactor());
 	}
 
 	@Test
 	void testSetFactor() {
-		fail("Not yet implemented");
+		double anotherProjectFactor = 500.0;
+
+		assertNotEquals(anotherProjectFactor, project.getFactor());
+		project.setFactor(anotherProjectFactor);
+		assertEquals(anotherProjectFactor, project.getFactor());
 	}
 
 	@Test
 	void testGetPercentageForClose() {
-		fail("Not yet implemented");
+		assertEquals(100.0, project.getPercentageForClose());
 	}
 
 	@Test
 	void testSetPercentageForClose() {
-		fail("Not yet implemented");
+		double anotherProjectPercentageForClose= 80.0;
+
+		assertNotEquals(anotherProjectPercentageForClose, project.getPercentageForClose());
+		project.setPercentageForClose(anotherProjectPercentageForClose);
+		assertEquals(anotherProjectPercentageForClose, project.getPercentageForClose());
 	}
 
 	@Test
 	void testGetStartDate() {
-		fail("Not yet implemented");
+		//FIXME: este test puede fallar si se demora en llegar desde el @Before
+		assertEquals(startDate, project.getStartDate());
 	}
 
 	@Test
 	void testSetStartDate() {
-		fail("Not yet implemented");
+		LocalDateTime anotherStartDate = LocalDateTime.parse("2020-09-23 00:00", formatter);
+		
+		assertNotEquals(anotherStartDate, project.getStartDate());
+		project.setStartDate(anotherStartDate);
+		assertEquals(anotherStartDate, project.getStartDate());
 	}
 
 	@Test
 	void testGetEndDate() {
-		fail("Not yet implemented");
+		assertEquals(endDate, project.getEndDate());
 	}
 
 	@Test
 	void testSetEndDate() {
-		fail("Not yet implemented");
+		LocalDateTime anotherEndDate = LocalDateTime.parse("2021-12-25 00:00", formatter);
+		
+		assertNotEquals(anotherEndDate, project.getEndDate());
+		project.setEndDate(anotherEndDate);
+		assertEquals(anotherEndDate, project.getEndDate());
 	}
 
 	@Test
 	void testGetDonations() {
-		fail("Not yet implemented");
+		assertEquals(0, project.getDonations().size());
 	}
 
 	@Test
