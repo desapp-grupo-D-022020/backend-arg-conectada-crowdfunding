@@ -28,6 +28,8 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.mockito:mockito-core:2.7.22'
+	compile 'com.github.jsimone:webapp-runner:8.5.11.3'
+
 }
 
 test {
@@ -41,3 +43,17 @@ jacocoTestReport {
         html.enabled false
     }
 }
+
+task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
