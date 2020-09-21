@@ -8,7 +8,10 @@ plugins {
 
 group = 'ar.edu.unq.desapp.grupoD'
 version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'java'
 sourceCompatibility = '11'
+targetCompatibility = '11'
 
 repositories {
 	mavenCentral()
