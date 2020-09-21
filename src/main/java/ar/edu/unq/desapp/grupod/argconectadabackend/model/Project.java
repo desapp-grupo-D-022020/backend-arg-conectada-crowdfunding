@@ -130,7 +130,7 @@ public class Project implements ObservableSubject{
 
 	@Override
 	public void notification() {
-		for(Observer o : observers) {
+		for(Observer o: observers) {
 			o.update();
 		}
 	}

@@ -56,4 +56,12 @@ public class CrowdFundingManager {
 	public double getCost(Place place) {
 		return this.projectManager.getCost(place);
 	}
+	
+	public List<Project> topTenProjectsWithMoreTimeWithoutDonations() {
+		return this.projectManager.getTopTenProjectsWithMoreTimeWithoutDonations();
+	}
+	
+	public List<Donation> topTenDonations() {
+		return this.projectManager.getTopTenDonations();
+	}
 }
