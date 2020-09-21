@@ -49,7 +49,4 @@ public class DonationTest {
 		Donation donation = new Donation(anyDonor.getNickName(), 1000, dateTime,"aCommentary");
 		assertFalse(donation.isWithinCalendarMonth());
 	}
-	
-	
-
 }

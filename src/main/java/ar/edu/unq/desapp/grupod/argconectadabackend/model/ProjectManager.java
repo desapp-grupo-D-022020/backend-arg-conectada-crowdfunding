@@ -2,10 +2,18 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ar.edu.unq.desapp.grupod.argconectadabackend.service.EmailSender;
+
 public class ProjectManager {
+	
+	@Autowired
+	private EmailSender emailSender;
 	
 	private List<Project> projects;
 	
@@ -44,13 +52,17 @@ public class ProjectManager {
 	}
 
 	public void closeProject(Project project) {
-		 project.closeProject();
+		project.closeProject();
+		List<Donor> donors = project.getDonors();
+		for(Donor donor : donors) {
+			this.emailSender.closeProyectEmail(donor.getEmail(), donor.getNickName());
+		}
 	}
 	
 	public List<Project> getTopTenProjectsWithMoreTimeWithoutDonations() {
 		List<Project> topTen = new ArrayList<Project>();
 		List<Project> projects = this.getProjects();
-		while(topTen.size() < 10) {
+		while(topTen.size() < 10 && !projects.isEmpty()) {
 			Project projectToAdd = this.getProjectWithMoreTimeWithoutDonations(projects);
 			topTen.add(projectToAdd);
 			projects.remove(projectToAdd);
@@ -60,47 +72,26 @@ public class ProjectManager {
 
 	private Project getProjectWithMoreTimeWithoutDonations(List<Project> projects) {
 		Project projectWithMoreTimeWithoutDonations = projects.remove(0);
-		for(Project project : projects) {
-			if( project.getLastDonation().getDate().isBefore(projectWithMoreTimeWithoutDonations.getLastDonation().getDate())) {
+		for(Project project : projects) 
+			if(project.getLastDonationDate().isBefore(projectWithMoreTimeWithoutDonations.getLastDonationDate()))
 				projectWithMoreTimeWithoutDonations = project;
-			}
-		}
+		
 		return projectWithMoreTimeWithoutDonations;
 	}
 	
+	private int compare(Donation aDonation, Donation otherDonation) {
+		Double anAmount = aDonation.getAmount();
+		Double otherAmount = otherDonation.getAmount();
+		if (anAmount == otherAmount) return 0;
+		else return anAmount > otherAmount ? -1 : 1;
+	}
+		
 	public List<Donation> getTopTenDonations() {
-		List<Donation> topTen = new ArrayList<Donation>();
 		List<Project> projects = this.getProjects();
-		while(topTen.size() < 10) {
-			Project projectWithLargestDonation = this.getProjectWithLargestDonation(projects);
-			Donation donationToAdd = this.getBiggestDonation(projectWithLargestDonation.getDonations());
-			topTen.add(donationToAdd);
-			projects.remove(projectWithLargestDonation);
-		}
-		return topTen;
-	}
-
-	private Project getProjectWithLargestDonation(List<Project> projects) {
-		Project projectWithLargestDonation = projects.remove(0);
-		for(Project project : projects) {
-			if( this.getAmounFromBiggestDonation(project.getDonations()) > this.getAmounFromBiggestDonation(projectWithLargestDonation.getDonations())) {
-				projectWithLargestDonation = project;
-			}
-		}
-		return projectWithLargestDonation;
-	}
-	
-	private Donation getBiggestDonation(List<Donation> donations) {
-		Donation biggestDonation = donations.remove(0);
-		for(Donation donation : donations) {
-			if( donation.getAmount() > biggestDonation.getAmount()) {
-				biggestDonation = donation;
-			}
-		}
-		return biggestDonation;
-	}
-	
-	private double getAmounFromBiggestDonation(List<Donation> donations) {
-		return this.getBiggestDonation(donations).getAmount();
+		
+		return projects.stream().map(project -> project.getDonations()).flatMap(Collection::stream)
+				.sorted(this::compare)
+				.limit(10)
+				.collect(Collectors.toList());
 	}
 }
