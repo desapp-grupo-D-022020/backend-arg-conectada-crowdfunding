@@ -57,14 +57,6 @@ public class DonorTest {
 		verify(project, times(1)).receiveDonation(anyDonor, 2000, "aCommentary");
 	}
 	
-	/*@Test
-	void updateCallsCorrectly() {
-		Donor anyDonor = DonorFactory.anyDonor();
-		EmailSender mailSender = anyDonor.getEmailSender();
-		anyDonor.update();
-		verify(mailSender, times(1)).closeProyectEmail(anyDonor.getEmail(),anyDonor.getNickName());
-	}*/
-	
 	// Getters and setters
 	
 	@Test
@@ -106,13 +98,4 @@ public class DonorTest {
 		anyDonor.setRewardProgram(rewardProgram);
 		assertNotNull(anyDonor.getRewardProgram());
 	}
-	
-	@Test
-	void testGetEmailSender() {
-		Donor anyDonor = DonorFactory.anyDonor();
-		EmailSender actualEmailSender = anyDonor.getEmailSender();
-		assertNotNull(actualEmailSender);
-	}	
-	
-
 }

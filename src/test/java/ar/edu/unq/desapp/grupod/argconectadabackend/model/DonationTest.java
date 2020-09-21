@@ -96,5 +96,4 @@ public class DonationTest {
 		String actualCommentary = anyDonation.getCommentary();
 		assertEquals("anotherCommentary", actualCommentary);
 	}	
-
 }

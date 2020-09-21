@@ -3,14 +3,7 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ar.edu.unq.desapp.grupod.argconectadabackend.service.EmailSender;
-
-public class Donor extends User implements Observer {
-	
-	@Autowired
-	private EmailSender emailSender;
+public class Donor extends User {
 	
 	private Double points;
 	
@@ -31,7 +24,6 @@ public class Donor extends User implements Observer {
 		this.points = 0.0;
 		this.nickName = nickName;
 		this.rewardProgram = new RewardProgram();
-		this.emailSender = new EmailSender();
 	}
 
 	public Double getPoints() {
@@ -54,10 +46,6 @@ public class Donor extends User implements Observer {
 		return this.pointsRegistry;
 	}
 	
-	public EmailSender getEmailSender() {
-		return this.emailSender;
-	}
-	
 	public void addPoints(double points) {
 		this.points += points;
 	}
@@ -77,10 +65,4 @@ public class Donor extends User implements Observer {
 	public void donate(double amount, String commentary, Project project) {
 		project.receiveDonation(this , amount, commentary);
 	}
-
-	@Override
-	public void update() {
-		this.emailSender.closeProyectEmail(this.getEmail(), this.getNickName());
-	}
-
 }

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project implements ObservableSubject{
+public class Project {
 
 	private String name;
 	
@@ -20,7 +20,7 @@ public class Project implements ObservableSubject{
 	
 	private List<Donation> donations;
 	
-	private List<Observer> observers;
+	private List<Donor> donors;
 	
 	private PointsManager pointManager;
 	
@@ -34,7 +34,7 @@ public class Project implements ObservableSubject{
 		this.endDate = endDate;
 		this.isOpen = true;
 		this.donations = new ArrayList<Donation>();
-		this.observers = new ArrayList<Observer>();
+		this.donors = new ArrayList<Donor>();
 	}
 
 	public String getName() {
@@ -85,6 +85,10 @@ public class Project implements ObservableSubject{
 		this.endDate = endDate;
 	}
 
+	public List<Donor> getDonors() {
+		return this.donors;
+	}
+	
 	public List<Donation> getDonations() {
 		return donations;
 	}
@@ -93,8 +97,8 @@ public class Project implements ObservableSubject{
 		this.donations = donations;
 	}
 	
-	public void addObserver(Observer oberver) {
-		this.observers.add(oberver);
+	public void addDonor(Donor donor) {
+		this.donors.add(donor);
 	}
 	
 	public double getCost() {
@@ -112,12 +116,16 @@ public class Project implements ObservableSubject{
 	public void receiveDonation(Donor user, double amount, String commentary) {
 		LocalDateTime date = LocalDateTime.now();
 		this.donations.add(new Donation(user.getNickName(), amount, date, commentary));
-		this.addObserver(user);
+		this.addDonor(user);
 		this.assignPointsToUser(user, this, amount);
 	}
 	
 	public Donation getLastDonation() {
 		return donations.get(donations.size()-1);
+	}
+	
+	public LocalDateTime getLastDonationDate() {
+		return this.getLastDonation().getDate();
 	}
 	
 	public boolean isOpen() {
@@ -126,13 +134,7 @@ public class Project implements ObservableSubject{
 	
 	public void closeProject() {
 		this.isOpen = false;
-		this.notification();
 	}
+	
 
-	@Override
-	public void notification() {
-		for(Observer o: observers) {
-			o.update();
-		}
-	}
 }
