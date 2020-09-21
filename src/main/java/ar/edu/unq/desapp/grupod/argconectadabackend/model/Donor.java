@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 

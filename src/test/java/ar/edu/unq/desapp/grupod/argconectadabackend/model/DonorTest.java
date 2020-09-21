@@ -1,16 +1,12 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import static org.hamcrest.CoreMatchers.any;
-import static org.hamcrest.CoreMatchers.anything;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -111,6 +107,12 @@ public class DonorTest {
 		assertNotNull(anyDonor.getRewardProgram());
 	}
 	
+	@Test
+	void testGetEmailSender() {
+		Donor anyDonor = DonorFactory.anyDonor();
+		EmailSender actualEmailSender = anyDonor.getEmailSender();
+		assertNotNull(actualEmailSender);
+	}	
 	
 
 }
