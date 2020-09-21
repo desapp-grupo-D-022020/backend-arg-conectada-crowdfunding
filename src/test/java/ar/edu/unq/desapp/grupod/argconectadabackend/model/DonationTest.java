@@ -41,8 +41,6 @@ public class DonationTest {
 		Donation afterMonthDonation = DonationFactory.afterMonthDonation();
 		assertFalse(afterMonthDonation.isWithinCalendarMonth());
 	}
-<<<<<<< HEAD
-=======
 	
 	// Getter and setters
 	
@@ -98,6 +96,4 @@ public class DonationTest {
 		String actualCommentary = anyDonation.getCommentary();
 		assertEquals("anotherCommentary", actualCommentary);
 	}	
-
->>>>>>> e5702409533d596c744217ff48aec340ae57a4dc
 }
