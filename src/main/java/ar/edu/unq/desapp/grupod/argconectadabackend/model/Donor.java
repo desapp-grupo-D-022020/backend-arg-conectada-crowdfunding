@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +31,7 @@ public class Donor extends User implements Observer {
 		this.points = 0.0;
 		this.nickName = nickName;
 		this.rewardProgram = new RewardProgram();
+		this.emailSender = new EmailSender();
 	}
 
 	public Double getPoints() {
@@ -48,6 +48,14 @@ public class Donor extends User implements Observer {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+	
+	public Map<String, Double> getPointsRegistry() {
+		return this.pointsRegistry;
+	}
+	
+	public EmailSender getEmailSender() {
+		return this.emailSender;
 	}
 	
 	public void addPoints(double points) {
@@ -67,11 +75,12 @@ public class Donor extends User implements Observer {
 	}
 	
 	public void donate(double amount, String commentary, Project project) {
-		project.receiveDonation(this , amount, LocalDateTime.now(), commentary);
+		project.receiveDonation(this , amount, commentary);
 	}
 
 	@Override
 	public void update() {
 		this.emailSender.closeProyectEmail(this.getEmail(), this.getNickName());
 	}
+
 }

@@ -13,7 +13,7 @@ public class PlaceTest {
     private String placeName = "Quilmes";
     private String provinceName = "Buenos Aires";
     private Integer population = 580_829;
-    //TODO: acá me parece va un double con el % de conexión o bool
+    //TODO: aca me parece va un double con el % de conexion o bool
     private String status = "Disconnected";
     private String connectedStatus = "Connected";
 	
@@ -60,7 +60,7 @@ public class PlaceTest {
 	
 	@Test
 	void testSetProvinceNameToAnother() {
-	    String anotherProvinceName = "Entre Ríos";
+	    String anotherProvinceName = "Entre Rios";
 
 		assertNotEquals(place.getProvince(), anotherProvinceName);
 		place.setProvince(anotherProvinceName);
