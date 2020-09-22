@@ -2,10 +2,14 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +30,7 @@ class ProjectTest {
 		projectName = "testProject";
 		donor = mock(Donor.class);
 		place = mock(Place.class);
+		when(place.getPopulation()).thenReturn(5_000);
 		startDate = LocalDateTime.now();
 		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
 		project = new Project(place, projectName, startDate, endDate);
@@ -125,27 +130,54 @@ class ProjectTest {
 
 	@Test
 	void testSetDonations() {
-		fail("Not yet implemented");
+		List<Donation> donations = new ArrayList<Donation>();
+		Donation testDonation1 = mock(Donation.class);
+		Donation testDonation2 = mock(Donation.class);
+		donations.add(testDonation1);
+		donations.add(testDonation2);
+		
+		assertEquals(0, project.getDonations().size());
+		project.setDonations(donations);
+		assertEquals(2, project.getDonations().size());
 	}
 
 	@Test
 	void testGetCost() {
-		fail("Not yet implemented");
+		assertEquals(5_000_000, project.getCost());
 	}
 
 	@Test
 	void testGetPlacePopulation() {
-		fail("Not yet implemented");
+		verify(place, times(0)).getPopulation();
+		project.getPlacePopulation();
+		verify(place, times(1)).getPopulation();
 	}
 
 	@Test
 	void testReceiveDonation() {
 		fail("Not yet implemented");
+		/*
+		//TODO: test create Donation?
+		verify(project, times(0)).addDonation();
+		verify(project, times(0)).addDonor();
+		verify(pointsManager, times(0)).(assignPoints());
+		project.getPlacePopulation();
+		verify(place, times(1)).getPopulation();
+		 */		
 	}
 
 	@Test
 	void testGetLastDonation() {
-		fail("Not yet implemented");
+		List<Donation> donations = new ArrayList<Donation>();
+		Donation testDonation1 = mock(Donation.class);
+		Donation testDonation2 = mock(Donation.class);
+		when(testDonation2.getAmount()).thenReturn(100.0);
+		donations.add(testDonation1);
+		donations.add(testDonation2);
+		
+		assertEquals(0, project.getDonations().size());
+		project.setDonations(donations);
+		assertEquals(testDonation2, project.getLastDonation());
 	}
 
 	@Test
@@ -155,7 +187,9 @@ class ProjectTest {
 
 	@Test
 	void testCloseProject() {
-		fail("Not yet implemented");
+		assertTrue(project.isOpen());
+		project.closeProject();
+		assertFalse(project.isOpen());
 	}
 
 }
