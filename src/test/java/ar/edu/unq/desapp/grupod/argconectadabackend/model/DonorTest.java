@@ -11,7 +11,6 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.service.EmailSender;
 
 
 public class DonorTest {
