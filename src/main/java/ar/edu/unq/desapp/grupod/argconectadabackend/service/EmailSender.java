@@ -17,7 +17,7 @@ public class EmailSender {
 	/**
 	 * Envia un email 
 	 */
-    public void closeProyectEmail(String to, String nickName) {
+    public void closeProjectEmail(String to, String nickName) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(to);
 

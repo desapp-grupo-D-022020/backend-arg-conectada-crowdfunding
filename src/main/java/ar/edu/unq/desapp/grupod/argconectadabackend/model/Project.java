@@ -22,7 +22,7 @@ public class Project {
 	
 	private List<Donor> donors;
 	
-	private PointsManager pointManager;
+	private PointsManager pointsManager;
 	
 	private Boolean isOpen;
 
@@ -56,6 +56,10 @@ public class Project {
 
 	public double getFactor() {
 		return factor;
+	}
+	
+	public void setPointsManager(PointsManager pointsManager) {
+		this.pointsManager = pointsManager;
 	}
 
 	public void setFactor(double factor) {
@@ -111,7 +115,7 @@ public class Project {
 	}
 
 	private void assignPointsToUser(Donor user, Project project, double amount) {
-		this.pointManager.assignPoints(user, project, amount);
+		this.pointsManager.assignPoints(user, project, amount);
 	}
 	
 	public void receiveDonation(Donor user, double amount, String commentary) {

@@ -21,20 +21,25 @@ class ProjectTest {
 	private String projectName;
 	private Donor donor;
 	private Place place;
+	private Place anotherPlace;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	private PointsManager pointsManager;
 	
 	@BeforeEach
 	void setUp() {
 		projectName = "testProject";
 		donor = mock(Donor.class);
 		place = mock(Place.class);
+		anotherPlace = mock(Place.class);
 		when(place.getPopulation()).thenReturn(5_000);
 		
 		startDate = LocalDateTime.now();
 		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
 		project = new Project(place, projectName, startDate, endDate);
+		
+		pointsManager = mock(PointsManager.class);
 	}
 	
 	@AfterEach
@@ -56,7 +61,7 @@ class ProjectTest {
 		project.setName(anotherProjectName);
 		assertEquals(anotherProjectName, project.getName());
 	}
-/* TODO: no va mas el place en project?
+	
 	@Test
 	void testGetPlace() {
 		assertEquals(project.getPlace(), place);
@@ -64,9 +69,11 @@ class ProjectTest {
 
 	@Test
 	void testSetPlace() {
-		fail("Not yet implemented");
+		assertNotEquals(anotherPlace, project.getPlace());
+		project.setPlace(anotherPlace);
+		assertEquals(anotherPlace, project.getPlace());
 	}
-*/
+	
 	@Test
 	void testGetDefaultFactor() {
 		assertEquals(1_000, project.getFactor());
@@ -153,7 +160,19 @@ class ProjectTest {
 		project.getPlacePopulation();
 		verify(place, times(1)).getPopulation();
 	}
-
+	
+	/*
+	 * private method
+	@Test
+	void testAssignPointsToUser() {
+		double amount = 10.0;
+		project.setPointsManager(pointsManager);
+		verify(pointsManager, times(0)).assignPoints(donor, project, amount);
+		project.assignPointsToUser(donor, project, amount);
+		verify(pointsManager, times(1)).assignPoints(donor, project, amount);
+	}
+	*/
+	
 	@Test
 	void testReceiveDonation() {
 		/*
@@ -179,6 +198,23 @@ class ProjectTest {
 		assertEquals(0, project.getDonations().size());
 		project.setDonations(donations);
 		assertEquals(testDonation2, project.getLastDonation());
+	}
+	
+	@Test
+	void testGetLastDoinationDate() {
+		List<Donation> donations = new ArrayList<Donation>();
+		Donation testDonation1 = mock(Donation.class);
+		Donation testDonation2 = mock(Donation.class);
+		LocalDateTime donationDate = LocalDateTime.now();
+		
+		when(testDonation2.getDate()).thenReturn(donationDate);
+		donations.add(testDonation1);
+		donations.add(testDonation2);
+		
+		assertEquals(0, project.getDonations().size());
+		project.setDonations(donations);
+		assertEquals(donationDate, project.getLastDonationDate());
+		
 	}
 
 	//TODO: testear algo que devuelve un bool?

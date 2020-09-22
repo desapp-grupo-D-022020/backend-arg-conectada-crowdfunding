@@ -12,6 +12,7 @@ import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -138,24 +139,68 @@ class ProjectManagerTest {
 		verify(project, times(1)).closeProject();
 		//FIXME: test private email sender
 	}
+	
 	/*
+	 * 12 projects, first 10 are the older ones.
+	 */
 	@Test
 	void testGetTopTenProjectsWithMoreTimeWithoutDonations() {
-		fail("Not yet implemented");
+		//mock projects
+		Project pj1  = mock(Project.class);
+		Project pj2  = mock(Project.class);
+		Project pj3  = mock(Project.class);
+		Project pj4  = mock(Project.class);
+		Project pj5  = mock(Project.class);
+		Project pj6  = mock(Project.class);
+		Project pj7  = mock(Project.class);
+		Project pj8  = mock(Project.class);
+		Project pj9  = mock(Project.class);
+		Project pj10 = mock(Project.class);
+		Project pj11 = mock(Project.class);
+		Project pj12 = mock(Project.class);
+		
+		//datetimes
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		
+		LocalDateTime dt1 = LocalDateTime.parse("2019-08-23 00:00", formatter);
+		LocalDateTime dt2 = LocalDateTime.parse("2018-09-24 00:00", formatter);
+		LocalDateTime dt3 = LocalDateTime.parse("2018-10-25 00:00", formatter);
+		LocalDateTime dt4 = LocalDateTime.parse("2018-11-26 00:00", formatter);
+		LocalDateTime dt5 = LocalDateTime.parse("2018-12-27 00:00", formatter);
+		LocalDateTime dt6 = LocalDateTime.parse("2020-01-28 00:00", formatter);
+		LocalDateTime dt7 = LocalDateTime.parse("2020-02-29 00:00", formatter);
+		LocalDateTime dt8 = LocalDateTime.parse("2020-03-30 00:00", formatter);
+		LocalDateTime dt9 = LocalDateTime.parse("2020-04-01 00:00", formatter);
+		LocalDateTime dt10 = LocalDateTime.parse("2020-05-02 00:00", formatter);
+		LocalDateTime dt11 = LocalDateTime.parse("2020-06-03 00:00", formatter);
+		LocalDateTime dt12 = LocalDateTime.parse("2020-07-04 00:00", formatter);
+		
+		//set last donation
+		when(pj1.getLastDonationDate()).thenReturn(dt1);
+		when(pj2.getLastDonationDate()).thenReturn(dt2);
+		when(pj3.getLastDonationDate()).thenReturn(dt3);
+		when(pj4.getLastDonationDate()).thenReturn(dt4);
+		when(pj5.getLastDonationDate()).thenReturn(dt5);
+		when(pj6.getLastDonationDate()).thenReturn(dt6);
+		when(pj7.getLastDonationDate()).thenReturn(dt7);
+		when(pj8.getLastDonationDate()).thenReturn(dt8);
+		when(pj9.getLastDonationDate()).thenReturn(dt9);
+		when(pj10.getLastDonationDate()).thenReturn(dt10);
+		when(pj11.getLastDonationDate()).thenReturn(dt11);
+		when(pj12.getLastDonationDate()).thenReturn(dt12);
+		
+		List<Project> projectsList = new ArrayList<Project>();
+		projectsList.addAll(Arrays.asList(pj8, pj12, pj1, pj3, pj10, pj7, pj6, pj5, pj4, pj9, pj11, pj2));
+		
+		//add projects to PM
+		ProjectManager bigProjectManager = new ProjectManager(projectsList);
+		
+		assertEquals(12, bigProjectManager.getProjects().size());
+		List<Project> oldProjects = bigProjectManager.getTopTenProjectsWithMoreTimeWithoutDonations();
+		assertEquals(10, oldProjects.size());
+		assertFalse(oldProjects.contains(pj11));
+		assertFalse(oldProjects.contains(pj12));
 	}
-
-	@Test
-	void getProjectWithMoreTimeWithoutDonations() {
-		fail("Not yet implemented");
-	}
-	*/
-	/*
-	 * TODO: private
-	@Test
-	void testCompareDonations() {
-		projectManager.compare(donation, anotherDonation);
-	}
-	*/
 	
 	/*
 	 * donation amount: 10.0

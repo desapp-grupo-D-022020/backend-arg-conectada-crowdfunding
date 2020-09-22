@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -64,7 +65,7 @@ public class ProjectManager {
 		project.closeProject();
 		List<Donor> donors = project.getDonors();
 		for(Donor donor : donors) {
-			this.emailSender.closeProyectEmail(donor.getEmail(), donor.getNickName());
+			this.emailSender.closeProjectEmail(donor.getEmail(), donor.getNickName());
 		}
 	}
 	
@@ -80,6 +81,11 @@ public class ProjectManager {
 	}
 
 	private Project getProjectWithMoreTimeWithoutDonations(List<Project> projects) {
+		
+		Collections.sort(projects, (p1, p2) -> {
+			return p1.getLastDonationDate().compareTo(p2.getLastDonationDate());
+		});
+		
 		Project projectWithMoreTimeWithoutDonations = projects.remove(0);
 		for(Project project : projects) 
 			if(project.getLastDonationDate().isBefore(projectWithMoreTimeWithoutDonations.getLastDonationDate()))
