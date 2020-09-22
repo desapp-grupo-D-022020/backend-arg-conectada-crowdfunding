@@ -29,7 +29,7 @@ public class CrowdfoundingManagerTest {
 		cfmanager.setProjectManager(projectManager);
 		
 		cfmanager.getNearlyCloseProjects();
-		verify(projectManager, times(1)).getNearlyCloseProjects();
+		verify(projectManager, times(1)).getNearlyClosedProjects();
 	}
 	
 	@Test

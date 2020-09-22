@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,20 @@ public class ProjectManager {
 	
 	public List<Project> getOpenProjects() {
 		int currentMonth = LocalDateTime.now().getMonthValue();
-		return this.projects.stream().filter(project -> project.getEndDate().getMonthValue() > currentMonth).collect(Collectors.toList());
+		int currentYear= LocalDateTime.now().getYear();
+		
+		Predicate<Project> gtMonthCondition = project -> project.getEndDate().getMonthValue() > currentMonth;
+		Predicate<Project> eqMonthDiffYearCondition = project -> project.getEndDate().getMonthValue() == currentMonth && project.getEndDate().getYear() > currentYear;
+		return this.projects.stream().filter(gtMonthCondition.or(eqMonthDiffYearCondition)).collect(Collectors.toList());
 	}
 	
 	public List<Project> getNearlyClosedProjects() {
 		int currentMonth = LocalDateTime.now().getMonthValue();
-		return this.projects.stream().filter(project -> project.getEndDate().getMonthValue() == currentMonth).collect(Collectors.toList());
+		int currentYear= LocalDateTime.now().getYear();
+		
+		Predicate<Project> eqMonthCondition = project -> project.getEndDate().getMonthValue() == currentMonth;
+		Predicate<Project> eqYearCondition = project -> project.getEndDate().getYear() == currentYear;
+		return this.projects.stream().filter(eqMonthCondition.and(eqYearCondition)).collect(Collectors.toList());
 	}
 	
 	public Project getProject(Place place) {

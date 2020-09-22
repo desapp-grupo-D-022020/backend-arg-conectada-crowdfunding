@@ -6,13 +6,19 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 class ProjectManagerTest {
 	
@@ -20,7 +26,7 @@ class ProjectManagerTest {
 	private List<Project> projects;
 	private List<Project> anotherProjects;
 	private Project project;
-	private Project projectTwo;
+	private Project anotherProject;
 	private Project testProject1;
 	private Place place;
 	private Place anotherPlace;
@@ -35,16 +41,27 @@ class ProjectManagerTest {
 		place = mock(Place.class);
 		anotherPlace = mock(Place.class);
 		project = mock(Project.class);
-		projectTwo = mock(Project.class);
+		anotherProject = mock(Project.class);
 		testProject1 = mock(Project.class);
 		donation = mock(Donation.class);
 		anotherDonation = mock(Donation.class);
 		
-		projects = new ArrayList<Project>();
-		projects.add(project);
-		projects.add(projectTwo);
+		//calculate last day of month
+		LocalDateTime now = LocalDateTime.now();
+		Month currentMonth = now.getMonth();
+		int currentYear = now.getYear();
+		LocalDate firstOfThisMonth = LocalDate.of(currentYear, currentMonth, 1);
+		LocalDate lastDateOfMonth = firstOfThisMonth.with(TemporalAdjusters.lastDayOfMonth());
+		when(project.getEndDate()).thenReturn(lastDateOfMonth.atStartOfDay());
+		
+		int nextYear = currentYear + 1;
+		LocalDate firstOfThisMonthOnNextYear = LocalDate.of(nextYear, currentMonth, 1);
+		LocalDate lastDateOfMonthOnNextYear = firstOfThisMonthOnNextYear.with(TemporalAdjusters.lastDayOfMonth());
+		when(anotherProject.getEndDate()).thenReturn(lastDateOfMonthOnNextYear.atStartOfDay());
+		
 		when(project.getPlace()).thenReturn(place);
-		when(projectTwo.getPlace()).thenReturn(anotherPlace);
+		when(anotherProject.getPlace()).thenReturn(anotherPlace);
+		
 		when(donation.getAmount()).thenReturn(10.0);
 		when(anotherDonation.getAmount()).thenReturn(500.0);
 		
@@ -54,6 +71,11 @@ class ProjectManagerTest {
 		
 		anotherProjects = new ArrayList<Project>();
 		anotherProjects.add(testProject1);
+		
+		projects = new ArrayList<Project>();
+		projects.add(project);
+		projects.add(anotherProject);
+		
 		projectManager = new ProjectManager(projects);
 	}
 
@@ -68,17 +90,25 @@ class ProjectManagerTest {
 		projectManager.setProjects(anotherProjects);
 		assertEquals(anotherProjects, projectManager.getProjects());
 	}
-/*
+	
+	/*
+	 * open projects: anotherProject
+	 */
 	@Test
 	void testGetOpenProjects() {
-		fail("Not yet implemented");
+		assertEquals(1, projectManager.getOpenProjects().size());
+		assertEquals(anotherProject, projectManager.getOpenProjects().get(0));
 	}
 
+	/*
+	 * nearly closed  projects: project
+	 */
 	@Test
 	void testGetNearlyCloseProjects() {
-		fail("Not yet implemented");
+		assertEquals(1, projectManager.getNearlyClosedProjects().size());
+		assertEquals(project, projectManager.getNearlyClosedProjects().get(0));
 	}
-*/
+	
 	@Test
 	void testGetProjectByPlace() {
 		assertEquals(project,projectManager.getProject(place));
