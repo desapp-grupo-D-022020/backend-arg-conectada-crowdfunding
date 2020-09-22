@@ -46,7 +46,7 @@ public class CrowdFundingManager {
 	}
 	
 	public List<Project> getNearlyCloseProjects() {
-		return this.projectManager.getNearlyCloseProjects();
+		return this.projectManager.getNearlyClosedProjects();
 	}
 	
 	public Project getProject(Place place) {
