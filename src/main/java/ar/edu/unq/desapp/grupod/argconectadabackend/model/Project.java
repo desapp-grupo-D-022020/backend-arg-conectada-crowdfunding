@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Project {
 
@@ -20,8 +21,6 @@ public class Project {
 	
 	private List<Donation> donations;
 	
-	private List<Donor> donors;
-	
 	private PointsManager pointsManager;
 	
 	private Boolean isOpen;
@@ -35,7 +34,6 @@ public class Project {
 		this.endDate = endDate;
 		this.isOpen = true;
 		this.donations = new ArrayList<Donation>();
-		this.donors = new ArrayList<Donor>();
 	}
 
 	public String getName() {
@@ -91,7 +89,7 @@ public class Project {
 	}
 
 	public List<Donor> getDonors() {
-		return this.donors;
+		return this.donations.stream().map(donation -> donation.getDonor()).collect(Collectors.toList());
 	}
 	
 	public List<Donation> getDonations() {
@@ -100,10 +98,6 @@ public class Project {
 
 	public void setDonations(List<Donation> donations) {
 		this.donations = donations;
-	}
-	
-	public void addDonor(Donor donor) {
-		this.donors.add(donor);
 	}
 	
 	public double getCost() {
@@ -120,8 +114,7 @@ public class Project {
 	
 	public void receiveDonation(Donor user, double amount, String commentary) {
 		LocalDateTime date = LocalDateTime.now();
-		this.donations.add(new Donation(user.getNickName(), amount, date, commentary));
-		this.addDonor(user);
+		this.donations.add(new Donation(user, amount, date, commentary));
 		this.assignPointsToUser(user, this, amount);
 	}
 	
