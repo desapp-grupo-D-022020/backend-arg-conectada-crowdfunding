@@ -27,6 +27,7 @@ public class Project {
 	private Boolean isOpen;
 
 	public Project(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {
+		this.place = place;
 		this.factor = 1000;
 		this.percentageForClose = 100;
 		this.name = nameOfProject;

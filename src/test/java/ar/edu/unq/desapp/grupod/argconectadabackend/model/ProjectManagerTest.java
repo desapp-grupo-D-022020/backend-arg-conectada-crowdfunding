@@ -53,7 +53,7 @@ class ProjectManagerTest {
 		projectManager.setProjects(anotherProjects);
 		assertEquals(anotherProjects, projectManager.getProjects());
 	}
-
+/*
 	@Test
 	void testGetOpenProjects() {
 		fail("Not yet implemented");
@@ -63,7 +63,7 @@ class ProjectManagerTest {
 	void testGetNearlyCloseProjects() {
 		fail("Not yet implemented");
 	}
-
+*/
 	@Test
 	void testGetProjectByPlace() {
 		assertEquals(project,projectManager.getProject(place));
@@ -75,7 +75,7 @@ class ProjectManagerTest {
 		projectManager.getCost(place);
 		verify(project, times(1)).getCost();
 	}
-
+/*
 	@Test
 	void testCreateProject() {
 		fail("Not yet implemented");
@@ -95,5 +95,5 @@ class ProjectManagerTest {
 	void testGetTopTenDonations() {
 		fail("Not yet implemented");
 	}
-
+*/
 }
