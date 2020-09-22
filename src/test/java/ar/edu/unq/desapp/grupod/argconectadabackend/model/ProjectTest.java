@@ -146,14 +146,13 @@ class ProjectTest {
 	void testGetCost() {
 		assertEquals(5_000_000, project.getCost());
 	}
-	/*FIXME
+	
 	@Test
 	void testGetPlacePopulation() {
 		verify(place, times(0)).getPopulation();
 		project.getPlacePopulation();
 		verify(place, times(1)).getPopulation();
 	}
-	*/
 
 	@Test
 	void testReceiveDonation() {
@@ -182,9 +181,9 @@ class ProjectTest {
 		assertEquals(testDonation2, project.getLastDonation());
 	}
 
+	//TODO: testear algo que devuelve un bool?
 	@Test
 	void testIsOpen() {
-		//fail("Not yet implemented");
 	}
 
 	@Test
