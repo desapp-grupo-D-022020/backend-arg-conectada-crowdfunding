@@ -31,6 +31,7 @@ class ProjectTest {
 	void setUp() {
 		projectName = "testProject";
 		donor = mock(Donor.class);
+		when(donor.getNickName()).thenReturn("aNickName");
 		place = mock(Place.class);
 		anotherPlace = mock(Place.class);
 		when(place.getPopulation()).thenReturn(5_000);
@@ -175,15 +176,16 @@ class ProjectTest {
 	
 	@Test
 	void testReceiveDonation() {
-		/*
-		fail("Not yet implemented");
-		//TODO: test create Donation?
-		verify(project, times(0)).addDonation();
-		verify(project, times(0)).addDonor();
-		verify(pointsManager, times(0)).(assignPoints());
-		project.getPlacePopulation();
-		verify(place, times(1)).getPopulation();
-		 */		
+		double amount = 15.0;
+		String commentary = "No Comments";
+		project.setPointsManager(pointsManager);
+
+		verify(pointsManager, times(0)).assignPoints(donor, project, amount);
+		project.receiveDonation(donor, amount, commentary);
+		verify(pointsManager, times(1)).assignPoints(donor, project, amount);
+		assertEquals(1, project.getDonors().size());
+		assertEquals(donor, project.getDonors().get(0));
+		assertEquals(1, project.getDonations().size());
 	}
 
 	@Test
