@@ -4,94 +4,50 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-
 public class UserTest {
 	
 	@Test
-    void addPointsToZeroAddsCorrectlyTheAmount() {
-		User userZeroPoints = UserFactory.userZeroPoints();
-		userZeroPoints.addPoints(500);
-		int actualPoints = userZeroPoints.getPoints();
-    	assertEquals(500, actualPoints);
-    }
-	
-	
-	@Test
-    void addPointsAddsCorrectlyTheAmount() {
-		User anyUser = UserFactory.anyUser();
-		int points = anyUser.getPoints();
-    	anyUser.addPoints(500);
-    	assertEquals(points + 500, anyUser.getPoints());
-    }
-	
-	
-	@Test
-	void dontReceivePoints() {
-		User userZeroPoints = UserFactory.userZeroPoints();
-		userZeroPoints.receivePoints(999);
-		assertEquals(0, userZeroPoints.getPoints());
-	}
-	
-	
-	@Test
-	void receivePointsEqualsAmountOfMoney() {
-		User anyUser = UserFactory.anyUser();
-		int points = anyUser.getPoints();
-		anyUser.receivePoints(1000);
-		assertEquals(points + 1000, anyUser.getPoints());
+	void testGetName() {
+		User user = DonorFactory.anyDonor();
+		String actualName = user.getName();
+		assertEquals("aName", actualName);
 	}
 	
 	@Test
-	void receiveBonusPoints(){
-		User userHasDonatedMoneyOnThisMonth = UserFactory.userLastDonationWithinThisMonth();
-		int points = userHasDonatedMoneyOnThisMonth.getPoints();
-		userHasDonatedMoneyOnThisMonth.receivePoints(900);
-		assertEquals(points + 1400, userHasDonatedMoneyOnThisMonth.getPoints());
-	}
-	
-	/*
-	@Test
-	void sendMoneyToProjectAndDontReceivePoints() {
-	
+	void testSetName() {
+		User user = DonorFactory.anyDonor();
+		user.setName("anotherName");
+		String actualName = user.getName();
+		assertEquals("anotherName", actualName);
 	}
 	
 	@Test
-	void sendMoneyToProjectAndReceivePointsEqualToMoney() {
-	
+	void testGetPassword() {
+		User user = DonorFactory.anyDonor();
+		String actualPassword = user.getPassword();
+		assertEquals("aPassword", actualPassword);
 	}
 	
 	@Test
-	void sendMoneyToProjectAndReceiveDoublePoints() {
-	
+	void testSetPassword() {
+		User user = DonorFactory.anyDonor();
+		user.setPassword("anotherPassword");
+		String actualPassword = user.getPassword();
+		assertEquals("anotherPassword", actualPassword);
 	}
 	
 	@Test
-	void sendMoneyToProjectAndReceiveBonusPoints() {
-	
+	void testGetEmail() {
+		User user = DonorFactory.anyDonor();
+		String actualEmail = user.getEmail();
+		assertEquals("anEmail", actualEmail);
 	}
 	
 	@Test
-	void sendMoneyToProjectAndReceiveEqualToMoneyAndDoublePoints() {
-	
+	void testSetEmail() {
+		User user = DonorFactory.anyDonor();
+		user.setEmail("anotherEmail");
+		String actualEmail = user.getEmail();
+		assertEquals("anotherEmail", actualEmail);
 	}
-	
-	@Test
-	void sendMoneyToProjectAndReceiveEqualToMoneyAndBonusPoints() {
-	
-	}
-	
-	@Test
-	void sendMoneyToProjectAndReceiveBonusAndDoublePoints() {
-	
-	}
-	
-	@Test
-	void sendMoneyToProjectAndReceiveEqualToMoneyAndBonusAndDoublePoints() {
-	
-	}
-	
-	*/
-	
-	
-
 }
