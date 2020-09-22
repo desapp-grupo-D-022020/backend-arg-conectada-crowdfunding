@@ -13,12 +13,6 @@ public class Donor extends User {
 	
 	private String nickName;
 
-	public Donor(String name, String password, String email, String nickName, RewardProgram rewardProgram) {
-		super(name, password, email);
-		this.points = 0.0;
-		this.nickName = nickName;
-	}
-
 	public Donor(String name, String password, String email, String nickName) {
 		super(name, password, email);
 		this.points = 0.0;
