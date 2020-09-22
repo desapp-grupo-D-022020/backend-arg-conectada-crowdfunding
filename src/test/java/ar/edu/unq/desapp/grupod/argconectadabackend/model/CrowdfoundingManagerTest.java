@@ -13,6 +13,16 @@ import org.junit.jupiter.api.Test;
 public class CrowdfoundingManagerTest {
 	
 	@Test
+	void testCrowdfoundingManagerConstructor() {
+		List<Place> places = new ArrayList<Place>();
+		List<Donor> donors = new ArrayList<Donor>();
+		
+		CrowdFundingManager cfmanager = new CrowdFundingManager(places, donors);
+		assertEquals(places, cfmanager.getPlaces());
+		assertEquals(donors, cfmanager.getUsers());
+	}
+	
+	@Test
 	void testGetOpenProjectsCallsMethod() {
 		CrowdFundingManager cfmanager = new CrowdFundingManager();
 		ProjectManager projectManager = mock(ProjectManager.class);

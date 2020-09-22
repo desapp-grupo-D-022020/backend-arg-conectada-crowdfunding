@@ -29,8 +29,6 @@ class ProjectManagerTest {
 	private Project testProject1;
 	private Place place;
 	private Place anotherPlace;
-	private Donor donor;
-	private Donor anoherDonor;
 	private Donation donation;
 	private Donation anotherDonation;
 	private List<Donation> projectDonations;
