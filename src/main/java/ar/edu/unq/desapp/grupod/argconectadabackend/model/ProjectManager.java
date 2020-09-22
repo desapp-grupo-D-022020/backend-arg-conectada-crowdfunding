@@ -34,7 +34,7 @@ public class ProjectManager {
 		return this.projects.stream().filter(project -> project.getEndDate().getMonthValue() > currentMonth).collect(Collectors.toList());
 	}
 	
-	public List<Project> getNearlyCloseProjects() {
+	public List<Project> getNearlyClosedProjects() {
 		int currentMonth = LocalDateTime.now().getMonthValue();
 		return this.projects.stream().filter(project -> project.getEndDate().getMonthValue() == currentMonth).collect(Collectors.toList());
 	}

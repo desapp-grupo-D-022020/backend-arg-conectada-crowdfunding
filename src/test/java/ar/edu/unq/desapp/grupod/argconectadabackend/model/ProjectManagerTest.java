@@ -6,6 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,11 @@ class ProjectManagerTest {
 	private Project testProject1;
 	private Place place;
 	private Place anotherPlace;
+	private Donor donor;
+	private Donor anoherDonor;
+	private Donation donation;
+	private Donation anotherDonation;
+	private List<Donation> projectDonations;
 	
 	@BeforeEach
 	void setUp() {
@@ -30,12 +37,20 @@ class ProjectManagerTest {
 		project = mock(Project.class);
 		projectTwo = mock(Project.class);
 		testProject1 = mock(Project.class);
+		donation = mock(Donation.class);
+		anotherDonation = mock(Donation.class);
 		
 		projects = new ArrayList<Project>();
 		projects.add(project);
 		projects.add(projectTwo);
 		when(project.getPlace()).thenReturn(place);
 		when(projectTwo.getPlace()).thenReturn(anotherPlace);
+		when(donation.getAmount()).thenReturn(10.0);
+		when(anotherDonation.getAmount()).thenReturn(500.0);
+		
+		projectDonations = new ArrayList<Donation>();
+		projectDonations.add(donation);
+		projectDonations.add(anotherDonation);
 		
 		anotherProjects = new ArrayList<Project>();
 		anotherProjects.add(testProject1);
@@ -75,25 +90,56 @@ class ProjectManagerTest {
 		projectManager.getCost(place);
 		verify(project, times(1)).getCost();
 	}
-/*
+
 	@Test
 	void testCreateProject() {
-		fail("Not yet implemented");
+		String projectName = "Project";
+		LocalDateTime startDate = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		assertEquals(2, projectManager.getProjects().size());
+		projectManager.createProject(place, projectName, startDate, endDate);
+		assertEquals(3, projectManager.getProjects().size());
 	}
 
 	@Test
-	void testCloseProject() {
-		fail("Not yet implemented");
+	void testCloseProjectFromProjectManager() {
+		verify(project, times(0)).closeProject();
+		projectManager.closeProject(project);
+		verify(project, times(1)).closeProject();
+		//FIXME: test private email sender
 	}
-
+	/*
 	@Test
 	void testGetTopTenProjectsWithMoreTimeWithoutDonations() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	void testGetTopTenDonations() {
+	void getProjectWithMoreTimeWithoutDonations() {
 		fail("Not yet implemented");
 	}
-*/
+	*/
+	/*
+	 * TODO: private
+	@Test
+	void testCompareDonations() {
+		projectManager.compare(donation, anotherDonation);
+	}
+	*/
+	
+	/*
+	 * donation amount: 10.0
+	 * anotherDonation amount: 10.0
+	 */
+	@Test
+	void testGetTopTenDonations() {
+		when(project.getDonations()).thenReturn(projectDonations);
+		List<Donation> donations = projectManager.getTopTenDonations();
+		assertEquals(anotherDonation, donations.get(0));
+		assertEquals(donation, donations.get(1));
+		assertEquals(2, donations.size());
+	}
+
 }
