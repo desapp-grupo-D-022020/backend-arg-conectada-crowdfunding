@@ -5,24 +5,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Project {
-
+	
+	@Column
 	private String name;
-	
+	@Column
 	private Place place;
-
+	@Column
 	private double factor;
-
+	@Column
 	private double percentageForClose;
-
+	@Column
 	private LocalDateTime startDate;
-
+	@Column
 	private LocalDateTime endDate;
-	
+	@OneToMany
+	@JoinColumn(name = "project_id", referencedColumnName = "id")
 	private List<Donation> donations;
-	
 	private PointsManager pointsManager;
-	
+	@Column
 	private Boolean isOpen;
 
 	public Project(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {

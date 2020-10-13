@@ -1,13 +1,18 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Place {
 	
+	@Column
 	private String name;
-	
+	@Column
 	private String province;
-	
+	@Column
 	private int population;
-	
+	@Column
 	private String status;
 	
 	public Place(String name, String province, int population, String status) {

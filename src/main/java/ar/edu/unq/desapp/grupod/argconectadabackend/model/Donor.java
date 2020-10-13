@@ -3,14 +3,24 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "donor")
 public class Donor extends User {
-	
+
+	@Column(name = "points")
 	private Double points;
 	
+	@OneToOne(mappedBy = "donor")
 	private RewardProgram rewardProgram;
 	
 	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
 	
+	@Column(name = "nickName")
 	private String nickName;
 
 	public Donor(String name, String password, String email, String nickName) {

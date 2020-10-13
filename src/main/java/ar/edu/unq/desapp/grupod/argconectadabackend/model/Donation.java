@@ -5,14 +5,20 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Donation {
 
+	@OneToOne(mappedBy = "donation")
 	private Donor donor;
-	
+	@Column
 	private double amount;
-	
+	@Column
 	private LocalDateTime date;
-	
+	@Column
 	private String commentary;
 	
 	public Donation(Donor donor, double amount, LocalDateTime date, String commentary) {

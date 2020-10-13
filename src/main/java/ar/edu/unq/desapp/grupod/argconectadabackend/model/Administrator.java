@@ -2,8 +2,15 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "administrator")
 public class Administrator extends User {
-	
+
+	@OneToOne(mappedBy = "administrator")
 	private ProjectManager projectManager;
 
 	public Administrator(String name, String password, String email, ProjectManager projectManager) {
