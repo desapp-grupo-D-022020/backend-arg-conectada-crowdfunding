@@ -7,12 +7,19 @@ import java.time.temporal.TemporalAdjusters;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Donation {
 
-	@OneToOne(mappedBy = "donation")
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+//	@OneToOne(mappedBy = "donation")
+	@Transient
 	private Donor donor;
 	@Column
 	private double amount;
@@ -20,6 +27,8 @@ public class Donation {
 	private LocalDateTime date;
 	@Column
 	private String commentary;
+	
+	public Donation() {}
 	
 	public Donation(Donor donor, double amount, LocalDateTime date, String commentary) {
 		this.donor = donor;

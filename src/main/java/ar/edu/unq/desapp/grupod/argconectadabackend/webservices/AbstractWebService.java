@@ -16,7 +16,7 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.service.IService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-public abstract class AbstractController<T> {
+public abstract class AbstractWebService<T> {
 	
 	@Autowired
 	private IService<T, Integer> service;	

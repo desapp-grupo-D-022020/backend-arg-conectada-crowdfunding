@@ -27,6 +27,8 @@ public abstract class User {
 	@Column
 	private byte[] img;
 	
+	public User() {}
+	
 	public User(String name, String password, String email) {
 		this.name = name;
 		this.password = password;

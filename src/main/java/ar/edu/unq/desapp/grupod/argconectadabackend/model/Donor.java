@@ -5,23 +5,31 @@ import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "donor")
 public class Donor extends User {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	@Column(name = "points")
 	private Double points;
-	
-	@OneToOne(mappedBy = "donor")
+	//@OneToOne(mappedBy = "donor")
+	@Transient
 	private RewardProgram rewardProgram;
-	
+	@Transient
 	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
-	
 	@Column(name = "nickName")
 	private String nickName;
+	
+	public Donor() {}
 
 	public Donor(String name, String password, String email, String nickName) {
 		super(name, password, email);

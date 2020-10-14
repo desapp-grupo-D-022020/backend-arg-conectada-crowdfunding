@@ -13,4 +13,5 @@ public class AdministratorService extends ServiceAbstract<Administrator, Integer
 	private static IAdministratorRepo repo;	
 	
 	public AdministratorService() { super(repo); }
+
 }

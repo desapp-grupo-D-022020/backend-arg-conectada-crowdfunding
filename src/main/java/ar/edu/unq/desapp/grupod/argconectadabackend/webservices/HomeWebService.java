@@ -1,11 +1,11 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.webservices;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-public class HomeController {
+@RestController
+public class HomeWebService {
 
 	@GetMapping(path = "/")
     public @ResponseBody String welcome(){

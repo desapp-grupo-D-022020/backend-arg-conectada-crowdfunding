@@ -7,15 +7,22 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Project {
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	@Column
 	private String name;
-	@Column
+	//@Column
+	@Transient
 	private Place place;
 	@Column
 	private double factor;
@@ -25,9 +32,11 @@ public class Project {
 	private LocalDateTime startDate;
 	@Column
 	private LocalDateTime endDate;
-	@OneToMany
-	@JoinColumn(name = "project_id", referencedColumnName = "id")
+	//@OneToMany
+	//@JoinColumn(name = "project_id", referencedColumnName = "id")
+	@Transient
 	private List<Donation> donations;
+	@Transient
 	private PointsManager pointsManager;
 	@Column
 	private Boolean isOpen;
