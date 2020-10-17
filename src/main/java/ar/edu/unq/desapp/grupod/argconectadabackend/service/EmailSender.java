@@ -22,7 +22,7 @@ public class EmailSender {
         msg.setTo(to);
 
         msg.setSubject("Proyecto Financiado!!");
-        msg.setText("\nHola" + nickName + ", gracias a su donacion y a la de muchas personas mas se iniciaran las obras en dicha localidad");
+        msg.setText("\nHola" + nickName + ", gracias a su donacion y a la de muchas personas más,  se iniciarán las obras en dicha localidad");
 
         emailSender.send(msg);
     }

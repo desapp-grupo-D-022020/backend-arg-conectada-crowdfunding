@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.webservices.HomeController;
+import ar.edu.unq.desapp.grupod.argconectadabackend.webservices.HomeWebService;
 
 @SpringBootTest
 class HomeTest {
 	
 	@Autowired
-	private HomeController controller;
+	private HomeWebService controller;
 
     @Test
     void contextLoads() throws Exception {

@@ -1,14 +1,27 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Place {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
+	@Column
 	private String name;
-	
+	@Column
 	private String province;
-	
+	@Column
 	private int population;
-	
+	@Column
 	private String status;
+	
+	public Place() {}
 	
 	public Place(String name, String province, int population, String status) {
 		this.name = name;
