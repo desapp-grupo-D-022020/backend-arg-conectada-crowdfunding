@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -23,8 +24,8 @@ public class Project {
 	private int id;
 	@Column
 	private String name;
-	//@Column
-	@Transient
+	@OneToOne(cascade=CascadeType.ALL) 	
+	@JoinColumn(name="place_id")
 	private Place place;
 	@Column
 	private double factor;
