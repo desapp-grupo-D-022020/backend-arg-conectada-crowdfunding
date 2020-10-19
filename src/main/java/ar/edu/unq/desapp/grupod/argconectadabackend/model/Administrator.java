@@ -8,7 +8,6 @@ import javax.persistence.Transient;
 @Entity
 public class Administrator extends User {
 
-	//@OneToOne(mappedBy = "administrator")
 	@Transient
 	private ProjectManager projectManager;
 

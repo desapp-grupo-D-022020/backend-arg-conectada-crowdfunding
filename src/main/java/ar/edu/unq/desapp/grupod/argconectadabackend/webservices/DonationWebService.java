@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 
 @RestController
-@RequestMapping("/projects")
+@RequestMapping("/donations")
 public class DonationWebService extends AbstractWebService<Donation> {}

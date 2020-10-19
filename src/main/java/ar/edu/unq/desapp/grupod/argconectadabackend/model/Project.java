@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,9 +34,9 @@ public class Project {
 	private LocalDateTime startDate;
 	@Column
 	private LocalDateTime endDate;
-	//@OneToMany
-	//@JoinColumn(name = "project_id", referencedColumnName = "id")
-	@Transient
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, 
+				CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "project_id")
 	private List<Donation> donations;
 	@Transient
 	private PointsManager pointsManager;
