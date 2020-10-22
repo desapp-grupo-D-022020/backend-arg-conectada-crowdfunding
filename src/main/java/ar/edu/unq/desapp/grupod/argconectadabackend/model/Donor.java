@@ -3,12 +3,15 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,10 +24,13 @@ public class Donor extends User {
 	private int id;
 	@Column(name = "points")
 	private Double points;
-	//@OneToOne(mappedBy = "donor")
 	@Transient
 	private RewardProgram rewardProgram;
-	@Transient
+    @ElementCollection
+    @CollectionTable(name = "donor_point_mapping", 
+    				 joinColumns = {@JoinColumn(name = "donor_id", referencedColumnName = "id")})
+	@MapKeyColumn(name = "project_name")
+	@Column(name = "points")
 	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
 	@Column(name = "nickName")
 	private String nickName;

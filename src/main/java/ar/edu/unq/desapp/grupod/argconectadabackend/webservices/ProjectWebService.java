@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 
-//@RestController
-//@RequestMapping("/projects")
-//public class ProjectController extends RestArgconectadaController<Project> {}
+@RestController
+@RequestMapping("/projects")
+public class ProjectWebService extends AbstractWebService<Project> {}
