@@ -24,24 +24,55 @@ class ProjectManagerTest {
 	private ProjectManager projectManager;
 	private List<Project> projects;
 	private List<Project> anotherProjects;
-	private Project project;
-	private Project anotherProject;
+	private Project nearlyClosedProject;
+	private Project openProject;
 	private Project testProject1;
-	private Place place;
-	private Place anotherPlace;
+	private Place nearlyClosedProjectPlace;
+	private Place openProjectPlace;
 	private Donation donation;
 	private Donation anotherDonation;
 	private List<Donation> projectDonations;
 	
-	@BeforeEach
-	void setUp() {
-		place = mock(Place.class);
-		anotherPlace = mock(Place.class);
-		project = mock(Project.class);
-		anotherProject = mock(Project.class);
+
+	@Test
+	void testGetProjects() {
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		projectManager = new ProjectManager(projects);
+		
+		assertEquals(projects, projectManager.getProjects());
+	}
+
+	@Test
+	void testSetProjects() {
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
 		testProject1 = mock(Project.class);
-		donation = mock(Donation.class);
-		anotherDonation = mock(Donation.class);
+		anotherProjects = new ArrayList<Project>();
+		anotherProjects.add(testProject1);
+		
+		projectManager = new ProjectManager(projects);
+		
+		assertNotEquals(anotherProjects, projectManager.getProjects());
+		projectManager.setProjects(anotherProjects);
+		assertEquals(anotherProjects, projectManager.getProjects());
+	}
+	
+	@Test
+	void testGetOpenProjects() {
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
 		
 		//calculate last day of month
 		LocalDateTime now = LocalDateTime.now();
@@ -49,92 +80,122 @@ class ProjectManagerTest {
 		int currentYear = now.getYear();
 		LocalDate firstOfThisMonth = LocalDate.of(currentYear, currentMonth, 1);
 		LocalDate lastDateOfMonth = firstOfThisMonth.with(TemporalAdjusters.lastDayOfMonth());
-		when(project.getEndDate()).thenReturn(lastDateOfMonth.atStartOfDay());
+		when(nearlyClosedProject.getEndDate()).thenReturn(lastDateOfMonth.atStartOfDay());
 		
+		//open project end date: next year
 		int nextYear = currentYear + 1;
 		LocalDate firstOfThisMonthOnNextYear = LocalDate.of(nextYear, currentMonth, 1);
 		LocalDate lastDateOfMonthOnNextYear = firstOfThisMonthOnNextYear.with(TemporalAdjusters.lastDayOfMonth());
-		when(anotherProject.getEndDate()).thenReturn(lastDateOfMonthOnNextYear.atStartOfDay());
-		
-		when(project.getPlace()).thenReturn(place);
-		when(anotherProject.getPlace()).thenReturn(anotherPlace);
-		
-		when(donation.getAmount()).thenReturn(10.0);
-		when(anotherDonation.getAmount()).thenReturn(500.0);
-		
-		projectDonations = new ArrayList<Donation>();
-		projectDonations.add(donation);
-		projectDonations.add(anotherDonation);
-		
-		anotherProjects = new ArrayList<Project>();
-		anotherProjects.add(testProject1);
-		
-		projects = new ArrayList<Project>();
-		projects.add(project);
-		projects.add(anotherProject);
+		when(openProject.getEndDate()).thenReturn(lastDateOfMonthOnNextYear.atStartOfDay());
 		
 		projectManager = new ProjectManager(projects);
-	}
-
-	@Test
-	void testGetProjects() {
-		assertEquals(projects, projectManager.getProjects());
-	}
-
-	@Test
-	void testSetProjects() {
-		assertNotEquals(anotherProjects, projectManager.getProjects());
-		projectManager.setProjects(anotherProjects);
-		assertEquals(anotherProjects, projectManager.getProjects());
+		
+		assertEquals(1, projectManager.getOpenProjects().size());
+		assertEquals(openProject, projectManager.getOpenProjects().get(0));
 	}
 	
-	/*
-	 * open projects: anotherProject
-	 */
-	@Test
-	void testGetOpenProjects() {
-		assertEquals(1, projectManager.getOpenProjects().size());
-		assertEquals(anotherProject, projectManager.getOpenProjects().get(0));
-	}
-
-	/*
-	 * nearly closed  projects: project
-	 */
 	@Test
 	void testGetNearlyCloseProjects() {
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		//calculate last day of month
+		LocalDateTime now = LocalDateTime.now();
+		Month currentMonth = now.getMonth();
+		int currentYear = now.getYear();
+		LocalDate firstOfThisMonth = LocalDate.of(currentYear, currentMonth, 1);
+		LocalDate lastDateOfMonth = firstOfThisMonth.with(TemporalAdjusters.lastDayOfMonth());
+		when(nearlyClosedProject.getEndDate()).thenReturn(lastDateOfMonth.atStartOfDay());
+		
+		//open project end date: next year
+		int nextYear = currentYear + 1;
+		LocalDate firstOfThisMonthOnNextYear = LocalDate.of(nextYear, currentMonth, 1);
+		LocalDate lastDateOfMonthOnNextYear = firstOfThisMonthOnNextYear.with(TemporalAdjusters.lastDayOfMonth());
+		when(openProject.getEndDate()).thenReturn(lastDateOfMonthOnNextYear.atStartOfDay());
+		
+		projectManager = new ProjectManager(projects);
+		
 		assertEquals(1, projectManager.getNearlyClosedProjects().size());
-		assertEquals(project, projectManager.getNearlyClosedProjects().get(0));
+		assertEquals(nearlyClosedProject, projectManager.getNearlyClosedProjects().get(0));
 	}
 	
 	@Test
 	void testGetProjectByPlace() {
-		assertEquals(project,projectManager.getProject(place));
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		nearlyClosedProjectPlace = mock(Place.class);
+		openProjectPlace = mock(Place.class);
+		when(nearlyClosedProject.getPlace()).thenReturn(nearlyClosedProjectPlace);
+		when(openProject.getPlace()).thenReturn(openProjectPlace);
+		
+		projectManager = new ProjectManager(projects);
+		
+		when(nearlyClosedProject.getPlace()).thenReturn(nearlyClosedProjectPlace);
+		when(openProject.getPlace()).thenReturn(openProjectPlace);
+		
+		assertEquals(nearlyClosedProject, projectManager.getProject(nearlyClosedProjectPlace));
 	}
 
 	@Test
 	void testGetCost() {
-		verify(project, times(0)).getCost();
-		projectManager.getCost(place);
-		verify(project, times(1)).getCost();
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		nearlyClosedProjectPlace = mock(Place.class);
+		openProjectPlace = mock(Place.class);
+		when(nearlyClosedProject.getPlace()).thenReturn(nearlyClosedProjectPlace);
+		when(openProject.getPlace()).thenReturn(openProjectPlace);
+		
+		projectManager = new ProjectManager(projects);
+		
+		verify(nearlyClosedProject, times(0)).getCost();
+		projectManager.getCost(nearlyClosedProjectPlace);
+		verify(nearlyClosedProject, times(1)).getCost();
 	}
 
 	@Test
 	void testCreateProject() {
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		projectManager = new ProjectManager(projects);
+		
 		String projectName = "Project";
 		LocalDateTime startDate = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		LocalDateTime endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
 		
 		assertEquals(2, projectManager.getProjects().size());
-		projectManager.createProject(place, projectName, startDate, endDate);
+		projectManager.createProject(nearlyClosedProjectPlace, projectName, startDate, endDate);
 		assertEquals(3, projectManager.getProjects().size());
 	}
 
 	@Test
 	void testCloseProjectFromProjectManager() {
-		verify(project, times(0)).closeProject();
-		projectManager.closeProject(project);
-		verify(project, times(1)).closeProject();
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		projectManager = new ProjectManager(projects);
+		
+		verify(nearlyClosedProject, times(0)).closeProject();
+		projectManager.closeProject(nearlyClosedProject);
+		verify(nearlyClosedProject, times(1)).closeProject();
 		//FIXME: test private email sender
 	}
 	
@@ -200,13 +261,26 @@ class ProjectManagerTest {
 		assertFalse(oldProjects.contains(pj12));
 	}
 	
-	/*
-	 * donation amount: 10.0
-	 * anotherDonation amount: 10.0
-	 */
 	@Test
 	void testGetTopTenDonations() {
-		when(project.getDonations()).thenReturn(projectDonations);
+		nearlyClosedProject = mock(Project.class);
+		openProject = mock(Project.class);
+		projects = new ArrayList<Project>();
+		projects.add(nearlyClosedProject);
+		projects.add(openProject);
+		
+		donation = mock(Donation.class);
+		anotherDonation = mock(Donation.class);
+		when(donation.getAmount()).thenReturn(10.0);
+		when(anotherDonation.getAmount()).thenReturn(500.0);
+		
+		projectDonations = new ArrayList<Donation>();
+		projectDonations.add(donation);
+		projectDonations.add(anotherDonation);
+		
+		projectManager = new ProjectManager(projects);
+		
+		when(nearlyClosedProject.getDonations()).thenReturn(projectDonations);
 		List<Donation> donations = projectManager.getTopTenDonations();
 		assertEquals(anotherDonation, donations.get(0));
 		assertEquals(donation, donations.get(1));
