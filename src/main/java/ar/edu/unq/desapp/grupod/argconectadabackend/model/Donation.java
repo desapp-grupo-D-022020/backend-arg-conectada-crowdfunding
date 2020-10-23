@@ -22,7 +22,7 @@ public class Donation {
 	private int id;
 	@OneToOne(cascade=CascadeType.ALL) 	
 	@JoinColumn(name="donor_id")
-	private Donor donor;
+	private User donor;
 	@Column
 	private double amount;
 	@Column
@@ -32,7 +32,7 @@ public class Donation {
 	
 	public Donation() {}
 	
-	public Donation(Donor donor, double amount, LocalDateTime date, String commentary) {
+	public Donation(User donor, double amount, LocalDateTime date, String commentary) {
 		this.donor = donor;
 		this.amount = amount;
 		this.date = date;
@@ -47,7 +47,7 @@ public class Donation {
 		return amount;
 	}
 	
-	public Donor getDonor() {
+	public User getDonor() {
 		return this.donor;
 	}
 

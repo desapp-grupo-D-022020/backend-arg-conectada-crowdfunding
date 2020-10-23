@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface IService<T, ID> {
+	
 	List<T> getAll();
 	
 	T getById(ID id);
@@ -15,4 +16,5 @@ public interface IService<T, ID> {
 	void update(T obj);
 	
 	void delete(ID id);
+	
 }

@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.desapp.grupod.argconectadabackend.utils.PointsManager;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -17,7 +19,7 @@ public class PointsManagerTest {
 	private double smallAmount = 500;
     private double bigAmount = 5_000;
     
-    private Donor donor;
+    private User donor;
 	private Place place;
 	
     private Project projectWithDonationInCurrentMonthAndSmallPopulation;
@@ -93,7 +95,7 @@ public class PointsManagerTest {
 		projectWithoutDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
 		when(projectWithoutDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInOlderMonth);
 		when(projectWithoutDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(500);
-		donor = mock(Donor.class);
+		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
 		pm = new PointsManager();
@@ -114,7 +116,7 @@ public class PointsManagerTest {
 		projectWithDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInCurrentMonth);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(1_000);
-		donor = mock(Donor.class);
+		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
 		pm = new PointsManager();
@@ -135,7 +137,7 @@ public class PointsManagerTest {
 		projectWithoutDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
 		when(projectWithoutDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInOlderMonth);
 		when(projectWithoutDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(500);
-		donor = mock(Donor.class);
+		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
 		pm = new PointsManager();
@@ -219,7 +221,7 @@ public class PointsManagerTest {
 		projectWithDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInCurrentMonth);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(1_000);
-		donor = mock(Donor.class);
+		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
 		pm = new PointsManager();

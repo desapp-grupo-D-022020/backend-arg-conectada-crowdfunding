@@ -19,7 +19,7 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.service.IService;
 public abstract class AbstractWebService<T> {
 	
 	@Autowired
-	private IService<T, Integer> service;	
+	protected IService<T, Integer> service;
 	
 	@GetMapping(value= "/all")
 	public List<T> getAll(){

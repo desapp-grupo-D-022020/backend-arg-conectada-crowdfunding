@@ -15,17 +15,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 @Entity
 public class Project {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@Column
 	private String name;
-	@OneToOne(cascade=CascadeType.ALL) 	
-	@JoinColumn(name="place_id")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "place_id")
 	private Place place;
 	@Column
 	private double factor;
@@ -35,12 +34,10 @@ public class Project {
 	private LocalDateTime startDate;
 	@Column
 	private LocalDateTime endDate;
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, 
-				CascadeType.PERSIST, CascadeType.REFRESH })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH })
 	@JoinColumn(name = "project_id")
 	private List<Donation> donations;
-	@Transient
-	private PointsManager pointsManager;
 	@Column
 	private Boolean isOpen;
 
@@ -74,10 +71,6 @@ public class Project {
 	public double getFactor() {
 		return factor;
 	}
-	
-	public void setPointsManager(PointsManager pointsManager) {
-		this.pointsManager = pointsManager;
-	}
 
 	public void setFactor(double factor) {
 		this.factor = factor;
@@ -107,10 +100,10 @@ public class Project {
 		this.endDate = endDate;
 	}
 
-	public List<Donor> getDonors() {
+	public List<User> getDonors() {
 		return this.donations.stream().map(donation -> donation.getDonor()).collect(Collectors.toList());
 	}
-	
+
 	public List<Donation> getDonations() {
 		return donations;
 	}
@@ -118,7 +111,7 @@ public class Project {
 	public void setDonations(List<Donation> donations) {
 		this.donations = donations;
 	}
-	
+
 	public double getCost() {
 		return place.getPopulation() * this.factor;
 	}
@@ -127,31 +120,29 @@ public class Project {
 		return this.place.getPopulation();
 	}
 
-	private void assignPointsToUser(Donor user, Project project, double amount) {
-		this.pointsManager.assignPoints(user, project, amount);
-	}
-	
-	public void receiveDonation(Donor user, double amount, String commentary) {
+	public void receiveDonation(User user, double amount, String commentary) {
 		LocalDateTime date = LocalDateTime.now();
 		this.donations.add(new Donation(user, amount, date, commentary));
-		this.assignPointsToUser(user, this, amount);
 	}
-	
+
 	public Donation getLastDonation() {
-		return donations.get(donations.size()-1);
+		return donations.get(donations.size() - 1);
 	}
-	
+
 	public LocalDateTime getLastDonationDate() {
 		return this.getLastDonation().getDate();
 	}
-	
+
 	public boolean isOpen() {
 		return this.isOpen;
 	}
-	
+
 	public void closeProject() {
 		this.isOpen = false;
 	}
-	
 
+	public boolean hasDonationsOnCurrentMonth() {
+		Donation lastDonation = this.getLastDonation();
+		return lastDonation.isWithinCalendarMonth();
+	}
 }

@@ -7,10 +7,9 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IPlaceRepo;
 
 @Service
-public class PlaceService extends ServiceAbstract<Place, Integer> {
+public class PlaceService extends AbstractService<Place, Integer> {
 	
 	@Autowired
-	private static IPlaceRepo repo;	
+	public PlaceService(IPlaceRepo repo) { super(repo); }
 	
-	public PlaceService() { super(repo); }
 }

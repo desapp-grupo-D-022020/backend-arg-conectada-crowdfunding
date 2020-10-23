@@ -1,18 +1,25 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.Transient;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.utils.ImageConverter;
 
-@MappedSuperclass
-public abstract class User {
+@Entity
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,16 +30,34 @@ public abstract class User {
 	private String password;
 	@Column
 	private String email;
+	@Column
+	private String roll;
+	@Column
+	private Double points;
+	@Transient
+	private RewardProgram rewardProgram;
+    @ElementCollection
+    @CollectionTable(name = "donor_point_mapping", 
+    				 joinColumns = {@JoinColumn(name = "donor_id", referencedColumnName = "id")})
+	@MapKeyColumn(name = "project_name")
+	@Column
+	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
+	@Column
+	private String nickName;
 	@Lob
 	@Column
 	private byte[] img;
-	
+		
 	public User() {}
 	
-	public User(String name, String password, String email) {
+	public User(String name, String password, String email, String roll, String nickName) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
+		this.roll = roll; 
+		this.points = 0.0;
+		this.nickName = nickName;
+		this.rewardProgram = new RewardProgram();
 	}
 
 	public String getName() {
@@ -59,7 +84,47 @@ public abstract class User {
 		this.email = email;
 	}
 	
-	public void setImg(String img) throws IOException { this.img = (new ImageConverter(img, "png")).imageToByteArray(); }
+	public Double getPoints() {
+		return points;
+	}
+
+	public void setPoints(Double points) {
+		this.points = points;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	
-	public byte[] getImg() { return this.img; }
+	public void setImg(String img) throws IOException {
+		this.img = (new ImageConverter(img, "png")).imageToByteArray();
+	}
+	
+	public byte[] getImg() {
+		return this.img; 
+	}
+	
+	public Map<String, Double> getPointsRegistry() {
+		return this.pointsRegistry;
+	}
+	
+	public void addPoints(double points) {
+		this.points += points;
+	}
+	
+	public void addPointsToRegister(String nameOfProject, Double points) {
+		this.pointsRegistry.put(nameOfProject, points);
+	}
+
+	public RewardProgram getRewardProgram() {
+		return rewardProgram;
+	}
+
+	public void setRewardProgram(RewardProgram rewardProgram) {
+		this.rewardProgram = rewardProgram;
+	}
 }

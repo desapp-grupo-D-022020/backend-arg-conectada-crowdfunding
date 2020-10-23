@@ -15,11 +15,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.desapp.grupod.argconectadabackend.utils.PointsManager;
+
 class ProjectTest {
 	
 	private Project project;
 	private String projectName;
-	private Donor donor;
+	private User donor;
 	private Place place;
 	private Place anotherPlace;
 	private LocalDateTime startDate;

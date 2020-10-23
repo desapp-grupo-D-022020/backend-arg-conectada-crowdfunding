@@ -2,21 +2,19 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IRepo;
+
 @Service
-public abstract class ServiceAbstract<T, ID> implements IService<T, ID> {
+public abstract class AbstractService<T, ID> implements IService<T, ID> {
 	
-	@Autowired
-	private JpaRepository<T, ID> repo;
+	protected IRepo<T, ID> repo;
 	
-	public ServiceAbstract(JpaRepository<T, ID> repo) {
+	public AbstractService(IRepo<T, ID> repo) {
 		this.repo = repo;
 	}
-	
 	@Transactional
 	@Override
 	public List<T> getAll() { return (List<T>) repo.findAll(); }

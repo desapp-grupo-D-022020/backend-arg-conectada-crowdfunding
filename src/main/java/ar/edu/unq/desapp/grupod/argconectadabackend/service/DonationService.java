@@ -7,10 +7,9 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IDonationRepo;
 
 @Service
-public class DonationService extends ServiceAbstract<Donation, Integer> {
+public class DonationService extends AbstractService<Donation, Integer> {
 	
 	@Autowired
-	private static IDonationRepo repo;	
+	public DonationService(IDonationRepo repo) { super(repo); }
 	
-	public DonationService() { super(repo); }
 }
