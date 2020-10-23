@@ -216,21 +216,21 @@ public class PointsManagerTest {
 		assertEquals(150.0, result);
 	}
 	
-	@Test
-	void testAssignPointsFromBigDonationToSmallPopulation() {
-		projectWithDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
-		when(projectWithDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInCurrentMonth);
-		when(projectWithDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(1_000);
-		donor = mock(User.class);
-		when(donor.getPoints()).thenReturn(0.0);
-		
-		pm = new PointsManager();
-		
-		String projectName = projectWithDonationInCurrentMonthAndSmallPopulation.getName();
-		Double points = pm.sumPoints(pm.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount));
-		
-		pm.assignPoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
-		verify(donor, times(1)).addPointsToRegister(projectName, points);
-	}
+//	@Test
+//	void testAssignPointsFromBigDonationToSmallPopulation() {
+//		projectWithDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
+//		when(projectWithDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInCurrentMonth);
+//		when(projectWithDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(1_000);
+//		donor = mock(User.class);
+//		when(donor.getPoints()).thenReturn(0.0);
+//		
+//		pm = new PointsManager();
+//		
+//		String projectName = projectWithDonationInCurrentMonthAndSmallPopulation.getName();
+//		Double points = pm.sumPoints(pm.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount));
+//		
+//		pm.assignPoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
+//		verify(donor, times(1)).addPointsToRegister(projectName, points);
+//	}
 
 }

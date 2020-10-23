@@ -278,29 +278,29 @@ class ProjectTest {
 		verify(place, times(1)).getPopulation();
 	}
 	
-	@Test
-	void testReceiveDonation() {
-		place = mock(Place.class);
-		projectName = "testProject";
-		startDate = LocalDateTime.now();
-		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
-		
-		project = new Project(place, projectName, startDate, endDate);
-		
-		pointsManager = mock(PointsManager.class);
-		
-		double amount = 15.0;
-		String commentary = "No Comments";
-		project.setPointsManager(pointsManager);
-
-		verify(pointsManager, times(0)).assignPoints(donor, project, amount);
-		project.receiveDonation(donor, amount, commentary);
-		verify(pointsManager, times(1)).assignPoints(donor, project, amount);
-		assertEquals(1, project.getDonors().size());
-		assertEquals(donor, project.getDonors().get(0));
-		assertEquals(1, project.getDonations().size());
-	}
+//	@Test
+//	void testReceiveDonation() {
+//		place = mock(Place.class);
+//		projectName = "testProject";
+//		startDate = LocalDateTime.now();
+//		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+//		
+//		project = new Project(place, projectName, startDate, endDate);
+//		
+//		pointsManager = mock(PointsManager.class);
+//		
+//		double amount = 15.0;
+//		String commentary = "No Comments";
+//		project.setPointsManager(pointsManager);
+//
+//		verify(pointsManager, times(0)).assignPoints(donor, project, amount);
+//		project.receiveDonation(donor, amount, commentary);
+//		verify(pointsManager, times(1)).assignPoints(donor, project, amount);
+//		assertEquals(1, project.getDonors().size());
+//		assertEquals(donor, project.getDonors().get(0));
+//		assertEquals(1, project.getDonations().size());
+//	}
 
 	@Test
 	void testGetLastDonation() {
