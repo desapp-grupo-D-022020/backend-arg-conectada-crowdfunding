@@ -15,7 +15,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.utils.PointsManager;
+import ar.edu.unq.desapp.grupod.argconectadabackend.service.PointsManagerService;
 
 class ProjectTest {
 	
@@ -27,7 +27,7 @@ class ProjectTest {
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	private DateTimeFormatter formatter;
-	private PointsManager pointsManager;
+	private PointsManagerService pointsManager;
 	
 	
 	@Test

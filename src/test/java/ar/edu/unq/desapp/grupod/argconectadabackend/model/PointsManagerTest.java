@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.utils.PointsManager;
+import ar.edu.unq.desapp.grupod.argconectadabackend.service.PointsManagerService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class PointsManagerTest {
 	
-	private PointsManager pm;
+	private PointsManagerService pm;
 	private double smallAmount = 500;
     private double bigAmount = 5_000;
     
@@ -76,7 +76,7 @@ public class PointsManagerTest {
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getLastDonation()).thenReturn(donationInCurrentMonth);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(1_000);
 		
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
 		assertEquals(bigAmount, calculatedPoints.get(0));
@@ -98,7 +98,7 @@ public class PointsManagerTest {
 		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndSmallPopulation, bigAmount);
 		assertEquals(bigAmount, calculatedPoints.get(0));
@@ -119,7 +119,7 @@ public class PointsManagerTest {
 		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, smallAmount);
 		assertEquals(2 * smallAmount, calculatedPoints.get(0));
@@ -140,7 +140,7 @@ public class PointsManagerTest {
 		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
 		
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndSmallPopulation, smallAmount);
 		assertEquals(2 * smallAmount, calculatedPoints.get(0));
@@ -154,7 +154,7 @@ public class PointsManagerTest {
 	*/
 	@Test
 	void testCalculatePointsForSmallDonationOnBigPopulationRecurringContributor() {
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithDonationInCurrentMonthAndBigPopulation, smallAmount);
 		assertEquals(500.0, calculatedPoints.get(0));
@@ -168,7 +168,7 @@ public class PointsManagerTest {
 	*/
 	@Test
 	void testCalculatePointsForSmallDonationOnBigPopulationNonRecurringContributor() {
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, smallAmount);
 		assertEquals(0, calculatedPoints.size());
@@ -181,7 +181,7 @@ public class PointsManagerTest {
 	*/
 	@Test
 	void testCalculatePointsForBigDonationOnBigPopulationRecurringContributor() {
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithDonationInCurrentMonthAndBigPopulation, bigAmount);
 		assertEquals(bigAmount, calculatedPoints.get(0));
@@ -196,7 +196,7 @@ public class PointsManagerTest {
 	*/
 	@Test
 	void testCalculatePointsForBigDonationOnBigPopulationNonRecurringContributor() {
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> calculatedPoints = pm.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, bigAmount);
 		assertEquals(bigAmount, calculatedPoints.get(0));
@@ -206,7 +206,7 @@ public class PointsManagerTest {
 	
 	@Test
 	void testSumPoints() {
-		pm = new PointsManager();
+		pm = new PointsManagerService();
 		
 		List<Double> pointsList = new ArrayList<Double>();
 		pointsList.add(100.0);

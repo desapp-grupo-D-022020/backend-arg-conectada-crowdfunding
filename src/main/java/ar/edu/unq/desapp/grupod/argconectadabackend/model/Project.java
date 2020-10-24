@@ -51,6 +51,10 @@ public class Project {
 		this.isOpen = true;
 		this.donations = new ArrayList<Donation>();
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
 	public String getName() {
 		return name;

@@ -38,6 +38,10 @@ public class Donation {
 		this.date = date;
 		this.commentary = commentary;
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
 	public String getNickNameUser() {
 		return this.donor.getNickName();

@@ -25,6 +25,9 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	private EmailSender emailSender;
 	
 	@Autowired
+	private PointsManagerService pointsManager;
+	
+	@Autowired
 	public ProjectService(IProjectRepo repo) { super(repo); }
 	
 	@Transactional
@@ -73,8 +76,7 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	public void donate(int id, User user, double amount, String commentary) {
 		Project projectToReceiveDonation = this.getById(id);
 		projectToReceiveDonation.receiveDonation(user , amount, commentary);
-		//assignPoints(user, projectToReceiveDonation, amount);
-		
+		this.pointsManager.assignPoints(user, projectToReceiveDonation, amount);
 		this.update(projectToReceiveDonation);
 	}
 	

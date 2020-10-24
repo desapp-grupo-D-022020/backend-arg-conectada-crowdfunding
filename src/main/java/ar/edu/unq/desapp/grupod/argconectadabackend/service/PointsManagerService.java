@@ -1,9 +1,10 @@
-package ar.edu.unq.desapp.grupod.argconectadabackend.utils;
+package ar.edu.unq.desapp.grupod.argconectadabackend.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
@@ -13,8 +14,11 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
  * the points obtained as a result of a donation
  * 
  */
-@Component
-public class PointsManager {
+@Service
+public class PointsManagerService {
+	
+	@Autowired
+	private UserService userService;
 
 	public List<Double> calculatePoints(User donor, Project project, double amount) {
 		int population = project.getPlacePopulation();
@@ -34,5 +38,12 @@ public class PointsManager {
 	
 	public Double sumPoints(List<Double> pointsList) {
 		return pointsList.stream().mapToDouble(f -> f.doubleValue()).sum();
+	}
+	
+	public void assignPoints(User donor, Project project, double donationAmount) {
+		String nameOfProject = project.getName();
+		List<Double> pointsToAssign = this.calculatePoints(donor, project, donationAmount);
+		donor.addPointsToRegister(nameOfProject, this.sumPoints(pointsToAssign));
+		this.userService.update(donor);
 	}
 }

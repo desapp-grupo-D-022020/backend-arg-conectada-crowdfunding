@@ -59,6 +59,10 @@ public class User {
 		this.nickName = nickName;
 		this.rewardProgram = new RewardProgram();
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
 	public String getName() {
 		return name;

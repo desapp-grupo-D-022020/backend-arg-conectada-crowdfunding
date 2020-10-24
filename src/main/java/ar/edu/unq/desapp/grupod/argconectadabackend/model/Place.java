@@ -29,6 +29,10 @@ public class Place {
 		this.population = population;
 		this.status = status;
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
 	public String getName() {
 		return this.name;
