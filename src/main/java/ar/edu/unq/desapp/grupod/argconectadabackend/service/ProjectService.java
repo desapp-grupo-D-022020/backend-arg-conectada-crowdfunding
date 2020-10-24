@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDto;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDto;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
-import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IProjectRepo;
@@ -31,8 +32,8 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	public ProjectService(IProjectRepo repo) { super(repo); }
 	
 	@Transactional
-	public void createProject(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {
-		this.save(new Project(place, nameOfProject, startDate, endDate));
+	public void createProject(ProjectDto projectDto) {
+		this.save(new Project(projectDto.getPlace(), projectDto.getNameOfProject(), projectDto.getStartDate(), projectDto.getEndDate()));
 	}
 	
 	@Transactional
@@ -73,10 +74,12 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	}
 	
 	@Transactional
-	public void donate(int id, User user, double amount, String commentary) {
-		Project projectToReceiveDonation = this.getById(id);
-		projectToReceiveDonation.receiveDonation(user , amount, commentary);
-		this.pointsManager.assignPoints(user, projectToReceiveDonation, amount);
+	public void donate(DonationDto donationDto) {
+		Project projectToReceiveDonation = this.getById(donationDto.getProjectId());
+		User donor = donationDto.getUser();
+		Double amount = donationDto.getAmount();
+		projectToReceiveDonation.receiveDonation(donor, amount, donationDto.getCommentary());
+		this.pointsManager.assignPoints(donor, projectToReceiveDonation, amount);
 		this.update(projectToReceiveDonation);
 	}
 	
