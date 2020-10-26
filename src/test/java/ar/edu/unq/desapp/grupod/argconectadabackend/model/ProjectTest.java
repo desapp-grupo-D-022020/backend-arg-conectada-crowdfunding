@@ -27,8 +27,6 @@ class ProjectTest {
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	private DateTimeFormatter formatter;
-	private PointsManagerService pointsManager;
-	
 	
 	@Test
 	void testGetName() {
@@ -212,6 +210,43 @@ class ProjectTest {
 		project.setEndDate(anotherEndDate);
 		assertEquals(anotherEndDate, project.getEndDate());
 	}
+	
+	@Test
+	void testGetDonorsReturnsZeroIfEmpty() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
+		assertEquals(0, project.getDonors().size());
+	}
+	
+	@Test
+	void testGetDonorsReturnListOfDonorsCorrectly() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
+		List<Donation> donations = new ArrayList<Donation>();
+		Donation testDonation1 = mock(Donation.class);
+		Donation testDonation2 = mock(Donation.class);
+		
+		donations.add(testDonation1);
+		donations.add(testDonation2);
+		project.setDonations(donations);
+		
+		
+		int numberOfDonors = project.getDonors().size();
+		assertEquals(2, numberOfDonors);
+		
+	}
 
 	@Test
 	void testGetDonations() {
@@ -317,7 +352,7 @@ class ProjectTest {
 	}
 	
 	@Test
-	void testGetLastDoinationDate() {
+	void testGetLastDonationDate() {
 		place = mock(Place.class);
 		projectName = "testProject";
 		startDate = LocalDateTime.now();
@@ -354,6 +389,30 @@ class ProjectTest {
 		assertTrue(project.isOpen());
 		project.closeProject();
 		assertFalse(project.isOpen());
+	}
+	
+	@Test
+	void testHasDonationOnCurrentMonth() {
+		place = mock(Place.class);
+		projectName = "testProjectWithDonationsOnCurrentMonth";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2099-08-23 00:00", formatter);
+		
+		LocalDateTime donationDate = LocalDateTime.now();
+		
+		Donation testDonation = mock(Donation.class);
+		when(testDonation.getDate()).thenReturn(donationDate);
+		List<Donation> donations = new ArrayList<Donation>();
+		when(testDonation.isWithinCalendarMonth()).thenReturn(true);
+		donations.add(testDonation);
+
+		
+		
+		project = new Project(place, projectName, startDate, endDate);
+		project.setDonations(donations);
+		
+		assertTrue(project.hasDonationsOnCurrentMonth());
 	}
 
 }
