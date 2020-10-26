@@ -2,8 +2,6 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -13,16 +11,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PointsManagerServiceTest {
 	
+	@InjectMocks
 	private PointsManagerService pointsManager;
 	
+	@Mock
 	private UserService userService;
 	
 	private double smallAmount = 500;
@@ -135,7 +135,7 @@ public class PointsManagerServiceTest {
 	 * rule 2: 0 pts (big population)
 	 * rule 3: 0 pts (non-recurring contributor)
 	 */
-	/*@Test
+	@Test
 	void testCalculatePointsForSmallDonationOnBigPopulationNonRecurringContributor() {
 		pointsManager = new PointsManagerService();
 		donor = mock(User.class);
@@ -145,7 +145,7 @@ public class PointsManagerServiceTest {
 		
 		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, smallAmount);
 		assertEquals(0, calculatedPoints.size());
-	}*/
+	}
 	
 	/* rule 1: 5_000 pts (big donation)
 	 * rule 2: 0 pts (big population)
@@ -195,7 +195,7 @@ public class PointsManagerServiceTest {
 	}
 	
 	/*@Test
-	void testAssignPointsFromBigDonationToSmallPopulation() {
+	void testAssignPointsCallsCalculatePoints() {
 		projectWithDonationInCurrentMonthAndSmallPopulation = mock(Project.class);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.hasDonationsOnCurrentMonth()).thenReturn(true);
 		when(projectWithDonationInCurrentMonthAndSmallPopulation.getPlacePopulation()).thenReturn(1_000);
@@ -203,17 +203,15 @@ public class PointsManagerServiceTest {
 		
 		donor = mock(User.class);
 		when(donor.getPoints()).thenReturn(0.0);
+		doCallRealMethod().when(donor).addPointsToRegister(anyString(), anyDouble());
 		
-		pointsManager = new PointsManagerService();
-		//userService = mock(UserService.class);
-		//when(this.pointsManager.assignPoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount)).thenReturn("asd");
-		Mockito.doNothing().when(userService).update(donor);
 		
-		String projectName = projectWithDonationInCurrentMonthAndSmallPopulation.getName();
-		Double points = pointsManager.sumPoints(pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount));
-		
+		pointsManager = mock(PointsManagerService.class);
+		doCallRealMethod().when(pointsManager).assignPoints(any(User.class), any(Project.class), anyDouble());
 		pointsManager.assignPoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
-		verify(donor, times(1)).addPointsToRegister(projectName, points);
+		
+		
+		verify(pointsManager, times(1)).calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
 	}*/
 
 }
