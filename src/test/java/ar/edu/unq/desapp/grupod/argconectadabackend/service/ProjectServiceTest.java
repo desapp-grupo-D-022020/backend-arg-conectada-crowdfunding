@@ -8,6 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -19,6 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDto;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDto;
+import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IProjectRepo;
@@ -40,6 +43,25 @@ public class ProjectServiceTest {
 	void testCreateProjectCallsRepositorySave() {
 		MockitoAnnotations.initMocks(this);
 		ProjectDto projectDto = mock(ProjectDto.class);
+		
+		projectService.createProject(projectDto);
+		
+		verify(projectRepository).save(any(Project.class));
+		
+	}
+	
+	@Test
+	void testCreateProjectCorrectly() {
+		MockitoAnnotations.initMocks(this);
+		LocalDateTime startDate = LocalDateTime.now();
+		LocalDateTime endDate = LocalDateTime.now().plusDays(90);
+		Place place = new Place();
+		
+		ProjectDto projectDto = new ProjectDto();
+		projectDto.setNameOfProject("aProject");
+		projectDto.setStartDate(startDate);
+		projectDto.setEndDate(endDate);
+		projectDto.setPlace(place);
 		
 		projectService.createProject(projectDto);
 		
