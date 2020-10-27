@@ -11,5 +11,9 @@ public class DonorFactory {
 	public static User donorZeroPoints() {
 		return new User("aName","aPassword","anEmail", "aNickname");
 	}
+	
+	public static User emptyDonor() {
+		return new User("empty","empty","empty", "empty");
+	}
 
 }

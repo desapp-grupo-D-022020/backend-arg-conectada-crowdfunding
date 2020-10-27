@@ -44,4 +44,11 @@ public class DonationFactory {
 		
 		return afterMonthDonation;
 	}
+	
+	public static Donation emptyDonation() {
+		User emptyDonor = DonorFactory.emptyDonor();
+		Donation emptyDonation = new Donation(emptyDonor, 0, LocalDateTime.MIN,"no donations yet");
+		
+		return emptyDonation;
+	}
 }
