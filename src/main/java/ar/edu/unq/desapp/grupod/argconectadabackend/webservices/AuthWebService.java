@@ -51,7 +51,7 @@ public class AuthWebService {
     @Autowired
     JwtProvider jwtProvider;
 
-    //@SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping("/newUser")
     public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -81,7 +81,7 @@ public class AuthWebService {
         return new ResponseEntity(new Message("user saved"), HttpStatus.CREATED);
     }
 
-    //@SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody UserLogin userLogin, BindingResult bindingResult){
         if(bindingResult.hasErrors())
