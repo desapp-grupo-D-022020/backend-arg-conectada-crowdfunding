@@ -17,7 +17,7 @@ public abstract class AbstractService<T, ID> implements IService<T, ID> {
 	
 	@Transactional
 	@Override
-	public List<T> getAll() { return (List<T>) repo.findAll(); }
+	public List<T> getAll() { return repo.findAll(); }
 	
 	@Transactional
 	@Override

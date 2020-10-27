@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Set;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/auth")
 public class AuthWebService {
@@ -49,7 +51,7 @@ public class AuthWebService {
     @Autowired
     JwtProvider jwtProvider;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    //@SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping("/newUser")
     public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
         if(bindingResult.hasErrors())
@@ -79,7 +81,7 @@ public class AuthWebService {
         return new ResponseEntity(new Message("user saved"), HttpStatus.CREATED);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    //@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody UserLogin userLogin, BindingResult bindingResult){
         if(bindingResult.hasErrors())

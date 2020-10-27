@@ -43,8 +43,8 @@ public class Donation {
 		return this.id;
 	}
 
-	public String getNickNameUser() {
-		return this.donor.getNickName();
+	public String getUserName() {
+		return this.donor.getUserName();
 	}
 
 	public double getAmount() {

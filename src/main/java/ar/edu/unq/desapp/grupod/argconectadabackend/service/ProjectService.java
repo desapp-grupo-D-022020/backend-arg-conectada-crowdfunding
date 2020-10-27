@@ -44,7 +44,7 @@ public class ProjectService extends AbstractService<Project, Integer> {
 		
 		List<User> donors = projectToClose.getDonors();
 		for(User donor : donors) {
-			this.emailSender.closeProjectEmail(donor.getEmail(), donor.getNickName());
+			this.emailSender.closeProjectEmail(donor.getEmail(), donor.getUserName());
 		}
 	}
 	

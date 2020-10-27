@@ -12,7 +12,7 @@ VALUES
 (8, 'Colon', 1400, 'Entre Rios', 'not connected');
 
 
-INSERT INTO USER (ID, EMAIL, IMG, NAME, NICK_NAME, PWD, POINTS)
+INSERT INTO USER (ID, EMAIL, IMG, NAME, USER_NAME, PWD, POINTS)
 VALUES
 (1, 'admin@unq.edu.ar', null, 'Administrator', 'admin', '123456', 2000),
 (2, 'cristian@unq.edu.ar', null, 'Cristian A', 'crisaranguren', '123456', 1000),
@@ -23,7 +23,7 @@ VALUES
 (7, 'oscar@unq.edu.ar', null, 'Oscar C', 'osky', '123456', 500),
 (8, 'newuser@unq.edu.ar', null, 'Nuevo Usuario', 'newuser', '123456', 0);
 
-INSERT INTO USUARIO_ROL (USUARIO_ID, ROL_ID)
+INSERT INTO USER_ROL (USER_ID, ROL_ID)
 VALUES
 ('1', '1'),
 ('2', '2'), 

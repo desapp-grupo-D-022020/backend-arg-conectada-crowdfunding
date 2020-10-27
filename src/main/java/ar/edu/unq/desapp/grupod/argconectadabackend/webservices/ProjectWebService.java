@@ -51,13 +51,13 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	}
 	
 	@PutMapping(value="/closeProject/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public void closeProject(@PathVariable("id") int id) {
 		this.projectService.closeProject(id);
 	}
 	
 	@PostMapping(value="/createProject")
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public void createProject(@RequestBody ProjectDto projectDto) {
 		this.projectService.createProject(projectDto);
 	}

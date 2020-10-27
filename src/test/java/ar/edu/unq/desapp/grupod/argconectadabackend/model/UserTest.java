@@ -115,14 +115,14 @@ public class UserTest {
 	@Test
 	void testGetNickname() {
 		User anyDonor = DonorFactory.anyDonor();
-		assertEquals(anyDonor.getNickName(), "aNickname");
+		assertEquals(anyDonor.getUserName(), "aNickname");
 	}
 	
 	@Test
 	void testSetNickname() {
 		User anyDonor = DonorFactory.anyDonor();
-		anyDonor.setNickName("newNickname");
-		assertEquals(anyDonor.getNickName(), "newNickname");
+		anyDonor.setUserName("newNickname");
+		assertEquals(anyDonor.getUserName(), "newNickname");
 	}
 	
 	@Test

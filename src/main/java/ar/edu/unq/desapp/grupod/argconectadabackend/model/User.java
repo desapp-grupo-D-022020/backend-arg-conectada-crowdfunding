@@ -51,7 +51,7 @@ public class User {
 	private String email;
 	
     @ManyToMany
-    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    @JoinTable(name = "user_rol", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
     
 	@PositiveOrZero(message = "User points cannot be negative")
@@ -70,7 +70,7 @@ public class User {
     
     @NotBlank(message = "User nickname cannot be null and must have at least one character")
 	@Column(unique = true)
-	private String nickName;
+	private String userName;
 	
 	@Lob
 	@Column
@@ -78,12 +78,12 @@ public class User {
 		
 	public User() {}
 	
-	public User(@NotBlank String name, String password, String email, String nickName) {
+	public User(@NotBlank String name, String password, String email, String userName) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.points = 0.0;
-		this.nickName = nickName;
+		this.userName = userName;
 		this.rewardProgram = new RewardProgram();
 	}
 	
@@ -123,12 +123,12 @@ public class User {
 		this.points = points;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	public void setImg(String img) throws IOException {

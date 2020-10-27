@@ -13,7 +13,7 @@ public class NewUser {
     private String email;
 
     @NotBlank
-    private String nickName;
+    private String userName;
 
     @NotBlank
     private String password;
@@ -37,11 +37,11 @@ public class NewUser {
     }
 
     public String getUserName() {
-        return nickName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        this.nickName = userName;
+        this.userName = userName;
     }
 
     public String getPassword() {
