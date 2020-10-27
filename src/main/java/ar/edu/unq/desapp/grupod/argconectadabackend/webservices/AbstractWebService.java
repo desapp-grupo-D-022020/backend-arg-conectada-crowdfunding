@@ -21,7 +21,7 @@ public abstract class AbstractWebService<T> {
 	@Autowired
 	protected IService<T, Integer> service;
 	
-	@GetMapping(value= "/all")
+	@GetMapping(value="/all")
 	public List<T> getAll(){
 		return service.getAll();
 	}

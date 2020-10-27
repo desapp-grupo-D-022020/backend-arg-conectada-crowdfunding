@@ -45,7 +45,6 @@ public class Project {
 	@JoinColumn(name = "project_id")
 	private List<Donation> donations;
 	
-	
 	@Column
 	private Boolean isOpen;
 	
