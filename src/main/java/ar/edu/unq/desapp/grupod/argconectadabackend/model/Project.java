@@ -139,7 +139,14 @@ public class Project {
 	}
 
 	public Donation getLastDonation() {
-		return donations.get(donations.size() - 1);
+		if (donations.size()>1)
+		{
+			return donations.get(donations.size() - 1);
+		}
+		else {
+			return DonationFactory.emptyDonation();
+		}
+		
 	}
 
 	public LocalDateTime getLastDonationDate() {
