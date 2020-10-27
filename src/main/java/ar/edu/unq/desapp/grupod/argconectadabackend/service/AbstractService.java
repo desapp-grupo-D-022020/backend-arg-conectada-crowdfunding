@@ -14,6 +14,7 @@ public abstract class AbstractService<T, ID> implements IService<T, ID> {
 	public AbstractService(JpaRepository<T, ID> repo) {
 		this.repo = repo;
 	}
+	
 	@Transactional
 	@Override
 	public List<T> getAll() { return (List<T>) repo.findAll(); }

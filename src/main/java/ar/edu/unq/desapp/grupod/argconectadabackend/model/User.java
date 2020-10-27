@@ -2,7 +2,9 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -12,7 +14,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Transient;
 
@@ -24,14 +28,15 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	@Column(name = "name", length=50)
+	@Column(length=50)
 	private String name;
 	@Column(name = "pwd")
 	private String password;
-	@Column
+	@Column(unique = true)
 	private String email;
-	@Column
-	private String roll;
+    @ManyToMany
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> roles = new HashSet<>();
 	@Column
 	private Double points;
 	@Transient
@@ -42,7 +47,7 @@ public class User {
 	@MapKeyColumn(name = "project_name")
 	@Column
 	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
-	@Column
+	@Column(unique = true)
 	private String nickName;
 	@Lob
 	@Column
@@ -50,11 +55,10 @@ public class User {
 		
 	public User() {}
 	
-	public User(String name, String password, String email, String roll, String nickName) {
+	public User(String name, String password, String email, String nickName) {
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.roll = roll; 
 		this.points = 0.0;
 		this.nickName = nickName;
 		this.rewardProgram = new RewardProgram();
@@ -131,4 +135,12 @@ public class User {
 	public void setRewardProgram(RewardProgram rewardProgram) {
 		this.rewardProgram = rewardProgram;
 	}
+	
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
+    }
 }
