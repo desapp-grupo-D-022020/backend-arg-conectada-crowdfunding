@@ -21,25 +21,35 @@ public class Project {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	@Column
 	private String name;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "place_id")
 	private Place place;
+	
 	@Column
 	private double factor;
+	
 	@Column
 	private double percentageForClose;
+	
 	@Column
 	private LocalDateTime startDate;
+	
 	@Column
 	private LocalDateTime endDate;
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH })
 	@JoinColumn(name = "project_id")
 	private List<Donation> donations;
+	
+	
 	@Column
 	private Boolean isOpen;
+	
+	public Project() {}
 
 	public Project(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {
 		this.place = place;

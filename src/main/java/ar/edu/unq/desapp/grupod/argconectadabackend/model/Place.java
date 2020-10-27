@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Place {
@@ -12,12 +13,19 @@ public class Place {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	@NotBlank(message = "Place name cannot be null and must have at least one character")
 	@Column
 	private String name;
+	
+	@NotBlank(message = "Place province cannot be null and must have at least one character")
 	@Column
 	private String province;
+	
 	@Column
 	private int population;
+	
+	@NotBlank(message = "Place status cannot be null and must have at least one character")
 	@Column
 	private String status;
 	
