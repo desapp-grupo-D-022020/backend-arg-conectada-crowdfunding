@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 public class Donation {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@OneToOne(cascade=CascadeType.ALL) 	
 	@JoinColumn(name="donor_id")

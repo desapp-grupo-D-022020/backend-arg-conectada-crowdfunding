@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 public class Place {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@NotBlank(message = "Place name cannot be null and must have at least one character")
