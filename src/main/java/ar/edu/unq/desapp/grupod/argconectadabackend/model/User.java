@@ -42,10 +42,10 @@ public class User {
 	@Transient
 	private RewardProgram rewardProgram;
     @ElementCollection
-    @CollectionTable(name = "donor_point_mapping", 
-    				 joinColumns = {@JoinColumn(name = "donor_id", referencedColumnName = "id")})
-	@MapKeyColumn(name = "project_name")
-	@Column
+    @CollectionTable(name = "user_points_mapping", 
+      joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "project_name")
+    @Column(name = "points")
 	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
 	@Column(unique = true)
 	private String nickName;

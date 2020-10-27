@@ -57,17 +57,26 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
 
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.authorizeRequests().antMatchers("/").permitAll().and().authorizeRequests().antMatchers("/h2-console/**").permitAll();
+        
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
+    
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.cors().and().csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/api/auth/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//    }
     
 }

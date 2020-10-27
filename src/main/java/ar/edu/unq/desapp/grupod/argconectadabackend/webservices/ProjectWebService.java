@@ -47,7 +47,7 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	
 	@GetMapping(value="/getOpenProjects")
 	public List<Project> getOpenProjects() {
-		return this.getOpenProjects();
+		return this.projectService.getOpenProjects();
 	}
 	
 	@PutMapping(value="/closeProject/{id}")

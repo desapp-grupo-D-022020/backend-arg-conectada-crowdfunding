@@ -40,6 +40,8 @@ public class Project {
 	private List<Donation> donations;
 	@Column
 	private Boolean isOpen;
+	
+	public Project() {}
 
 	public Project(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate) {
 		this.place = place;

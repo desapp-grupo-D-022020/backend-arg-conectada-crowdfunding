@@ -1,3 +1,5 @@
+INSERT INTO `rol` (`id`, `rol_name`) VALUES ('1', 'ROLE_ADMIN'), ('2', 'ROLE_USER');
+
 INSERT INTO PLACE (ID, NAME, POPULATION, PROVINCE, STATUS)
 VALUES
 (1, 'Quilmes', 262379, 'Buenos Aires', 'connected'),
@@ -10,16 +12,27 @@ VALUES
 (8, 'Colon', 1400, 'Entre Rios', 'not connected');
 
 
-INSERT INTO USER (ID, EMAIL, IMG, NAME, NICK_NAME, PWD, POINTS, ROLL)
+INSERT INTO USER (ID, EMAIL, IMG, NAME, NICK_NAME, PWD, POINTS)
 VALUES
-(1, 'admin@unq.edu.ar', null, 'Administrator', 'admin', '123456', 2000, 'ADMIN'),
-(2, 'cristian@unq.edu.ar', null, 'Cristian A', 'crisaranguren', '123456', 1000, 'USER'),
-(3, 'juan@unq.edu.ar', null, 'Juan H', 'juanh', '123456', 1000, 'USER'),
-(4, 'lucho@unq.edu.ar', null, 'Luis C', 'luchist', '123456', 1000, 'USER'),
-(5, 'claudia@unq.edu.ar', null, 'Claudia N', 'claus', '123456', 500, 'USER'),
-(6, 'morena@unq.edu.ar', null, 'Morena E', 'morexp', '123456', 3000, 'USER'),
-(7, 'oscar@unq.edu.ar', null, 'Oscar C', 'osky', '123456', 500, 'USER'),
-(8, 'newuser@unq.edu.ar', null, 'Nuevo Usuario', 'newuser', '123456', 0, 'USER');
+(1, 'admin@unq.edu.ar', null, 'Administrator', 'admin', '123456', 2000),
+(2, 'cristian@unq.edu.ar', null, 'Cristian A', 'crisaranguren', '123456', 1000),
+(3, 'juan@unq.edu.ar', null, 'Juan H', 'juanh', '123456', 1000),
+(4, 'lucho@unq.edu.ar', null, 'Luis C', 'luchist', '123456', 1000),
+(5, 'claudia@unq.edu.ar', null, 'Claudia N', 'claus', '123456', 500),
+(6, 'morena@unq.edu.ar', null, 'Morena E', 'morexp', '123456', 3000),
+(7, 'oscar@unq.edu.ar', null, 'Oscar C', 'osky', '123456', 500),
+(8, 'newuser@unq.edu.ar', null, 'Nuevo Usuario', 'newuser', '123456', 0);
+
+INSERT INTO USUARIO_ROL (USUARIO_ID, ROL_ID)
+VALUES
+('1', '1'),
+('2', '2'), 
+('3', '2'),
+('4', '2'), 
+('5', '2'), 
+('6', '2'), 
+('7', '2'), 
+('8', '2'); 
 
 
 INSERT INTO PROJECT (ID, END_DATE, FACTOR, IS_OPEN, NAME, PERCENTAGE_FOR_CLOSE, START_DATE, PLACE_ID)
@@ -48,16 +61,15 @@ VALUES
  (10, 500, 'decima donacion', {ts '2020-10-20 21:27:50.41'} , 2, 2);
  
  
- INSERT INTO DONOR_POINT_MAPPING (DONOR_ID, POINTS_REGISTRY, PROJECT_NAME)
+ INSERT INTO USER_POINTS_MAPPING(USER_ID, POINTS, PROJECT_NAME)
  VALUES
  (1, 2000,'Proyecto Quilmes'),
- (2, 500,'Proyecto Quilmes');
- //(2, 500,'Proyecto Quilmes'),
- //(3, 500,'Proyecto Berazategui'),
- //(4, 500,'Proyecto Berazategui'),
- //(5, 500,'Proyecto Quilmes'),
- //(6, 1000,'Proyecto Berazategui'),
- //(7, 500,'Proyecto La Plata'),
- //(5, 500,'Proyecto La Plata'),
- //(2, 500,'Proyecto La Plata');
+ (2, 500,'Proyecto Quilmes'),
+ (3, 500,'Proyecto Berazategui'),
+ (4, 500,'Proyecto Berazategui'),
+ (5, 500,'Proyecto Quilmes'),
+ (6, 1000,'Proyecto Berazategui'),
+ (7, 500,'Proyecto La Plata'),
+ (5, 500,'Proyecto La Plata'),
+ (2, 500,'Proyecto La Plata');
  
