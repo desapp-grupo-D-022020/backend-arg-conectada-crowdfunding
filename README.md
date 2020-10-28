@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding.svg?branch=master)](https://travis-ci.org/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding)
-[![codecov](https://codecov.io/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding/branch/develop/graph/badge.svg?token=E4IVWF9NQ2)](undefined)
+[![codecov](https://codecov.io/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding/branch/develop/graph/badge.svg?token=E4IVWF9NQ2)](https://codecov.io/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding)
 [![Codacy Test Coverage Badge](https://app.codacy.com/project/badge/Coverage/4ebb14ac9e374dc8b4f99ec6b0caa686)](https://www.codacy.com/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding/dashboard)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ebb14ac9e374dc8b4f99ec6b0caa686)](https://www.codacy.com/gh/desapp-grupo-D-022020/backend-arg-conectada-crowdfunding)
 
