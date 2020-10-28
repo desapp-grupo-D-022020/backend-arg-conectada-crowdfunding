@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-public class DonorFactory {
+public class UserFactory {
 
 	public static User anyDonor() {
 		User anyDonor = new User("aName","aPassword","anEmail", "aNickname");
