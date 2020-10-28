@@ -1,6 +1,9 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,53 +14,45 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ProjectTest {
 	
 	private Project project;
 	private String projectName;
-	private Donor donor;
+	private User donor;
 	private Place place;
 	private Place anotherPlace;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	private PointsManager pointsManager;
+	private DateTimeFormatter formatter;
 	
-	@BeforeEach
-	void setUp() {
-		projectName = "testProject";
-		donor = mock(Donor.class);
-		when(donor.getNickName()).thenReturn("aNickName");
-		place = mock(Place.class);
-		anotherPlace = mock(Place.class);
-		when(place.getPopulation()).thenReturn(5_000);
-		
-		startDate = LocalDateTime.now();
-		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
-		project = new Project(place, projectName, startDate, endDate);
-		
-		pointsManager = mock(PointsManager.class);
-	}
-	
-	@AfterEach
-    void tearDown() {
-        project = null;
-    }
-	
-
 	@Test
 	void testGetName() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(projectName, project.getName());
 	}
 
 	@Test
 	void testSetName() {
-		String anotherProjectName = "Another project name";
+		
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
 
+		String anotherProjectName = "Another project name";
+		
 		assertNotEquals(anotherProjectName, project.getName());
 		project.setName(anotherProjectName);
 		assertEquals(anotherProjectName, project.getName());
@@ -65,11 +60,30 @@ class ProjectTest {
 	
 	@Test
 	void testGetPlace() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(project.getPlace(), place);
 	}
 
 	@Test
 	void testSetPlace() {
+		
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
+		anotherPlace = mock(Place.class);
+		
 		assertNotEquals(anotherPlace, project.getPlace());
 		project.setPlace(anotherPlace);
 		assertEquals(anotherPlace, project.getPlace());
@@ -77,11 +91,28 @@ class ProjectTest {
 	
 	@Test
 	void testGetDefaultFactor() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(1_000, project.getFactor());
 	}
 
 	@Test
 	void testSetFactor() {
+		
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		double anotherProjectFactor = 500.0;
 
 		assertNotEquals(anotherProjectFactor, project.getFactor());
@@ -91,11 +122,27 @@ class ProjectTest {
 
 	@Test
 	void testGetPercentageForClose() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(100.0, project.getPercentageForClose());
 	}
 
 	@Test
 	void testSetPercentageForClose() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		double anotherProjectPercentageForClose= 80.0;
 
 		assertNotEquals(anotherProjectPercentageForClose, project.getPercentageForClose());
@@ -105,13 +152,28 @@ class ProjectTest {
 
 	@Test
 	void testGetStartDate() {
-		//FIXME: este test puede fallar si se demora en llegar desde el @Before
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(startDate, project.getStartDate());
 	}
 
 	@Test
 	void testSetStartDate() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
 		LocalDateTime anotherStartDate = LocalDateTime.parse("2020-09-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
 		
 		assertNotEquals(anotherStartDate, project.getStartDate());
 		project.setStartDate(anotherStartDate);
@@ -120,25 +182,94 @@ class ProjectTest {
 
 	@Test
 	void testGetEndDate() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(endDate, project.getEndDate());
 	}
 
 	@Test
 	void testSetEndDate() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		LocalDateTime anotherEndDate = LocalDateTime.parse("2021-12-25 00:00", formatter);
 		
 		assertNotEquals(anotherEndDate, project.getEndDate());
 		project.setEndDate(anotherEndDate);
 		assertEquals(anotherEndDate, project.getEndDate());
 	}
+	
+	@Test
+	void testGetDonorsReturnsZeroIfEmpty() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
+		assertEquals(0, project.getDonors().size());
+	}
+	
+	@Test
+	void testGetDonorsReturnListOfDonorsCorrectly() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
+		List<Donation> donations = new ArrayList<Donation>();
+		Donation testDonation1 = mock(Donation.class);
+		Donation testDonation2 = mock(Donation.class);
+		
+		donations.add(testDonation1);
+		donations.add(testDonation2);
+		project.setDonations(donations);
+		
+		
+		int numberOfDonors = project.getDonors().size();
+		assertEquals(2, numberOfDonors);
+		
+	}
 
 	@Test
 	void testGetDonations() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(0, project.getDonations().size());
 	}
 
 	@Test
 	void testSetDonations() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		List<Donation> donations = new ArrayList<Donation>();
 		Donation testDonation1 = mock(Donation.class);
 		Donation testDonation2 = mock(Donation.class);
@@ -152,44 +283,61 @@ class ProjectTest {
 
 	@Test
 	void testGetCost() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		when(place.getPopulation()).thenReturn(5_000);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertEquals(5_000_000, project.getCost());
 	}
 	
 	@Test
 	void testGetPlacePopulation() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
+		when(place.getPopulation()).thenReturn(5_000);
+		
 		verify(place, times(0)).getPopulation();
 		project.getPlacePopulation();
 		verify(place, times(1)).getPopulation();
 	}
 	
-	/*
-	 * private method
-	@Test
-	void testAssignPointsToUser() {
-		double amount = 10.0;
-		project.setPointsManager(pointsManager);
-		verify(pointsManager, times(0)).assignPoints(donor, project, amount);
-		project.assignPointsToUser(donor, project, amount);
-		verify(pointsManager, times(1)).assignPoints(donor, project, amount);
-	}
-	*/
-	
 	@Test
 	void testReceiveDonation() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2099-08-23 00:00", formatter);
+		project = new Project(place, projectName, startDate, endDate);
 		double amount = 15.0;
 		String commentary = "No Comments";
-		project.setPointsManager(pointsManager);
 
-		verify(pointsManager, times(0)).assignPoints(donor, project, amount);
 		project.receiveDonation(donor, amount, commentary);
-		verify(pointsManager, times(1)).assignPoints(donor, project, amount);
-		assertEquals(1, project.getDonors().size());
-		assertEquals(donor, project.getDonors().get(0));
+		
 		assertEquals(1, project.getDonations().size());
 	}
 
 	@Test
 	void testGetLastDonation() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		List<Donation> donations = new ArrayList<Donation>();
 		Donation testDonation1 = mock(Donation.class);
 		Donation testDonation2 = mock(Donation.class);
@@ -203,7 +351,15 @@ class ProjectTest {
 	}
 	
 	@Test
-	void testGetLastDoinationDate() {
+	void testGetLastDonationDate() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		List<Donation> donations = new ArrayList<Donation>();
 		Donation testDonation1 = mock(Donation.class);
 		Donation testDonation2 = mock(Donation.class);
@@ -219,16 +375,43 @@ class ProjectTest {
 		
 	}
 
-	//TODO: testear algo que devuelve un bool?
-	@Test
-	void testIsOpen() {
-	}
-
 	@Test
 	void testCloseProject() {
+		place = mock(Place.class);
+		projectName = "testProject";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2021-08-23 00:00", formatter);
+		
+		project = new Project(place, projectName, startDate, endDate);
+		
 		assertTrue(project.isOpen());
 		project.closeProject();
 		assertFalse(project.isOpen());
+	}
+	
+	@Test
+	void testHasDonationOnCurrentMonth() {
+		place = mock(Place.class);
+		projectName = "testProjectWithDonationsOnCurrentMonth";
+		startDate = LocalDateTime.now();
+		formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		endDate = LocalDateTime.parse("2099-08-23 00:00", formatter);
+		
+		LocalDateTime donationDate = LocalDateTime.now();
+		
+		Donation testDonation = mock(Donation.class);
+		when(testDonation.getDate()).thenReturn(donationDate);
+		List<Donation> donations = new ArrayList<Donation>();
+		when(testDonation.isWithinCalendarMonth()).thenReturn(true);
+		donations.add(testDonation);
+
+		
+		
+		project = new Project(place, projectName, startDate, endDate);
+		project.setDonations(donations);
+		
+		assertTrue(project.hasDonationsOnCurrentMonth());
 	}
 
 }

@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class PlaceTest {
 	
@@ -13,7 +13,6 @@ public class PlaceTest {
     private String placeName = "Quilmes";
     private String provinceName = "Buenos Aires";
     private Integer population = 580_829;
-    //TODO: aca me parece va un double con el % de conexion o bool
     private String status = "Disconnected";
     private String connectedStatus = "Connected";
 	

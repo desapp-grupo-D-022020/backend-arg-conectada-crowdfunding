@@ -47,7 +47,7 @@ public class DonationTest {
 	@Test
 	void testGetNicknameUser() {
 		Donation anyDonation = DonationFactory.anyDonation();
-		String actualNickname = anyDonation.getNickNameUser();
+		String actualNickname = anyDonation.getUserName();
 		assertEquals("aNickname", actualNickname);
 	}
 	

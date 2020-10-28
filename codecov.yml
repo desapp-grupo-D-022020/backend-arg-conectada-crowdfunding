@@ -1,0 +1,5 @@
+ignore:
+  - src/test
+  - src/main/java/ar/edu/unq/desapp/grupod/argconectadabackend/application
+  - src/main/java/ar/edu/unq/desapp/grupod/argconectadabackend/service
+  - src/main/java/ar/edu/unq/desapp/grupod/argconectadabackend/webservices

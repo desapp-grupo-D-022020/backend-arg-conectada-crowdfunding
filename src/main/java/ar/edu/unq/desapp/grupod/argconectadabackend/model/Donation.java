@@ -5,32 +5,53 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Donation {
 
-	private Donor donor;
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
+	@OneToOne(cascade=CascadeType.ALL) 	
+	@JoinColumn(name="donor_id")
+	private User donor;
+	@Column
 	private double amount;
-	
+	@Column
 	private LocalDateTime date;
-	
+	@Column
 	private String commentary;
 	
-	public Donation(Donor donor, double amount, LocalDateTime date, String commentary) {
+	public Donation() {}
+	
+	public Donation(User donor, double amount, LocalDateTime date, String commentary) {
 		this.donor = donor;
 		this.amount = amount;
 		this.date = date;
 		this.commentary = commentary;
 	}
+	
+	public int getId() {
+		return this.id;
+	}
 
-	public String getNickNameUser() {
-		return this.donor.getNickName();
+	public String getUserName() {
+		return this.donor.getUserName();
 	}
 
 	public double getAmount() {
 		return amount;
 	}
 	
-	public Donor getDonor() {
+	public User getDonor() {
 		return this.donor;
 	}
 
