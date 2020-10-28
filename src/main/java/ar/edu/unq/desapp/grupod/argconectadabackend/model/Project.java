@@ -139,7 +139,7 @@ public class Project {
 	}
 
 	public Donation getLastDonation() {
-		if (donations.size()>1)
+		if (donations.size()>=1)
 		{
 			return donations.get(donations.size() - 1);
 		}

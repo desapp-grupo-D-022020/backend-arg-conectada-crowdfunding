@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
-	implementation 'javax.validation:validation-api:2.0.0'
+	implementation 'javax.validation:validation-api'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testCompile 'junit:junit:4.12'
@@ -32,7 +32,7 @@ dependencies {
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 	compile "org.springframework.boot:spring-boot-starter-security"
 	compile 'org.springframework.boot:spring-boot-starter-web'
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+	//testCompile 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

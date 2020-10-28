@@ -40,7 +40,7 @@ public class User {
 	private String name;
 	
 	@NotBlank(message = "User password cannot be null and must have at least one character")
-	//@Size(min = 8, max = 50, message = "User password must be between 8 and 50 characters")
+	@Size(min = 8, max = 50, message = "User password must be between 8 and 50 characters")
 	@Column(name = "pwd")
 	private String password;
 	@NotNull(message = "User email cannot be null")
