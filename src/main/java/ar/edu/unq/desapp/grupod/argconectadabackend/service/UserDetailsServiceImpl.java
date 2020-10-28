@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = userService.getByUserName(userName).get();
-        return MainUser.build(user);
+    	Optional<User> userFetched = userService.getByUserName(userName);
+        User user = userFetched.get();
+        MainUser mainUser = MainUser.build(user);
+        return mainUser;
     }
 }

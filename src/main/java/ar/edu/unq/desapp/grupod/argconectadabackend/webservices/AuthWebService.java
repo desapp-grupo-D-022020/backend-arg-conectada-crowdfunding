@@ -84,11 +84,19 @@ public class AuthWebService {
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody UserLogin userLogin, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+        
+    	if(bindingResult.hasErrors()) {
             return new ResponseEntity(new Message("empty fields or invalid email"), HttpStatus.BAD_REQUEST);
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userLogin.getUserName(), userLogin.getPassword())
-        );
+        }
+        
+        Authentication authentication;
+        UsernamePasswordAuthenticationToken userPassAuthToken;
+        userPassAuthToken = new UsernamePasswordAuthenticationToken(
+        						userLogin.getUserName(), userLogin.getPassword(), null
+        					);
+        
+        authentication = authenticationManager.authenticate(userPassAuthToken);
+        
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();

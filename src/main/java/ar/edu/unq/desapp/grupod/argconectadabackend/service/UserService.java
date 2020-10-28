@@ -19,9 +19,9 @@ public class UserService extends AbstractService<User, Integer> {
 	}
 	
     public Optional<User> getByUserName(String nu){
-        return repo.findByName(nu);
+        return repo.findByUserName(nu);
     }
-
+    
     public boolean existByName(String nu){
         return repo.existsByName(nu);
     }
