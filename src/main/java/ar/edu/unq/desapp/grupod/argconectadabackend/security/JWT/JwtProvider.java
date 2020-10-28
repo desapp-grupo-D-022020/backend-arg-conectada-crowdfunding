@@ -1,6 +1,5 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.security.JWT;
 
-import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +7,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.security.MainUser;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 import java.util.Date;
 
@@ -46,7 +51,7 @@ public class JwtProvider {
         } catch (ExpiredJwtException e) {
             logger.error("token expirado " +e.getMessage());
         } catch (IllegalArgumentException e) {
-            logger.error("token vacío " +e.getMessage());
+            logger.error("token vacio " +e.getMessage());
         } catch (SignatureException e) {
             logger.error("error en la firma " +e.getMessage());
         }
