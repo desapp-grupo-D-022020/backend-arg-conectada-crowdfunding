@@ -85,15 +85,15 @@ public class DonationTest {
 	@Test
 	void testGetCommentary() {
 		Donation anyDonation = DonationFactory.anyDonation();
-		String actualCommentary = anyDonation.getCommentary();
+		String actualCommentary = anyDonation.getComment();
 		assertEquals("aCommentary", actualCommentary);
 	}
 	
 	@Test
 	void testSetCommentary() {
 		Donation anyDonation = DonationFactory.anyDonation();
-		anyDonation.setCommentary("anotherCommentary");
-		String actualCommentary = anyDonation.getCommentary();
+		anyDonation.setComment("anotherCommentary");
+		String actualCommentary = anyDonation.getComment();
 		assertEquals("anotherCommentary", actualCommentary);
 	}	
 }

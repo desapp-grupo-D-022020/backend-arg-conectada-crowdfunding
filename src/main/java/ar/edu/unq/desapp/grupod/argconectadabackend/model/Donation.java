@@ -28,15 +28,15 @@ public class Donation {
 	@Column
 	private LocalDateTime date;
 	@Column
-	private String commentary;
+	private String comment;
 	
 	public Donation() {}
 	
-	public Donation(User donor, double amount, LocalDateTime date, String commentary) {
+	public Donation(User donor, double amount, LocalDateTime date, String comment) {
 		this.donor = donor;
 		this.amount = amount;
 		this.date = date;
-		this.commentary = commentary;
+		this.comment = comment;
 	}
 	
 	public int getId() {
@@ -67,12 +67,12 @@ public class Donation {
 		this.date = date;
 	}
 
-	public String getCommentary() {
-		return commentary;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setCommentary(String commentary) {
-		this.commentary = commentary;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	public Boolean isWithinCalendarMonth() {

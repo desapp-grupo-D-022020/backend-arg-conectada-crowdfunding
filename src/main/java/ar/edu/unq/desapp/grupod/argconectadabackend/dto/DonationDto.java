@@ -1,46 +1,44 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.dto;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
-
 public class DonationDto {
 	
-	private int ProjectId;
+	private String projectId;
 	
-	private User user;
+	private String userId;
 	
-	private double amount;
+	private String amount;
 	
-	private String commentary;
+	private String comment;
 
-	public int getProjectId() {
-		return ProjectId;
+	public String getProjectId() {
+		return projectId;
 	}
 
-	public void setProjectId(int projectId) {
-		ProjectId = projectId;
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public double getAmount() {
+	public String getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 
-	public String getCommentary() {
-		return commentary;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setCommentary(String commentary) {
-		this.commentary = commentary;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

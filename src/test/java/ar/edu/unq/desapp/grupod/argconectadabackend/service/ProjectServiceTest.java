@@ -132,9 +132,9 @@ public class ProjectServiceTest {
 		
 		User anyUser = mock(User.class);
 		DonationDto donationDto = new DonationDto();
-		donationDto.setUser(anyUser);
-		donationDto.setAmount(1_000);
-		donationDto.setCommentary("aCommentary");
+		donationDto.setUserId(String.valueOf(anyUser.getId()));
+		donationDto.setAmount("1000");
+		donationDto.setComment("aCommentary");
 		
 		PointsManagerService pointsManager = mock(PointsManagerService.class);
 		FieldSetter.setField(projectService, projectService.getClass().getDeclaredField("pointsManager"), pointsManager);	

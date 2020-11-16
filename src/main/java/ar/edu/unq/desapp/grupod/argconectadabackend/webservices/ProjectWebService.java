@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDto;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoProjectDto;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDto;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
@@ -45,7 +47,7 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	}
 	
 	@GetMapping(value="/getOpenProjects")
-	public List<Project> getOpenProjects() {
+	public List<InfoProjectDto> getOpenProjects() {
 		return this.projectService.getOpenProjects();
 	}
 	
@@ -62,7 +64,7 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	}
 	
 	@PutMapping(value="/donate")
-	public void donate(@RequestBody DonationDto donationDto) {
+	public void donate(@ModelAttribute DonationDto donationDto) {
 		this.projectService.donate(donationDto);
 	}
 }

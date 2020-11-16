@@ -133,9 +133,9 @@ public class Project {
 		return this.place.getPopulation();
 	}
 
-	public void receiveDonation(User user, double amount, String commentary) {
+	public void receiveDonation(User user, double amount, String comment) {
 		LocalDateTime date = LocalDateTime.now();
-		this.donations.add(new Donation(user, amount, date, commentary));
+		this.donations.add(new Donation(user, amount, date, comment));
 	}
 
 	public Donation getLastDonation() {
@@ -164,5 +164,21 @@ public class Project {
 	public boolean hasDonationsOnCurrentMonth() {
 		Donation lastDonation = this.getLastDonation();
 		return lastDonation.isWithinCalendarMonth();
+	}
+	
+	public double totalRaised() {
+		return this.getDonations().stream().mapToDouble(donation -> donation.getAmount()).sum();
+	}
+	
+	public double percentageCollected() {
+		return (this.totalRaised() * 100) / this.getCost();
+	}
+	
+	public double missingPercentage() {
+		if(this.percentageCollected() < this.getPercentageForClose()) {
+			return Math.floor(this.getPercentageForClose() - this.percentageCollected());
+		}else {
+			return 0.0;
+		}
 	}
 }

@@ -18,12 +18,12 @@ public class UserService extends AbstractService<User, Integer> {
 		super(repo);
 	}
 	
-    public Optional<User> getByUserName(String nu){
-        return repo.findByUserName(nu);
+    public Optional<User> getByUserName(String userName){
+        return repo.findByUserName(userName);
     }
     
-    public boolean existByName(String nu){
-        return repo.existsByName(nu);
+    public boolean existByName(String name){
+        return repo.existsByName(name);
     }
 
     public  boolean existByEmail(String email){

@@ -81,7 +81,7 @@ public class AuthWebService {
         return new ResponseEntity(new Message("user saved"), HttpStatus.CREATED);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody UserLogin userLogin, BindingResult bindingResult){
         

@@ -37,17 +37,17 @@ VALUES
 
 INSERT INTO PROJECT (ID, END_DATE, FACTOR, IS_OPEN, NAME, PERCENTAGE_FOR_CLOSE, START_DATE, PLACE_ID)
 VALUES
-(1, {ts '2020-10-20 18:47:52.69'}, 1000, FALSE, 'Proyecto Quilmes', 100, {ts '2020-03-01 00:00:00.33'}, 1),
-(2, {ts '2022-10-20 18:47:52.69'}, 2000, TRUE, 'Proyecto La Plata', 100, {ts '2020-03-12 00:00:00.23'}, 2),
-(3, {ts '2021-10-20 20:47:52.69'}, 2500, TRUE, 'Proyecto Berazategui', 85, {ts '2020-04-23 00:00:00.42'}, 3),
-(4, {ts '2022-10-20 18:47:52.69'}, 2600, TRUE, 'Proyecto Rosario', 95, {ts '2020-03-10 00:00:00.60'}, 4),
-(5, {ts '2020-10-22 12:47:52.69'}, 2000, FALSE, 'Proyecto Villa La Angostura', 100, {ts '2020-02-01 00:00:00.30'}, 5),
-(6, {ts '2022-10-20 18:47:52.69'}, 4500, TRUE, 'Proyecto Almafuerte', 85, {ts '2020-09-01 00:00:00.40'}, 6),
-(7, {ts '2021-10-20 14:47:52.69'}, 6000, TRUE, 'Proyecto Rawson', 90, {ts '2020-09-01 00:00:00.59'}, 7),
-(8, {ts '2021-10-20 08:47:52.69'}, 5000, TRUE, 'Proyecto Colon', 100, {ts '2020-07-01 00:00:00.25'}, 8);
+(1, {ts '2020-12-20 18:47:52.69'}, 1000, FALSE, 'Proyecto Quilmes', 100, {ts '2020-03-01 00:00:00.33'}, 1),
+(2, {ts '2022-12-20 18:47:52.69'}, 2000, TRUE, 'Proyecto La Plata', 100, {ts '2020-03-12 00:00:00.23'}, 2),
+(3, {ts '2021-12-20 20:47:52.69'}, 2500, TRUE, 'Proyecto Berazategui', 85, {ts '2020-04-23 00:00:00.42'}, 3),
+(4, {ts '2022-12-20 18:47:52.69'}, 2600, TRUE, 'Proyecto Rosario', 95, {ts '2020-03-10 00:00:00.60'}, 4),
+(5, {ts '2020-12-22 12:47:52.69'}, 2000, FALSE, 'Proyecto Villa La Angostura', 100, {ts '2020-02-01 00:00:00.30'}, 5),
+(6, {ts '2022-12-20 18:47:52.69'}, 4500, TRUE, 'Proyecto Almafuerte', 85, {ts '2020-09-01 00:00:00.40'}, 6),
+(7, {ts '2021-12-20 14:47:52.69'}, 6000, TRUE, 'Proyecto Rawson', 90, {ts '2020-09-01 00:00:00.59'}, 7),
+(8, {ts '2021-12-20 08:47:52.69'}, 5000, TRUE, 'Proyecto Colon', 100, {ts '2020-07-01 00:00:00.25'}, 8);
  
  
- INSERT INTO DONATION (ID, AMOUNT, COMMENTARY, DATE, DONOR_ID, PROJECT_ID)
+ INSERT INTO DONATION (ID, AMOUNT, COMMENT, DATE, DONOR_ID, PROJECT_ID)
  VALUES
  (1, 2000, 'primera donacion', {ts '2020-08-22 18:47:52.20'} , 1, 1),
  (2, 500, 'segunda donacion', {ts '2020-08-24 12:23:52.21'} , 2, 1),

@@ -9,11 +9,11 @@ public class NewUser {
     private String name;
 
     @NotBlank
+    private String userName;
+    
+    @NotBlank
     @Email
     private String email;
-
-    @NotBlank
-    private String userName;
 
     @NotBlank
     private String password;
