@@ -1,22 +1,40 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.dto;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
 
 public class JwtDto  {
     private String token;
     private String bearer = "Bearer";
     private String userName;
+    private UserDto user;
     private Collection<? extends GrantedAuthority> authorities;
    
-    public JwtDto(String token, String userName, Collection<? extends GrantedAuthority> authorities) {
+    public JwtDto(String token, String userName, UserDto user, Collection<? extends GrantedAuthority> authorities) {
         this.token = token;
         this.userName = userName;
+        this.user = user;
         this.authorities = authorities;
     }
 
-    public String getToken() {
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public UserDto getUser() {
+		return user;
+	}
+
+	public void setUser(UserDto user) {
+		this.user = user;
+	}
+
+	public String getToken() {
         return token;
     }
 
@@ -30,14 +48,6 @@ public class JwtDto  {
 
     public void setBearer(String bearer) {
         this.bearer = bearer;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

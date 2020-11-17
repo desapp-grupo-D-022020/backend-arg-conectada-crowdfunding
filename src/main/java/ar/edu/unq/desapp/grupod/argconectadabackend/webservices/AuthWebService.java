@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.JwtDto;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.Message;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.NewUser;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.UserDto;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.UserLogin;
 import ar.edu.unq.desapp.grupod.argconectadabackend.enums.RolName;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Rol;
@@ -28,6 +29,8 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.service.RolService;
 import ar.edu.unq.desapp.grupod.argconectadabackend.service.UserService;
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +56,7 @@ public class AuthWebService {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
 	@PostMapping("/newUser")
-    public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult){
+    public ResponseEntity<?> newUser(@Valid @RequestBody NewUser newUser, BindingResult bindingResult) throws IOException{
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("empty fields or invalid email"), HttpStatus.BAD_REQUEST);
         if(userService.existByName(newUser.getUserName()))
@@ -100,7 +103,10 @@ public class AuthWebService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+        User user = this.userService.getByUserName(userDetails.getUsername()).get();
+        UserDto userDto = new UserDto(user.getId(), user.getName(), user.getUserName(), user.getEmail(),
+        							  user.getPoints(), user.getImg());
+        JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDto, userDetails.getAuthorities());
         return new ResponseEntity<JwtDto>(jwtDto, HttpStatus.OK);
     }
 }
