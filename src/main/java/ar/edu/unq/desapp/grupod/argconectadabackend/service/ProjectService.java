@@ -69,13 +69,24 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	}
 	
 	@Transactional
-	public List<Project> getNearlyClosedProjects() {
+	public List<InfoProjectDTO> getNearlyClosedProjects() {
 		int currentMonth = LocalDateTime.now().getMonthValue();
 		int currentYear= LocalDateTime.now().getYear();
+		int currentDay= LocalDateTime.now().getDayOfMonth();
 		
 		Predicate<Project> eqMonthCondition = project -> project.getEndDate().getMonthValue() == currentMonth;
 		Predicate<Project> eqYearCondition = project -> project.getEndDate().getYear() == currentYear;
-		return this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition)).collect(Collectors.toList());
+		Predicate<Project> eqDayCondition = project -> project.getEndDate().getDayOfMonth() >= currentDay;
+		
+		System.out.println(this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition))
+				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
+						project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
+.collect(Collectors.toList()).get(0).getPlaceName());
+		
+		return this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition))
+				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
+												project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
+				.collect(Collectors.toList());
 	}
 	
 	@Transactional

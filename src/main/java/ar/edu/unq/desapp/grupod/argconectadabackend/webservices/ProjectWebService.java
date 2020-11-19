@@ -42,7 +42,7 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	}
 	
 	@GetMapping(value="/getNearlyClosedProjects")
-	public List<Project> getNearlyClosedProjects() {
+	public List<InfoProjectDTO> getNearlyClosedProjects() {
 		return this.projectService.getNearlyClosedProjects();
 	}
 	
