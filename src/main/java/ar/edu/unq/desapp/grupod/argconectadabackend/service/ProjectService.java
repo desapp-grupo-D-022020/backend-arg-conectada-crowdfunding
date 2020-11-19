@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDto;
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoProjectDto;
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDto;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDTO;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoProjectDTO;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
@@ -39,7 +39,7 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	}
 	
 	@Transactional
-	public void createProject(ProjectDto projectDto) {
+	public void createProject(ProjectDTO projectDto) {
 		this.save(new Project(projectDto.getPlace(), projectDto.getNameOfProject(), projectDto.getStartDate(), projectDto.getEndDate()));
 	}
 	
@@ -56,14 +56,14 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	}
 	
 	@Transactional
-	public List<InfoProjectDto> getOpenProjects() {
+	public List<InfoProjectDTO> getOpenProjects() {
 		int currentMonth = LocalDateTime.now().getMonthValue();
 		int currentYear= LocalDateTime.now().getYear();
 		
 		Predicate<Project> isOpen = project -> project.isOpen();
 		Predicate<Project> eqMonthDiffYearCondition = project -> project.getEndDate().getMonthValue() >= currentMonth && project.getEndDate().getYear() >= currentYear;
 		return this.getAll().stream().filter(eqMonthDiffYearCondition.and(isOpen))
-				.map(project -> new InfoProjectDto(project.getId(), project.getName(), project.getPlace().getName(), 
+				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
 												project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
 				.collect(Collectors.toList());
 	}
@@ -94,7 +94,7 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	}
 	
 	@Transactional
-	public void donate(DonationDto donationDto) {
+	public void donate(DonationDTO donationDto) {
 		Project projectToReceiveDonation = this.getById(Integer.parseInt(donationDto.getProjectId()));
 		User donor = userRepo.getOne(Integer.parseInt(donationDto.getUserId()));
 		Double amount = Double.parseDouble(donationDto.getAmount());

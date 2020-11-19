@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.dto;
 
-public class UserDto {
+public class UserDTO {
 
 	private int id;
 	
@@ -14,7 +14,7 @@ public class UserDto {
     
     private byte[] img;
     
-	public UserDto(int id, String name, String userName, String email, Double points, byte[] img) {
+	public UserDTO(int id, String name, String userName, String email, Double points, byte[] img) {
 		this.id = id;
 		this.name = name;
 		this.userName = userName;
