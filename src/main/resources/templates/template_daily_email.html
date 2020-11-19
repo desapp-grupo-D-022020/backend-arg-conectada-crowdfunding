@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:remove="all">Template HTML top 10 Argentina Conectada</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h4>
+      Buenas tardes estimado/a, 
+    </h4>
+    <h4>
+      A continuación se detalla el top 10 de donaciones y el top 10 de localidades que hace más tiempo no reciben donaciones:<br></br>
+    </h4>    
+	<h4><ins>Top 10 de donaciones:</ins></h4>     
+	<div style="margin-bottom: 3%;">
+		<table style="border-collapse: collapse; 
+						width: 30%; 
+						margin-bottom: 1rem; 
+						color: #212529;">
+			<thead style="vertical-align: bottom; 
+							border-bottom: 2px solid #dee2e6;">
+				<tr style="background-color:#00aae4;
+						border-color:#7abaff;">
+				<th style="padding: 0.75rem; 
+							vertical-align: bottom; 
+							border-bottom: 2px solid #dee2e6;
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;
+							text-align: inherit;" scope="col">UserName</th>
+				<th style="padding: 0.75rem;
+							vertical-align: bottom; 
+							border-bottom: 2px solid #dee2e6; 
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;
+							text-align: right;" scope="col">Amount</th>
+				</tr>
+			</thead>
+			<tbody style="border-top: 2px solid #dee2e6;" th:each="donation : ${donations}" >
+				<tr>
+				<td style="padding: 0.75rem; 
+							vertical-align: top; 
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;"
+							th:text="${donation.getDonor().getUserName()}"></td>
+				<td style="padding: 0.75rem; 
+							vertical-align: top; 
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;
+							text-align: right;"
+							th:text="${donation.getAmount()}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+	<h4><ins>Top 10 de localidades que hace más tiempo no reciben donaciones:</ins></h4>  
+	<div style="margin-bottom: 3%;">
+		<table style="border-collapse: collapse; 
+						width: 30%; 
+						margin-bottom: 1rem; 
+						color: #212529;">
+			<thead style="vertical-align: bottom; 
+							border-bottom: 2px solid #dee2e6;">
+				<tr style="background-color:#00aae4;
+						border-color:#7abaff;">
+				<th style="padding: 0.75rem; 
+							vertical-align: bottom; 
+							border-bottom: 2px solid #dee2e6;
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;
+							text-align: inherit;" scope="col">Project name</th>
+				<th style="padding: 0.75rem;
+							vertical-align: bottom; 
+							border-bottom: 2px solid #dee2e6; 
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;
+							text-align: right;" scope="col">Place</th>
+				</tr>
+			</thead>
+			<tbody style="border-top: 2px solid #dee2e6;" th:each="project : ${projects}" >
+				<tr>
+				<td style="padding: 0.75rem; 
+							vertical-align: top; 
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;"
+							th:text="${project.getName()}"></td>
+				<td style="padding: 0.75rem; 
+							vertical-align: top; 
+							border-top: 1px solid #dee2e6;
+							padding: 0.3rem;
+							text-align: right;"
+							th:text="${project.getPlace().getName()}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>	
+    <h4>
+      Gracias, <br/>
+      <em>Argentina Conectada Team.</em>
+    </h4>
+  </body>
+</html>

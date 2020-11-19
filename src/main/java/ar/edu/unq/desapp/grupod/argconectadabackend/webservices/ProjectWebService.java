@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDto;
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoProjectDto;
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDto;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDTO;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoProjectDTO;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.service.ProjectService;
@@ -47,7 +47,7 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	}
 	
 	@GetMapping(value="/getOpenProjects")
-	public List<InfoProjectDto> getOpenProjects() {
+	public List<InfoProjectDTO> getOpenProjects() {
 		return this.projectService.getOpenProjects();
 	}
 	
@@ -59,12 +59,12 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	
 	@PostMapping(value="/createProject")
 	//@PreAuthorize("hasRole('ADMIN')")
-	public void createProject(@RequestBody ProjectDto projectDto) {
+	public void createProject(@RequestBody ProjectDTO projectDto) {
 		this.projectService.createProject(projectDto);
 	}
 	
 	@PutMapping(value="/donate")
-	public void donate(@ModelAttribute DonationDto donationDto) {
+	public void donate(@ModelAttribute DonationDTO donationDto) {
 		this.projectService.donate(donationDto);
 	}
 }

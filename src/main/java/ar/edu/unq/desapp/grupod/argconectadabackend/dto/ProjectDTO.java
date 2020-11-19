@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 
-public class ProjectDto {
+public class ProjectDTO {
 	
 	private Place place;
 	

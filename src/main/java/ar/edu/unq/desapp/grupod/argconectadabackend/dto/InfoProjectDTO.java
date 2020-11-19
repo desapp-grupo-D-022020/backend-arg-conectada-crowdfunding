@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.dto;
 
-public class InfoProjectDto {
+public class InfoProjectDTO {
     private int id;
     private String name;
     private String placeName;
@@ -9,9 +9,9 @@ public class InfoProjectDto {
     private double raised;
     private double pct_left_to_reach_goal;
     
-    public InfoProjectDto() {}
+    public InfoProjectDTO() {}
     
-	public InfoProjectDto(int id, String name, String placeName, String province, String conectivity, double raised,
+	public InfoProjectDTO(int id, String name, String placeName, String province, String conectivity, double raised,
 			double pct_left_to_reach_goal) {
 		super();
 		this.id = id;

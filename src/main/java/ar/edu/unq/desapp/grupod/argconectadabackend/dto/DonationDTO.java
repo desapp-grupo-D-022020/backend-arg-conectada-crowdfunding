@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.dto;
 
-public class DonationDto {
+public class DonationDTO {
 	
 	private String projectId;
 	

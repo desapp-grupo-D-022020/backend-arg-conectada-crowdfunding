@@ -19,8 +19,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.internal.util.reflection.FieldSetter;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDto;
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDto;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDTO;
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
@@ -42,7 +42,7 @@ public class ProjectServiceTest {
 	@Test
 	void testCreateProjectCallsRepositorySave() {
 		MockitoAnnotations.initMocks(this);
-		ProjectDto projectDto = mock(ProjectDto.class);
+		ProjectDTO projectDto = mock(ProjectDTO.class);
 		
 		projectService.createProject(projectDto);
 		
@@ -57,7 +57,7 @@ public class ProjectServiceTest {
 		LocalDateTime endDate = LocalDateTime.now().plusDays(90);
 		Place place = new Place();
 		
-		ProjectDto projectDto = new ProjectDto();
+		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setNameOfProject("aProject");
 		projectDto.setStartDate(startDate);
 		projectDto.setEndDate(endDate);
@@ -72,7 +72,7 @@ public class ProjectServiceTest {
 	@Test
 	void testCloseProjectCallsRepositorySave() {
 		MockitoAnnotations.initMocks(this);
-		ProjectDto projectDto = mock(ProjectDto.class);		
+		ProjectDTO projectDto = mock(ProjectDTO.class);		
 		Project project = mock(Project.class);
 		projectService.createProject(projectDto);
 		when(projectService.getById(anyInt())).thenReturn(project);
@@ -85,7 +85,7 @@ public class ProjectServiceTest {
 	@Test
 	void testCloseProjectCallsProjectMethod() {
 		MockitoAnnotations.initMocks(this);
-		ProjectDto projectDto = mock(ProjectDto.class);
+		ProjectDTO projectDto = mock(ProjectDTO.class);
 		Project project = mock(Project.class);
 		projectService.createProject(projectDto);
 		when(projectService.getById(anyInt())).thenReturn(project);		
@@ -131,7 +131,7 @@ public class ProjectServiceTest {
 		MockitoAnnotations.initMocks(this);
 		
 		User anyUser = mock(User.class);
-		DonationDto donationDto = new DonationDto();
+		DonationDTO donationDto = new DonationDTO();
 		donationDto.setUserId(String.valueOf(anyUser.getId()));
 		donationDto.setAmount("1000");
 		donationDto.setComment("aCommentary");
