@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,7 @@ public interface IUserRepo extends JpaRepository<User, Integer> {
     boolean existsByEmail(String email);
 
 	Optional<User> findByUserName(String nu);
-}
+	
+	List<User> findAll();
+	
+ }

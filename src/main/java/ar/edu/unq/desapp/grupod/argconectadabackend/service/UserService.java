@@ -29,4 +29,8 @@ public class UserService extends AbstractService<User, Integer> {
     public  boolean existByEmail(String email){
         return repo.existsByEmail(email);
     }
+    
+    public String[] getEmailFromAllUser(){
+    	return repo.findAll().stream().map(user -> user.getEmail()).toArray(String[]::new);
+    }
 }
