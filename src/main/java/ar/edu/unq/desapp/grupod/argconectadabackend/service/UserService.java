@@ -31,6 +31,6 @@ public class UserService extends AbstractService<User, Integer> {
     }
     
     public String[] getEmailFromAllUser(){
-    	return repo.findAll().stream().map(user -> user.getEmail()).toArray(String[]::new);
+    	return  this.getAll().stream().map(user -> user.getEmail()).toArray(String[]::new);
     }
 }

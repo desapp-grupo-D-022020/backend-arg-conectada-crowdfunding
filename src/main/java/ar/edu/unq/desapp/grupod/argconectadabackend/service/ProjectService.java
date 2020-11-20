@@ -103,8 +103,8 @@ public class ProjectService extends AbstractService<Project, Integer> {
 		Project projectToReceiveDonation = this.getById(Integer.parseInt(donationDto.getProjectId()));
 		User donor = userService.getById(Integer.parseInt(donationDto.getUserId()));
 		Double amount = Double.parseDouble(donationDto.getAmount());
-		projectToReceiveDonation.receiveDonation(donor, amount, donationDto.getComment());
-		this.pointsManager.assignPoints(donor, projectToReceiveDonation, amount);
+		projectToReceiveDonation.receiveDonation(donor, this.pointsManager.assignPoints(donor, projectToReceiveDonation, amount)
+				, amount, donationDto.getComment());
 		this.userService.update(donor);
 		this.update(projectToReceiveDonation);
 		System.out.println(this.userService.getById(donor.getId()).getPoints());

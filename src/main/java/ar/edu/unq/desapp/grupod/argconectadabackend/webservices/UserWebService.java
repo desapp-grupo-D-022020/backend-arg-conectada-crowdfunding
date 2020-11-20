@@ -11,7 +11,7 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserWebService extends AbstractWebService<User> {
 	
 	@Autowired

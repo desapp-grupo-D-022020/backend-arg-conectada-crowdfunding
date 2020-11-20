@@ -26,6 +26,8 @@ public class Donation {
 	@Column
 	private String projectName;
 	@Column
+	private double points;
+	@Column
 	private double amount;
 	@Column
 	private LocalDateTime date;
@@ -34,9 +36,10 @@ public class Donation {
 	
 	public Donation() {}
 	
-	public Donation(User donor, String projectName, double amount, LocalDateTime date, String comment) {
+	public Donation(User donor, String projectName, double points, double amount, LocalDateTime date, String comment) {
 		this.donor = donor;
 		this.projectName = projectName;
+		this.points = points;
 		this.amount = amount;
 		this.date = date;
 		this.comment = comment;
@@ -52,6 +55,14 @@ public class Donation {
 
 	public double getAmount() {
 		return amount;
+	}
+	
+	public double getPoints() {
+		return points;
+	}
+
+	public void setPoints(double points) {
+		this.points = points;
 	}
 	
 	public User getDonor() {

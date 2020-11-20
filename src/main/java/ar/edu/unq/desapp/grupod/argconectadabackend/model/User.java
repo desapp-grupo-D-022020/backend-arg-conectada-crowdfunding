@@ -1,14 +1,10 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -60,12 +55,6 @@ public class User {
 //	@NotNull(message = "User rewardProgram cannot be null")
 	@Transient
 	private RewardProgram rewardProgram;
-	
-    @ElementCollection
-    @CollectionTable(name = "user_points_mapping", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @MapKeyColumn(name = "project_name")
-    @Column(name = "points")
-	private Map<String, Double> pointsRegistry = new HashMap<String, Double>();
     
     @NotBlank(message = "User nickname cannot be null and must have at least one character")
 	@Column(unique = true)
@@ -138,19 +127,10 @@ public class User {
 		return this.img; 
 	}
 	
-	public Map<String, Double> getPointsRegistry() {
-		return this.pointsRegistry;
-	}
-	
 	public void addPoints(double points) {
 		this.points += points;
 	}
 	
-	public void addPointsToRegister(String nameOfProject, Double points) {
-		this.pointsRegistry.put(nameOfProject, points);
-		this.points += points; 
-	}
-
 	public RewardProgram getRewardProgram() {
 		return rewardProgram;
 	}

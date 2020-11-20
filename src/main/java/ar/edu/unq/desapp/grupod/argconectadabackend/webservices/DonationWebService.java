@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoDonationDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 import ar.edu.unq.desapp.grupod.argconectadabackend.service.DonationService;
 
@@ -18,8 +19,7 @@ public class DonationWebService extends AbstractWebService<Donation> {
 	private DonationService donationService;
 	
 	@GetMapping(value="/getDonationsFromUser/{id}")
-	public List<Donation> getCost(@PathVariable("id") int id) {
+	public List<InfoDonationDTO> getDonationsFromUser(@PathVariable("id") int id) {
 		return this.donationService.getDonationsFromUser(id);
 	}
-	
 }

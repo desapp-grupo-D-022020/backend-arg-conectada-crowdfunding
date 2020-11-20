@@ -2,10 +2,7 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-
-import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -72,22 +69,6 @@ public class UserTest {
     	anyDonor.addPoints(500.0);
     	assertEquals(points + 500.0, anyDonor.getPoints());
     }
-	
-	@Test
-	void addPointsCorrectlyAddsKeyToPointsRegistry() {
-		User anyDonor = UserFactory.anyDonor();
-		anyDonor.addPointsToRegister("anyProject", (double) 2000);
-		Map<String, Double> pointsRegistry = anyDonor.getPointsRegistry();
-		assertTrue(pointsRegistry.containsKey("anyProject"));
-	}
-	
-	@Test
-	void addPointsCorrectlyAddsValueToPointsRegistry() {
-		User anyDonor = UserFactory.anyDonor();
-		anyDonor.addPointsToRegister("anyProject", (double) 2500);
-		Map<String, Double> pointsRegistry = anyDonor.getPointsRegistry();
-		assertEquals(2500, pointsRegistry.get("anyProject"));
-	}
 	
 //	@Test
 //	void donateCallsCorrectly() {

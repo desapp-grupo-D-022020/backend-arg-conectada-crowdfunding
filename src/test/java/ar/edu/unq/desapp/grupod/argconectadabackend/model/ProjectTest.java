@@ -323,7 +323,7 @@ class ProjectTest {
 		double amount = 15.0;
 		String commentary = "No Comments";
 
-		project.receiveDonation(donor, amount, commentary);
+		project.receiveDonation(donor, 1000, amount, commentary);
 		
 		assertEquals(1, project.getDonations().size());
 	}

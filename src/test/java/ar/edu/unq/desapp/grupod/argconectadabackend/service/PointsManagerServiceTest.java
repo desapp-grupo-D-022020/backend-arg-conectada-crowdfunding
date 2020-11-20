@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -48,11 +45,8 @@ public class PointsManagerServiceTest {
 		
 		pointsManager = new PointsManagerService();
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
-		assertEquals(bigAmount, calculatedPoints.get(0));
-		assertEquals(2 * bigAmount, calculatedPoints.get(1));
-		assertEquals(500.0, calculatedPoints.get(2));
-		assertEquals(3, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, bigAmount);
+		assertEquals(bigAmount + 500 + bigAmount * 2,  calculatedPoints);
 	}
 	
 	/* rule 1: 5_000 pts (big donation)
@@ -69,10 +63,8 @@ public class PointsManagerServiceTest {
 		
 		pointsManager = new PointsManagerService();
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndSmallPopulation, bigAmount);
-		assertEquals(bigAmount, calculatedPoints.get(0));
-		assertEquals(2 * bigAmount, calculatedPoints.get(1));
-		assertEquals(2, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndSmallPopulation, bigAmount);
+		assertEquals(bigAmount + (bigAmount * 2), calculatedPoints);
 	}
 	
 	/* rule 1: 0 pts (small donation)
@@ -89,10 +81,8 @@ public class PointsManagerServiceTest {
 		
 		pointsManager = new PointsManagerService();
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, smallAmount);
-		assertEquals(2 * smallAmount, calculatedPoints.get(0));
-		assertEquals(500.0, calculatedPoints.get(1));
-		assertEquals(2, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndSmallPopulation, smallAmount);
+		assertEquals(2 * smallAmount + 500, calculatedPoints);
 	}
 	
 	/* rule 1: 0 pts (small donation)
@@ -109,9 +99,8 @@ public class PointsManagerServiceTest {
 		
 		pointsManager = new PointsManagerService();
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndSmallPopulation, smallAmount);
-		assertEquals(2 * smallAmount, calculatedPoints.get(0));
-		assertEquals(1, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndSmallPopulation, smallAmount);
+		assertEquals(2 * smallAmount, calculatedPoints);
 	}
 	
 	/* rule 1: 0 pts (small donation)
@@ -126,9 +115,8 @@ public class PointsManagerServiceTest {
 		when(projectWithDonationInCurrentMonthAndBigPopulation.hasDonationsOnCurrentMonth()).thenReturn(true);
 		when(projectWithDonationInCurrentMonthAndBigPopulation.getPlacePopulation()).thenReturn(200_000);
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndBigPopulation, smallAmount);
-		assertEquals(500.0, calculatedPoints.get(0));
-		assertEquals(1, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndBigPopulation, smallAmount);
+		assertEquals(500.0, calculatedPoints);
 	}
 	
 	/* rule 1: 0 pts (small donation)
@@ -143,8 +131,8 @@ public class PointsManagerServiceTest {
 		when(projectWithoutDonationInCurrentMonthAndBigPopulation.hasDonationsOnCurrentMonth()).thenReturn(false);
 		when(projectWithoutDonationInCurrentMonthAndBigPopulation.getPlacePopulation()).thenReturn(500_000);
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, smallAmount);
-		assertEquals(0, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, smallAmount);
+		assertEquals(0, calculatedPoints);
 	}
 	
 	/* rule 1: 5_000 pts (big donation)
@@ -159,10 +147,8 @@ public class PointsManagerServiceTest {
 		when(projectWithDonationInCurrentMonthAndBigPopulation.hasDonationsOnCurrentMonth()).thenReturn(true);
 		when(projectWithDonationInCurrentMonthAndBigPopulation.getPlacePopulation()).thenReturn(200_000);
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndBigPopulation, bigAmount);
-		assertEquals(bigAmount, calculatedPoints.get(0));
-		assertEquals(500.0, calculatedPoints.get(1));
-		assertEquals(2, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithDonationInCurrentMonthAndBigPopulation, bigAmount);
+		assertEquals(bigAmount + 500, calculatedPoints);
 	}
 	
 	/* rule 1: 5_000 pts (big donation)
@@ -176,23 +162,22 @@ public class PointsManagerServiceTest {
 		projectWithoutDonationInCurrentMonthAndBigPopulation = mock(Project.class);
 		when(projectWithoutDonationInCurrentMonthAndBigPopulation.getPlacePopulation()).thenReturn(500_000);
 		
-		List<Double> calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, bigAmount);
-		assertEquals(bigAmount, calculatedPoints.get(0));
-		assertEquals(1, calculatedPoints.size());
+		double calculatedPoints = pointsManager.calculatePoints(donor, projectWithoutDonationInCurrentMonthAndBigPopulation, bigAmount);
+		assertEquals(bigAmount, calculatedPoints);
 	}
 	
 	
-	@Test
-	void testSumPointsCorrectly() {
-		pointsManager = new PointsManagerService();
-		
-		List<Double> pointsList = new ArrayList<Double>();
-		pointsList.add(100.0);
-		pointsList.add(50.0);
-		
-		Double result = pointsManager.sumPoints(pointsList);
-		assertEquals(150.0, result);
-	}
+//	@Test
+//	void testSumPointsCorrectly() {
+//		pointsManager = new PointsManagerService();
+//		
+//		List<Double> pointsList = new ArrayList<Double>();
+//		pointsList.add(100.0);
+//		pointsList.add(50.0);
+//		
+//		Double result = pointsManager.sumPoints(pointsList);
+//		assertEquals(150.0, result);
+//	}
 	
 	/*@Test
 	void testAssignPointsCallsCalculatePoints() {

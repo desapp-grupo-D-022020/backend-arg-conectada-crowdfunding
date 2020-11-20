@@ -133,9 +133,9 @@ public class Project {
 		return this.place.getPopulation();
 	}
 
-	public void receiveDonation(User user, double amount, String comment) {
+	public void receiveDonation(User user, double points, double amount, String comment) {
 		LocalDateTime date = LocalDateTime.now();
-		this.donations.add(new Donation(user, this.getName(), amount, date, comment));
+		this.donations.add(new Donation(user, this.getName(), points, amount, date, comment));
 	}
 
 	public Donation getLastDonation() {
