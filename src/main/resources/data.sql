@@ -59,17 +59,3 @@ VALUES
  (8, 'Proyecto Quilmes', 500, 500, 'octava donacion', {ts '2020-10-16 22:28:52.69'} , 7, 1),
  (9, 'Proyecto La Plata', 500, 500, 'novena donacion', {ts '2020-10-18 08:35:00.32'} , 5, 2),
  (10, 'Proyecto La Plata', 500, 500, 'decima donacion', {ts '2020-10-20 21:27:50.41'} , 2, 2);
- 
- 
-/*INSERT INTO USER_POINTS_MAPPING(USER_ID, POINTS, PROJECT_NAME)
-// VALUES
- (1, 2000,'Proyecto Quilmes'),
- (2, 500,'Proyecto Quilmes'),
- (3, 500,'Proyecto Berazategui'),
- (4, 500,'Proyecto Berazategui'),
- (5, 500,'Proyecto Quilmes'),
- (6, 1000,'Proyecto Berazategui'),
- (7, 500,'Proyecto La Plata'),
- (5, 500,'Proyecto La Plata'),
- (2, 500,'Proyecto La Plata');*/
- 
