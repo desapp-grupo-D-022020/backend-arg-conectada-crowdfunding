@@ -57,7 +57,7 @@ public class User {
 	@Column
 	private Double points;
 	
-	@NotNull(message = "User rewardProgram cannot be null")
+//	@NotNull(message = "User rewardProgram cannot be null")
 	@Transient
 	private RewardProgram rewardProgram;
 	
@@ -148,6 +148,7 @@ public class User {
 	
 	public void addPointsToRegister(String nameOfProject, Double points) {
 		this.pointsRegistry.put(nameOfProject, points);
+		this.points += points; 
 	}
 
 	public RewardProgram getRewardProgram() {

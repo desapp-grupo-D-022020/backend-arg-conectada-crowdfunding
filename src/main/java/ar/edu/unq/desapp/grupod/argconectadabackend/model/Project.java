@@ -135,7 +135,7 @@ public class Project {
 
 	public void receiveDonation(User user, double amount, String comment) {
 		LocalDateTime date = LocalDateTime.now();
-		this.donations.add(new Donation(user, amount, date, comment));
+		this.donations.add(new Donation(user, this.getName(), amount, date, comment));
 	}
 
 	public Donation getLastDonation() {

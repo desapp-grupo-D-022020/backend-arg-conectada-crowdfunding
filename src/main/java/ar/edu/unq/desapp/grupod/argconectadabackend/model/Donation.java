@@ -24,6 +24,8 @@ public class Donation {
 	@JoinColumn(name="donor_id")
 	private User donor;
 	@Column
+	private String projectName;
+	@Column
 	private double amount;
 	@Column
 	private LocalDateTime date;
@@ -32,8 +34,9 @@ public class Donation {
 	
 	public Donation() {}
 	
-	public Donation(User donor, double amount, LocalDateTime date, String comment) {
+	public Donation(User donor, String projectName, double amount, LocalDateTime date, String comment) {
 		this.donor = donor;
+		this.projectName = projectName;
 		this.amount = amount;
 		this.date = date;
 		this.comment = comment;
@@ -73,6 +76,14 @@ public class Donation {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	
 	public Boolean isWithinCalendarMonth() {

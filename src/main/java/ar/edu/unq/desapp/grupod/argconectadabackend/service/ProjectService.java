@@ -19,7 +19,6 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IProjectRepo;
-import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IUserRepo;
 
 @Service
 public class ProjectService extends AbstractService<Project, Integer> {
@@ -30,14 +29,14 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	@Autowired
 	private PointsManagerService pointsManager;
 	
-	private IUserRepo userRepo;
+	private UserService userService;
 	
 	@Autowired
-	public ProjectService(IProjectRepo repo, IUserRepo userRepo) {
+	public ProjectService(IProjectRepo repo, UserService userService) {
 		super(repo);
-		this.userRepo = userRepo;
+		this.userService =  userService;
 	}
-	
+
 	@Transactional
 	public void createProject(ProjectDTO projectDto) {
 		this.save(new Project(projectDto.getPlace(), projectDto.getNameOfProject(), projectDto.getStartDate(), projectDto.getEndDate()));
@@ -78,11 +77,6 @@ public class ProjectService extends AbstractService<Project, Integer> {
 		Predicate<Project> eqYearCondition = project -> project.getEndDate().getYear() == currentYear;
 		Predicate<Project> eqDayCondition = project -> project.getEndDate().getDayOfMonth() >= currentDay;
 		
-		System.out.println(this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition))
-				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
-						project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
-.collect(Collectors.toList()).get(0).getPlaceName());
-		
 		return this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition))
 				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
 												project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
@@ -107,11 +101,13 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	@Transactional
 	public void donate(DonationDTO donationDto) {
 		Project projectToReceiveDonation = this.getById(Integer.parseInt(donationDto.getProjectId()));
-		User donor = userRepo.getOne(Integer.parseInt(donationDto.getUserId()));
+		User donor = userService.getById(Integer.parseInt(donationDto.getUserId()));
 		Double amount = Double.parseDouble(donationDto.getAmount());
 		projectToReceiveDonation.receiveDonation(donor, amount, donationDto.getComment());
 		this.pointsManager.assignPoints(donor, projectToReceiveDonation, amount);
+		this.userService.update(donor);
 		this.update(projectToReceiveDonation);
+		System.out.println(this.userService.getById(donor.getId()).getPoints());
 	}
 	
 	@Transactional

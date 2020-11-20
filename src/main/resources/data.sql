@@ -47,18 +47,18 @@ VALUES
 (8, {ts '2021-12-20 08:47:52.69'}, 5000, TRUE, 'Proyecto Colon', 100, {ts '2020-07-01 00:00:00.25'}, 8);
  
  
- INSERT INTO DONATION (ID, AMOUNT, COMMENT, DATE, DONOR_ID, PROJECT_ID)
+ INSERT INTO DONATION (ID, PROJECT_NAME, AMOUNT, COMMENT, DATE, DONOR_ID, PROJECT_ID)
  VALUES
- (1, 2000, 'primera donacion', {ts '2020-08-22 18:47:52.20'} , 1, 1),
- (2, 500, 'segunda donacion', {ts '2020-08-24 12:23:52.21'} , 2, 1),
- (3, 500, 'tercera donacion', {ts '2020-09-05 12:23:52.42'} , 2, 1),
- (4, 500, 'cuarta donacion', {ts '2020-09-10 20:00:52.69'} , 3, 3),
- (5, 500, 'quinta donacion', {ts '2020-09-12 22:03:52.50'} , 4, 3),
- (6, 500, 'sexta donacion', {ts '2020-09-14 14:35:52.10'} , 5, 1),
- (7, 1000, 'septima donacion', {ts '2020-10-18 04:23:52.12'} , 6, 3),
- (8, 500, 'octava donacion', {ts '2020-10-16 22:28:52.69'} , 7, 1),
- (9, 500, 'novena donacion', {ts '2020-10-18 08:35:00.32'} , 5, 2),
- (10, 500, 'decima donacion', {ts '2020-10-20 21:27:50.41'} , 2, 2);
+ (1, 'Proyecto Quilmes', 2000, 'primera donacion', {ts '2020-08-22 18:47:52.20'} , 1, 1),
+ (2, 'Proyecto Quilmes', 500, 'segunda donacion', {ts '2020-08-24 12:23:52.21'} , 2, 1),
+ (3, 'Proyecto Quilmes', 500, 'tercera donacion', {ts '2020-09-05 12:23:52.42'} , 2, 1),
+ (4, 'Proyecto Berazategui', 500, 'cuarta donacion', {ts '2020-09-10 20:00:52.69'} , 3, 3),
+ (5, 'Proyecto Berazategui', 500, 'quinta donacion', {ts '2020-09-12 22:03:52.50'} , 4, 3),
+ (6, 'Proyecto Quilmes', 500, 'sexta donacion', {ts '2020-09-14 14:35:52.10'} , 5, 1),
+ (7, 'Proyecto Berazategui', 1000, 'septima donacion', {ts '2020-10-18 04:23:52.12'} , 6, 3),
+ (8, 'Proyecto Quilmes', 500, 'octava donacion', {ts '2020-10-16 22:28:52.69'} , 7, 1),
+ (9, 'Proyecto La Plata', 500, 'novena donacion', {ts '2020-10-18 08:35:00.32'} , 5, 2),
+ (10, 'Proyecto La Plata', 500, 'decima donacion', {ts '2020-10-20 21:27:50.41'} , 2, 2);
  
  
  INSERT INTO USER_POINTS_MAPPING(USER_ID, POINTS, PROJECT_NAME)

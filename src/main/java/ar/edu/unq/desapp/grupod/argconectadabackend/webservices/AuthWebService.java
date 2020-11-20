@@ -1,5 +1,11 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.webservices;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.JwtDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.Message;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.NewUser;
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.UserDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.UserLogin;
 import ar.edu.unq.desapp.grupod.argconectadabackend.enums.RolName;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Rol;
@@ -27,12 +32,6 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.security.JWT.JwtProvider;
 import ar.edu.unq.desapp.grupod.argconectadabackend.service.RolService;
 import ar.edu.unq.desapp.grupod.argconectadabackend.service.UserService;
-
-import javax.validation.Valid;
-
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -104,9 +103,8 @@ public class AuthWebService {
         String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = this.userService.getByUserName(userDetails.getUsername()).get();
-        UserDTO userDto = new UserDTO(user.getId(), user.getName(), user.getUserName(), user.getEmail(),
-        							  user.getPoints(), user.getImg());
-        JwtDTO jwtDto = new JwtDTO(jwt, userDetails.getUsername(), userDto, userDetails.getAuthorities());
+
+        JwtDTO jwtDto = new JwtDTO(jwt, userDetails.getUsername(), user.getId(), userDetails.getAuthorities());
         return new ResponseEntity<JwtDTO>(jwtDto, HttpStatus.OK);
     }
 }
