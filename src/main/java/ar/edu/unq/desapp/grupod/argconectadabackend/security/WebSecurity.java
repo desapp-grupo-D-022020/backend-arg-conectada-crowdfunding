@@ -64,7 +64,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .antMatchers("/projects/**").permitAll()
         .antMatchers("/donations/**").permitAll()
         .antMatchers("/places/**").permitAll()
-        .antMatchers("/user/**").permitAll();
+        .antMatchers("/users/**").permitAll();
         
         http.csrf().disable();
         http.headers().frameOptions().disable();

@@ -123,6 +123,10 @@ public class User {
 		this.img = (new ImageConverter(img, "png")).imageToByteArray();
 	}
 	
+	public void setImg(byte[] img) throws IOException {
+		this.img = img;
+	}
+	
 	public byte[] getImg() {
 		return this.img; 
 	}
