@@ -32,12 +32,19 @@ public class EmailSender {
 	
     
     @Async
-    public void closeProjectEmail(String to, String nickName) {
+    public void closeProjectEmail(String to, String nickName, String nameProject, String namePlace) {
         SimpleMailMessage msg = new SimpleMailMessage();
+        
+        /*solo para demostración*/
+        //msg.setTo("cristianaranguren@syrfox.com");
+        
         msg.setTo(to);
-
         msg.setSubject("Proyecto Financiado!!");
-        msg.setText("\nHola " + nickName + " , gracias a su donacion y a la de muchas personas más,  se iniciarón las obras en dicha localidad");
+        msg.setText("\nHola " + nickName + ",\n" + "Gracias a su/sus donación/es en el proyecto " + '"' + nameProject + '"' + ",\n"
+        		+ "y a muchas personas más como vos,"
+        		+ " se iniciarón las obras en la localidad de " + '"' + namePlace + '"' + "."
+        		+ "\n\nMuchas gracias,"
+        		+ "\nArgentina Conectada Team.");
 
         emailSender.send(msg);
     }

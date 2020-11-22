@@ -50,7 +50,9 @@ public class ProjectService extends AbstractService<Project, Integer> {
 		
 		List<User> donors = projectToClose.getDonors();
 		for(User donor : donors) {
-			this.emailSender.closeProjectEmail(donor.getEmail(), donor.getUserName());
+			System.out.println(donor.getEmail());
+			this.emailSender.closeProjectEmail(donor.getEmail(), donor.getUserName(), 
+					projectToClose.getName(), projectToClose.getPlace().getName());
 		}
 	}
 	
@@ -73,11 +75,12 @@ public class ProjectService extends AbstractService<Project, Integer> {
 		int currentYear= LocalDateTime.now().getYear();
 		int currentDay= LocalDateTime.now().getDayOfMonth();
 		
+		Predicate<Project> isOpen = project -> project.isOpen();
 		Predicate<Project> eqMonthCondition = project -> project.getEndDate().getMonthValue() == currentMonth;
 		Predicate<Project> eqYearCondition = project -> project.getEndDate().getYear() == currentYear;
 		Predicate<Project> eqDayCondition = project -> project.getEndDate().getDayOfMonth() >= currentDay;
 		
-		return this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition))
+		return this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition).and(isOpen))
 				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
 												project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
 				.collect(Collectors.toList());

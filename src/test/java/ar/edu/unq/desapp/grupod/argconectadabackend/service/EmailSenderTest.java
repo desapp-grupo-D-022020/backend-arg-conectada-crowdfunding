@@ -35,7 +35,7 @@ public class EmailSenderTest {
 		
 		String to = "receiver@unq.edu.ar";
 		String nickName = "senderNick";
-		mailSender.closeProjectEmail(to, nickName);
+		mailSender.closeProjectEmail(to, "Proyecto La Plata", "La Plata", nickName);
 		
 		verify(javaMailSender).send(any(SimpleMailMessage.class));
 		
@@ -47,7 +47,7 @@ public class EmailSenderTest {
 		
 		String to = "receiver@unq.edu.ar";
 		String nickName = "senderNick";
-		mailSender.closeProjectEmail(to, nickName);
+		mailSender.closeProjectEmail(to, "Proyecto La Plata", "La Plata", nickName);
 		
 		
 		verify(javaMailSender).send(msgCaptor.capture());
