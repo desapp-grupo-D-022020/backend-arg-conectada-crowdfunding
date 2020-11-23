@@ -9,7 +9,9 @@ VALUES
 (5, 'Villa La Angostura', 1550, 'Neuquen', 'connected'),
 (6, 'Almafuerte', 1800, 'Cordoba', 'not connected'),
 (7, 'Rawson', 1800, 'Chubut', 'not connected'),
-(8, 'Colon', 1400, 'Entre Rios', 'not connected');
+(8, 'Colon', 1400, 'Entre Rios', 'not connected'),
+(9, 'Belgrano', 1400, 'Buenos Aires', 'not connected'),
+(10, 'Gualeguaychu', 1400, 'Entre Rios', 'not connected');
 
 
 INSERT INTO USER (ID, EMAIL, IMG, NAME, USER_NAME, PWD, POINTS)

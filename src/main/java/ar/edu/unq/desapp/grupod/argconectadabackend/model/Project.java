@@ -25,7 +25,7 @@ public class Project {
 	@Column
 	private String name;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "place_id")
 	private Place place;
 	
@@ -54,6 +54,18 @@ public class Project {
 		this.place = place;
 		this.factor = 1000;
 		this.percentageForClose = 100;
+		this.name = nameOfProject;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.isOpen = true;
+		this.donations = new ArrayList<Donation>();
+	}
+	
+	public Project(Place place, String nameOfProject, LocalDateTime startDate, LocalDateTime endDate,
+			double factor, double percentageForClose) {
+		this.place = place;
+		this.factor = factor;
+		this.percentageForClose = percentageForClose;
 		this.name = nameOfProject;
 		this.startDate = startDate;
 		this.endDate = endDate;

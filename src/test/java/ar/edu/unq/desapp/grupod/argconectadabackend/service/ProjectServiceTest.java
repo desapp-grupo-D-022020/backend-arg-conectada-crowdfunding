@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -14,16 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.util.reflection.FieldSetter;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
-import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IProjectRepo;
 
 
@@ -58,10 +53,10 @@ public class ProjectServiceTest {
 		Place place = new Place();
 		
 		ProjectDTO projectDto = new ProjectDTO();
-		projectDto.setNameOfProject("aProject");
-		projectDto.setStartDate(startDate);
-		projectDto.setEndDate(endDate);
-		projectDto.setPlace(place);
+		projectDto.setName("aProject");
+		projectDto.setStartDate(startDate.toString());
+		projectDto.setEndDate(endDate.toString());
+		projectDto.setPlaceId(Integer.toString(place.getId()));
 		
 		projectService.createProject(projectDto);
 		

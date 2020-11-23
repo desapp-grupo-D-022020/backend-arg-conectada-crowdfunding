@@ -1,10 +1,13 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -25,6 +28,10 @@ public class Place {
 	@Column
 	private int population;
 	
+    @OneToOne(mappedBy = "place", cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY, optional = false)
+	private Project project;
+
 	@NotBlank(message = "Place status cannot be null and must have at least one character")
 	@Column
 	private String status;
@@ -58,6 +65,14 @@ public class Place {
 		this.province = province;
 	}
 
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
 	public int getPopulation() {
 		return this.population;
 	}

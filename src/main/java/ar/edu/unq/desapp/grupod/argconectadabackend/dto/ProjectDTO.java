@@ -1,49 +1,64 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.dto;
 
-import java.time.LocalDateTime;
-
-import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
-
 public class ProjectDTO {
 	
-	private Place place;
+	private String placeId;
 	
-	private String nameOfProject;
+	private String name;
 	
-	private LocalDateTime startDate;
+	private String startDate;
 	
-	private LocalDateTime endDate;
+	private String endDate;
+	
+	private String factor;
+	
+	private String percentageForClose;
 
-	public Place getPlace() {
-		return place;
+	public String getPlaceId() {
+		return placeId;
 	}
 
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setPlaceId(String placeId) {
+		this.placeId = placeId;
 	}
 
-	public String getNameOfProject() {
-		return nameOfProject;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameOfProject(String nameOfProject) {
-		this.nameOfProject = nameOfProject;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public LocalDateTime getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDateTime getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
+	public String getFactor() {
+		return factor;
+	}
+
+	public void setFactor(String factor) {
+		this.factor = factor;
+	}
+
+	public String getPercentageForClose() {
+		return percentageForClose;
+	}
+
+	public void setPercentageForClose(String percentageForClose) {
+		this.percentageForClose = percentageForClose;
+	}
 }

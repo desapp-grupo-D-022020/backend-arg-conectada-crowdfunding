@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,8 +59,8 @@ public class ProjectWebService extends AbstractWebService<Project> {
 	
 	@PostMapping(value="/createProject")
 	@PreAuthorize("hasRole('ADMIN')")
-	public void createProject(@RequestBody ProjectDTO projectDto) {
-		this.projectService.createProject(projectDto);
+	public void createProject(@ModelAttribute ProjectDTO project) {
+		this.projectService.createProject(project);
 	}
 	
 	@PutMapping(value="/donate")

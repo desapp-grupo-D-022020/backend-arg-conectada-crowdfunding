@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupod.argconectadabackend.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.InfoProjectDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.ProjectDTO;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Donation;
+import ar.edu.unq.desapp.grupod.argconectadabackend.model.Place;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.Project;
 import ar.edu.unq.desapp.grupod.argconectadabackend.model.User;
 import ar.edu.unq.desapp.grupod.argconectadabackend.repository.IProjectRepo;
@@ -31,15 +33,25 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	
 	private UserService userService;
 	
+	private PlaceService placeService;
+	
 	@Autowired
-	public ProjectService(IProjectRepo repo, UserService userService) {
+	public ProjectService(IProjectRepo repo, UserService userService,
+			PlaceService placeService){
 		super(repo);
 		this.userService =  userService;
+		this.placeService = placeService;
 	}
 
 	@Transactional
 	public void createProject(ProjectDTO projectDto) {
-		this.save(new Project(projectDto.getPlace(), projectDto.getNameOfProject(), projectDto.getStartDate(), projectDto.getEndDate()));
+		Place place = placeService.getById(Integer.parseInt( projectDto.getPlaceId()));
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"); 
+		LocalDateTime startDate = LocalDateTime.parse(projectDto.getStartDate() + " 00:00", formatter);
+		LocalDateTime endDate = LocalDateTime.parse(projectDto.getEndDate() + " 00:00", formatter);
+	
+		this.save(new Project(place, projectDto.getName(), startDate, endDate, 
+				Double.parseDouble(projectDto.getFactor()), Double.parseDouble(projectDto.getPercentageForClose())));
 	}
 	
 	@Transactional
@@ -54,6 +66,8 @@ public class ProjectService extends AbstractService<Project, Integer> {
 			this.emailSender.closeProjectEmail(donor.getEmail(), donor.getUserName(), 
 					projectToClose.getName(), projectToClose.getPlace().getName());
 		}
+		
+		//this.delete(id);
 	}
 	
 	@Transactional
