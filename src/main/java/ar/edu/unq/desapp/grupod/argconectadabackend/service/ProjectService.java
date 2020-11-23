@@ -82,12 +82,12 @@ public class ProjectService extends AbstractService<Project, Integer> {
 		
 		Page<Project> page = this.repository.getOpenProjects(pageable, currentMonth, currentYear);
 		
-		List<InfoProjectDTO> oponeProject = page.get().map(
+		List<InfoProjectDTO> openProjects = page.get().map(
 				project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
 												project.getPlace().getProvince(), project.getPlace().getStatus(), 
 												this.totalRaised(project.getId()), project.missingPercentage())).collect(Collectors.toList());
 		
-		return new PageImpl<InfoProjectDTO>(oponeProject, pageable, page.getTotalElements());
+		return new PageImpl<InfoProjectDTO>(openProjects, pageable, page.getTotalElements());
 	}
 	
 	@Transactional
@@ -98,12 +98,12 @@ public class ProjectService extends AbstractService<Project, Integer> {
 			
 		Page<Project> page = this.repository.getNearlyClosedProjects(pageable, currentMonth, currentYear, currentDay);
 		
-		List<InfoProjectDTO> oponeProject = page.get().map(
+		List<InfoProjectDTO> nearlyClosedProjects = page.get().map(
 				project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
 												project.getPlace().getProvince(), project.getPlace().getStatus(), 
 												this.totalRaised(project.getId()), project.missingPercentage())).collect(Collectors.toList());
 		
-		return new PageImpl<InfoProjectDTO>(oponeProject, pageable, page.getTotalElements());
+		return new PageImpl<InfoProjectDTO>(nearlyClosedProjects, pageable, page.getTotalElements());
 	}
 	
 	@Transactional
