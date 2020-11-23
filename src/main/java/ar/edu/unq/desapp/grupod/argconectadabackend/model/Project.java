@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Project {
 	@Id
@@ -25,7 +27,9 @@ public class Project {
 	@Column
 	private String name;
 	
-	@OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@JsonBackReference
+	@OneToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH}, optional = false)
 	@JoinColumn(name = "place_id")
 	private Place place;
 	

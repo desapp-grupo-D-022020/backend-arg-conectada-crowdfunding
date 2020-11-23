@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,14 +33,17 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	@Autowired
 	private PointsManagerService pointsManager;
 	
+	private IProjectRepo repository;
+	
 	private UserService userService;
 	
 	private PlaceService placeService;
 	
 	@Autowired
-	public ProjectService(IProjectRepo repo, UserService userService,
+	public ProjectService(IProjectRepo repository, UserService userService,
 			PlaceService placeService){
-		super(repo);
+		super(repository);
+		this.repository = repository;
 		this.userService =  userService;
 		this.placeService = placeService;
 	}
@@ -71,33 +76,34 @@ public class ProjectService extends AbstractService<Project, Integer> {
 	}
 	
 	@Transactional
-	public List<InfoProjectDTO> getOpenProjects() {
+	public Page<InfoProjectDTO> getOpenProjects(Pageable pageable) {
 		int currentMonth = LocalDateTime.now().getMonthValue();
 		int currentYear= LocalDateTime.now().getYear();
 		
-		Predicate<Project> isOpen = project -> project.isOpen();
-		Predicate<Project> eqMonthDiffYearCondition = project -> project.getEndDate().getMonthValue() >= currentMonth && project.getEndDate().getYear() >= currentYear;
-		return this.getAll().stream().filter(eqMonthDiffYearCondition.and(isOpen))
-				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
-												project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
-				.collect(Collectors.toList());
+		Page<Project> page = this.repository.getOpenProjects(pageable, currentMonth, currentYear);
+		
+		List<InfoProjectDTO> oponeProject = page.get().map(
+				project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
+												project.getPlace().getProvince(), project.getPlace().getStatus(), 
+												this.totalRaised(project.getId()), project.missingPercentage())).collect(Collectors.toList());
+		
+		return new PageImpl<InfoProjectDTO>(oponeProject, pageable, page.getTotalElements());
 	}
 	
 	@Transactional
-	public List<InfoProjectDTO> getNearlyClosedProjects() {
+	public Page<InfoProjectDTO> getNearlyClosedProjects(Pageable pageable) {
 		int currentMonth = LocalDateTime.now().getMonthValue();
 		int currentYear= LocalDateTime.now().getYear();
 		int currentDay= LocalDateTime.now().getDayOfMonth();
+			
+		Page<Project> page = this.repository.getNearlyClosedProjects(pageable, currentMonth, currentYear, currentDay);
 		
-		Predicate<Project> isOpen = project -> project.isOpen();
-		Predicate<Project> eqMonthCondition = project -> project.getEndDate().getMonthValue() == currentMonth;
-		Predicate<Project> eqYearCondition = project -> project.getEndDate().getYear() == currentYear;
-		Predicate<Project> eqDayCondition = project -> project.getEndDate().getDayOfMonth() >= currentDay;
+		List<InfoProjectDTO> oponeProject = page.get().map(
+				project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
+												project.getPlace().getProvince(), project.getPlace().getStatus(), 
+												this.totalRaised(project.getId()), project.missingPercentage())).collect(Collectors.toList());
 		
-		return this.getAll().stream().filter(eqMonthCondition.and(eqYearCondition).and(eqDayCondition).and(isOpen))
-				.map(project -> new InfoProjectDTO(project.getId(), project.getName(), project.getPlace().getName(), 
-												project.getPlace().getProvince(), project.getPlace().getStatus(), this.totalRaised(project.getId()), project.missingPercentage()))
-				.collect(Collectors.toList());
+		return new PageImpl<InfoProjectDTO>(oponeProject, pageable, page.getTotalElements());
 	}
 	
 	@Transactional

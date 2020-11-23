@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Place {
 	
@@ -28,6 +30,7 @@ public class Place {
 	@Column
 	private int population;
 	
+	@JsonManagedReference
     @OneToOne(mappedBy = "place", cascade = CascadeType.REMOVE,
             fetch = FetchType.LAZY, optional = false)
 	private Project project;

@@ -94,7 +94,7 @@ public class ProjectServiceTest {
 	void testGetOpenProjectsCallsRepoFindAll() {
 		MockitoAnnotations.initMocks(this);
 		
-		projectService.getOpenProjects();
+		projectService.getOpenProjects(null);
 		
 		verify(projectRepository).findAll();
 	}

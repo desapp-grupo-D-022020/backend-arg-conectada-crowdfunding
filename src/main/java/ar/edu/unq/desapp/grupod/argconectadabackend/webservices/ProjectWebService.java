@@ -3,6 +3,9 @@ package ar.edu.unq.desapp.grupod.argconectadabackend.webservices;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupod.argconectadabackend.dto.DonationDTO;
@@ -41,14 +45,20 @@ public class ProjectWebService extends AbstractWebService<Project> {
 		return this.projectService.getCost(id);
 	}
 	
-	@GetMapping(value="/getNearlyClosedProjects")
-	public List<InfoProjectDTO> getNearlyClosedProjects() {
-		return this.projectService.getNearlyClosedProjects();
+	@GetMapping(value="/getOpenProjects")
+	public Page<InfoProjectDTO> getOpenProjects(
+			@PageableDefault(size = 5) Pageable pageable,
+			@RequestParam(defaultValue = "0") int page
+			) {
+		return this.projectService.getOpenProjects(pageable);
 	}
 	
-	@GetMapping(value="/getOpenProjects")
-	public List<InfoProjectDTO> getOpenProjects() {
-		return this.projectService.getOpenProjects();
+	@GetMapping(value="/getNearlyClosedProjects")
+	public Page<InfoProjectDTO> getNearlyClosedProjects(
+			@PageableDefault(size = 5) Pageable pageable,
+			@RequestParam(defaultValue = "0") int page
+			) {
+		return this.projectService.getNearlyClosedProjects(pageable);
 	}
 	
 	@PutMapping(value="/closeProject/{id}")
