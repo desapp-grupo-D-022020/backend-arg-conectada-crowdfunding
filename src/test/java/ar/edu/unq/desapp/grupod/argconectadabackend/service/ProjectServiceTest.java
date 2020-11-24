@@ -103,7 +103,7 @@ public class ProjectServiceTest {
 	void testGetNearlyClosedProjectsCallsRepoFindAll() {
 		MockitoAnnotations.initMocks(this);
 		
-		projectService.getNearlyClosedProjects();
+		projectService.getNearlyClosedProjects(null);
 		
 		verify(projectRepository).findAll();
 	}

@@ -32,6 +32,7 @@ dependencies {
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.11'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-quartz', version: '2.3.5.RELEASE'
+	testCompile group: 'com.tngtech.archunit', name: 'archunit-junit5-api', version: '0.14.1'
 	compile "org.springframework.boot:spring-boot-starter-security"
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	//testCompile 'org.springframework.boot:spring-boot-starter-test'
